@@ -19,7 +19,7 @@ public abstract class Utente {
 
 
     public boolean login(String username, String password) {
-        return ( username.equals(this.username) && password.equals(this.username));
+        return ( username.equals(this.username) && password.equals(this.password));
     }
 
 
