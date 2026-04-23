@@ -12,11 +12,6 @@ public class Studente extends Utente{
 
         this.matricola=matricola;
     }
-    
-}
-
-
-
 
 
 

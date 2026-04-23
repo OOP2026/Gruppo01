@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class Utente {
+public abstract class Utente {
     private String username;
     private String password;
     private String email;
@@ -18,8 +18,8 @@ public class Utente {
     }
 
 
-    public boolean login(String login, String password) {
-        return ( login.equals(this.username) && password.equals(this.username));
+    public boolean login(String username, String password) {
+        return ( username.equals(this.username) && password.equals(this.username));
     }
 
 
