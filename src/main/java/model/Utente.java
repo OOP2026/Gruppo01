@@ -18,8 +18,8 @@ public abstract class Utente {
     }
 
 
-    public boolean login(String username, String password) {
-        return ( username.equals(this.username) && password.equals(this.password));
+    public boolean login(String user, String password) {
+        return ( (user.equals(this.username) || user.equals(this.email)) && password.equals(this.password));
     }
 
 
