@@ -7,6 +7,15 @@ public class Seduta {
     private String sede;
     private int numero_posti;
     private List<Tesi> prenotazioni;
+    private Docente coordinatore;
+
+    public Seduta(LocalDateTime data_ora, String sede,int numero_posti, Docente coordinatore) {
+        this.data_ora = data_ora;
+        this.sede = sede;
+        this.numero_posti = numero_posti;
+        this.prenotazioni = new ArrayList<Tesi>();
+        this.coordinatore = coordinatore;
+    }
 
     public LocalDateTime getData_ora() {
         return data_ora;
@@ -27,16 +36,5 @@ public class Seduta {
     public Docente getCoordinatore() {
         return coordinatore;
     }
-
-    private Docente coordinatore;
-
-    public Seduta(LocalDateTime data_ora, String sede,int numero_posti, Docente coordinatore) {
-        this.data_ora = data_ora;
-        this.sede = sede;
-        this.numero_posti = numero_posti;
-        this.prenotazioni = new ArrayList<Tesi>();
-        this.coordinatore = coordinatore;
-    }
-
 
 }

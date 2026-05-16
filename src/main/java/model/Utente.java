@@ -35,13 +35,8 @@ public abstract class Utente {
         return cognome;
     }
 
-
-
     public boolean login(String user, String password) {
         return ( (user.equals(this.username) || user.equals(this.email)) && password.equals(this.password));
     }
-
-
-
 
 }
