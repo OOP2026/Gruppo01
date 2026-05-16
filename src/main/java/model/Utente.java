@@ -9,6 +9,7 @@ public abstract class Utente {
     private String nome;
     private String cognome;
 
+
     public Utente(String nome, String cognome, String email, String password, String username) {
         this.username = username;
         this.password = password;
@@ -16,6 +17,24 @@ public abstract class Utente {
         this.nome = nome;
         this.cognome = cognome;
     }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
 
 
     public boolean login(String user, String password) {

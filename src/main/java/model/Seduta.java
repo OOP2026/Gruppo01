@@ -7,6 +7,27 @@ public class Seduta {
     private String sede;
     private int numero_posti;
     private List<Tesi> prenotazioni;
+
+    public LocalDateTime getData_ora() {
+        return data_ora;
+    }
+
+    public String getSede() {
+        return sede;
+    }
+
+    public int getNumero_posti() {
+        return numero_posti;
+    }
+
+    public List<Tesi> getPrenotazioni() {
+        return prenotazioni;
+    }
+
+    public Docente getCoordinatore() {
+        return coordinatore;
+    }
+
     private Docente coordinatore;
 
     public Seduta(LocalDateTime data_ora, String sede,int numero_posti, Docente coordinatore) {

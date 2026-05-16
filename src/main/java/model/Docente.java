@@ -7,15 +7,26 @@ import java.util.*;
 public class Docente extends Utente {
     private boolean is_coordinatore;
     private List<Tirocinio> listaTirocini;
-    private List<Seduta> sedute_pubblicate;
-    private List<Tesi> tesi_valutate;
+    private List<Seduta> sedutePubblicate;
+    private List<Tesi> tesiValutate;
 
     public Docente(String nome, String cognome, String email, String password, String username) {
         super(nome, cognome, email, password, username);
         this.is_coordinatore = false;
         this.listaTirocini = new ArrayList<Tirocinio>();
-        this.sedute_pubblicate = new ArrayList<Seduta>();
-        this.tesi_valutate = new ArrayList<Tesi>();
+        this.sedutePubblicate = new ArrayList<Seduta>();
+        this.tesiValutate = new ArrayList<Tesi>();
     }
 
+    public List<Tirocinio> getListaTirocini(){
+        return listaTirocini;
+    }
+
+    public List<Seduta> getSedutePubblicate() {
+        return sedutePubblicate;
+    }
+
+    public List<Tesi> getTesiValutate() {
+        return tesiValutate;
+    }
 }

@@ -11,4 +11,15 @@ public class Richiesta {
         this.tirocinio = tirocinio;
     }
 
+    public Stato_richiesta getStato(){
+        return stato;
+    }
+
+    public Studente getRichiedente(){
+        return richiedente;
+    }
+
+    public Tirocinio tirocinio() {
+        return tirocinio;
+    }
 }
