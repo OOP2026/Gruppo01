@@ -34,4 +34,17 @@ public class Docente extends Utente {
         this.is_coordinatore = is_coordinatore;
     }
 
+    public void aggiungiTirocinio(Tirocinio t) {
+        if (t != null && ! this.listaTirocini.contains(t)) {
+            this.listaTirocini.add(t);
+        }
+    }
+
+    public void inserisciSeduta(Seduta s) {
+        if (is_coordinatore) {
+            this.sedutePubblicate.add(s);
+        }
+    }
+
+    
 }
