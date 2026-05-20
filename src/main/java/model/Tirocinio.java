@@ -79,4 +79,17 @@ public abstract class Tirocinio {
     public void setDocente(Docente docente) {
         this.docente = docente;
     }
+   public void AggiungiArgomeni(argomenti A){
+        this.argomenti.add(A);
+    }
+    public void  rimuoviArgomenti(argomenti A){
+        this.argomenti.remove(A);
+    }
+    public void AggiungiRichieste(richieste R){
+        this.richieste.add(R);
+    }
+    public void  rimuoviArgomenti(richieste R){
+        this.richieste.remove(R);
+    }
+
 }

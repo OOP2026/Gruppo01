@@ -48,4 +48,11 @@ public class Seduta {
     public void setNumero_posti(int numero_posti) {
         this.numero_posti = numero_posti;
     }
+
+    public void AggiungiPrenotazione(prenotazioni p){
+        this.prenotazioni.add(p);
+    }
+    public void rimuoviTirocinio(prenotazioni p){
+        this.prenotazioni.remove(p);
+    }
 }

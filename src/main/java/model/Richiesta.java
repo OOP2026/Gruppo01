@@ -27,3 +27,10 @@ public class Richiesta {
         this.stato = stato;
     }
 }
+
+
+
+
+
+
+
