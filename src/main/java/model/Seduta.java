@@ -37,4 +37,15 @@ public class Seduta {
         return coordinatore;
     }
 
+    public void setSede(String sede) {
+        this.sede = sede;
+    }
+
+    public void setDocente(Docente coordinatore) {
+        this.coordinatore = coordinatore;
+    }
+
+    public void setNumero_posti(int numero_posti) {
+        this.numero_posti = numero_posti;
+    }
 }

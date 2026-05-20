@@ -14,4 +14,19 @@ public class Tirocinio_esterno extends Tirocinio{
         this.referente_aziendale = referente_aziendale;
     }
 
+    public String getAzienda() {
+        return azienda;
+    }
+
+    public String getReferente_aziendale() {
+        return referente_aziendale;
+    }
+
+    public void setAzienda(String azienda) {
+        this.azienda = azienda;
+    }
+
+    public void setReferente_aziendale(String referente_aziendale) {
+        this.referente_aziendale = referente_aziendale;
+    }
 }

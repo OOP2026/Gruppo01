@@ -23,4 +23,60 @@ public abstract class Tirocinio {
         this.docente = docente;
         this.richieste = new ArrayList<Richiesta>();
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getDurata() {
+        return durata;
+    }
+
+    public LocalDateTime getData_inizio() {
+        return data_inizio;
+    }
+
+    public List<String> getArgomenti() {
+        return argomenti;
+    }
+
+    public int getN_posti() {
+        return n_posti;
+    }
+
+    public int getN_cfu() {
+        return n_cfu;
+    }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDurata(int durata) {
+        this.durata = durata;
+    }
+
+    public void setData_inizio(LocalDateTime data_inizio) {
+        this.data_inizio = data_inizio;
+    }
+
+    public List<Richiesta> getRichieste() {
+        return richieste;
+    }
+
+    public void setN_posti(int n_posti) {
+        this.n_posti = n_posti;
+    }
+
+    public void setN_cfu(int n_cfu) {
+        this.n_cfu = n_cfu;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
 }

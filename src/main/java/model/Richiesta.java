@@ -19,7 +19,11 @@ public class Richiesta {
         return richiedente;
     }
 
-    public Tirocinio tirocinio() {
+    public Tirocinio gettirocinio() {
         return tirocinio;
+    }
+
+    public void setStato(Stato_richiesta stato) {
+        this.stato = stato;
     }
 }

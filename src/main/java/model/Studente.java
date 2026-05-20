@@ -14,5 +14,24 @@ public class Studente extends Utente{
         this.tesi = null;
         this.richiesta = null;
     }
-    
+
+    public String getMatricola() {
+        return matricola;
+    }
+
+    public Tesi getTesi() {
+        return tesi;
+    }
+
+    public Richiesta getRichiesta() {
+        return richiesta;
+    }
+
+    public void setTesi(Tesi tesi) {
+        this.tesi = tesi;
+    }
+
+    public void setRichiesta(Richiesta richiesta) {
+        this.richiesta = richiesta;
+    }
 }

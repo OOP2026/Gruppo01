@@ -29,4 +29,9 @@ public class Docente extends Utente {
     public List<Tesi> getTesiValutate() {
         return tesiValutate;
     }
+
+    public void setIs_coordinatore(boolean is_coordinatore) {
+        this.is_coordinatore = is_coordinatore;
+    }
+
 }
