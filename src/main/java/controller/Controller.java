@@ -59,7 +59,21 @@ public class Controller {
         }
     }
 
-
+    public void valutaTesi(Tesi t, Stato_Tesi esito) {
+        if (t.getStato() != Stato_Tesi.In_attesa) {
+            throw new IllegalStateException("ERRORE! Richiesta già valutata!");
+        }
+        if  (esito == Stato_Tesi.In_attesa) {
+            throw new IllegalArgumentException("ERRORE! Scegliere tra Approvata e Rifiutata.");
+        }
+        t.setStato(esito);
+        if (esito == Stato_Tesi.Approvata) {
+            Seduta s = t.getSeduta_richiesta();
+            s.decrementaPosti();
+        } else {
+            System.out.println("Richiesta rifiutata correttamente");
+        }
+    }
 
 
 }

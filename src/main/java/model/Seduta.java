@@ -49,10 +49,14 @@ public class Seduta {
         this.numero_posti = numero_posti;
     }
 
-    public void AggiungiPrenotazione(prenotazioni p){
-        this.prenotazioni.add(p);
+    public void AggiungiPrenotazione(Tesi t){
+        this.prenotazioni.add(t);
     }
-    public void rimuoviTirocinio(prenotazioni p){
-        this.prenotazioni.remove(p);
+    public void rimuoviPrenotazione(Tesi t){
+        this.prenotazioni.remove(t);
+    }
+
+    public void decrementaPosti() {
+        numero_posti = numero_posti--;
     }
 }
