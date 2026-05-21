@@ -59,4 +59,14 @@ public class Seduta {
     public void decrementaPosti() {
         numero_posti = numero_posti--;
     }
+
+    public List<Studente> studentiPrenotati() {
+        ArrayList<Studente> listaPrenotati = new ArrayList<>();
+        for (Tesi t : prenotazioni) {
+            if (t.getStato() == Stato_Tesi.Approvata) {
+                listaPrenotati.add(t.getAutore());
+            }
+        }
+        return listaPrenotati;
+    }
 }

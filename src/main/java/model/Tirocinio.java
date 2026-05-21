@@ -12,6 +12,7 @@ public abstract class Tirocinio {
     private int n_cfu;
     private Docente docente;
     private List<Richiesta> richieste;
+    private StatoTirocinio stato;
 
     public Tirocinio(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, Docente docente) {
         this.nome = nome;
@@ -22,7 +23,10 @@ public abstract class Tirocinio {
         this.n_cfu = n_cfu;
         this.docente = docente;
         this.richieste = new ArrayList<Richiesta>();
+        this.stato = StatoTirocinio.Inattivo;
     }
+
+    public StatoTirocinio getStato() {return stato;}
 
     public String getNome() {
         return nome;
@@ -51,6 +55,8 @@ public abstract class Tirocinio {
     public Docente getDocente() {
         return docente;
     }
+
+    public void setStato(StatoTirocinio st) {this.stato = st;}
 
     public void setNome(String nome) {
         this.nome = nome;

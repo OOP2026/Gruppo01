@@ -16,6 +16,7 @@ public class Controller {
 	private List<Tirocinio_Interno> listaTirocini_interni = new ArrayList<>();
 	private List<Utente> listaUtenti = new ArrayList<>();
 
+
 	public Controller(){};
 
 	public void aggiungiTirocinoInterno(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente){
@@ -75,5 +76,21 @@ public class Controller {
         }
     }
 
+    public List<Tirocinio> visualizzaTirociniInCorso() {
+        ArrayList<Tirocinio> listaInCorso = new ArrayList<>();
+        for (Tirocinio t : listaTirocini) {
+            if (t.getStato() == StatoTirocinio.In_corso) {
+                listaInCorso.add(t);
+            }
+        }
+        return listaInCorso;
+    }
 
+    public void impostaSeduta(Seduta s) {
+        // visualizzazione studenti
+
+        //imposta docenti (se la tesi è stata pprovata)
+
+        //crea commissione
+    }
 }
