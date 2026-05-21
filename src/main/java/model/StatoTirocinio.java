@@ -1,7 +1,8 @@
 package model;
 
 public enum StatoTirocinio {
-    Inattivo,
+    Aggiuto,
+    Aperto,
     In_corso,
     Terminato;
 }

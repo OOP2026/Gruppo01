@@ -87,14 +87,14 @@ public abstract class Tirocinio {
     }
 
 
-    public void AggiungiArgomento(String a){this.argomenti.add(a);}
-    public void  rimuoviArgomento(String a){
+    public void aggiungiArgomento(String a){this.argomenti.add(a);}
+    public void rimuoviArgomento(String a){
         this.argomenti.remove(a);
     }
-    public void AggiungiRichiesta(Richiesta r){
+    public void aggiungiRichiesta(Richiesta r){
         this.richieste.add(r);
     }
-    public void  rimuoviRichiesta(Richiesta r){
+    public void rimuoviRichiesta(Richiesta r){
         this.richieste.remove(r);
     }
 

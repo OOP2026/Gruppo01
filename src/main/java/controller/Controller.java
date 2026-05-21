@@ -100,6 +100,63 @@ public class Controller {
             throw new IllegalStateException("ERRORE! Operazione permessa solo al coordinatore del corso.");
         }
     }
+
+    public void aggiungiArgomenti(Tirocinio t, String s) {
+        t.aggiungiArgomento(s);
+    }
+
+    public List<Tirocinio> visualizzaTirocini() {
+        List<Tirocinio> listaTirociniDisponibili = new ArrayList<>();
+        for (Tirocinio t : listaTirocini) {
+            if (t.getStato() == StatoTirocinio.Aperto && t.getN_posti() > 0) {
+                listaTirociniDisponibili.add(t);
+            }
+        }
+        return listaTirociniDisponibili;
+    }
+
+
+    public void compilaRichiesta(Tirocinio tirScelto, Studente stud) {
+        if ((stud.getRichiesta() != null) && ((stud.getRichiesta().getStato() == Stato_richiesta.Approvata) || (stud.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
+            throw new IllegalStateException("ERRORE! Hai già una richiesta attiva.");
+        }
+        Richiesta r = new Richiesta(stud, tirScelto);
+        stud.setRichiesta(r);
+        listaRichieste.add(r);
+    }
+
+    public void caricaTesi(Studente stud, Seduta seduta, String titolo, String documento, Docente relatore) {
+        if ((stud.getTesi() != null) && ((stud.getTesi().getStato() == Stato_Tesi.Approvata) || (stud.getTesi().getStato() == Stato_Tesi.In_attesa))) {
+            throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
+        }
+        Tesi tesiDaCaricare = new Tesi(titolo, documento, stud, seduta, relatore);
+        stud.setTesi(tesiDaCaricare);
+        relatore.aggiungiTesi(tesiDaCaricare);
+        listaTesi.add(tesiDaCaricare);
+    }
+
+    public Stato_richiesta verificaStatoRichiesta(Studente s) {
+        if (s.getRichiesta() == null) {
+            throw new IllegalStateException("ERRORE! Nessuna richiesta attiva per questo studente.");
+        }
+        return s.getRichiesta().getStato();
+    }
+
+    public Stato_Tesi verificaStatoTesi(Studente s) {
+        if (s.getTesi() == null) {
+            throw new IllegalStateException("ERRORE! Nessuna tesi caricata per questo studente.");
+        }
+        return s.getTesi().getStato();
+    }
+
+    public Utente effettuaLogin(String user, String pwd) {
+        for (Utente u : listaUtenti) {
+            if (u.login(user, pwd)) {
+                return u;
+            }
+        }
+        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
+    }
 }
 
 
