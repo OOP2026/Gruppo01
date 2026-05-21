@@ -19,7 +19,7 @@ public class Richiesta {
         return richiedente;
     }
 
-    public Tirocinio gettirocinio() {
+    public Tirocinio getTirocinio() {
         return tirocinio;
     }
 

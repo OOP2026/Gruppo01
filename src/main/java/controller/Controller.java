@@ -3,6 +3,7 @@ import model.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class Controller {
 	private List<Docente> listaDocenti = new ArrayList<>();
@@ -29,11 +30,23 @@ public class Controller {
         listaTirocini.add(nuovoTirocinio);
     }
 
+    public List<Richiesta> visualizzaRichieste() {
+        return Collections.unmodifiableList(this.listaRichieste);
+    }
+
     public void valutaRichiesta(Richiesta r, Stato_richiesta esito) {
         if (r.getStato() != Stato_richiesta.In_attesa) {
             throw new IllegalStateException("ERRORE! Richiesta già valutata!");
+        }
+        if  (esito == Stato_richiesta.In_attesa) {
+          throw new IllegalArgumentException("ERRORE! Scegliere tra Approvata e Rifiutata.");
+        }
+        r.setStato(esito);
+        if (esito == Stato_richiesta.Approvata) {
+            Tirocinio t = r.getTirocinio();
+            t.decrementaPosti();
         } else {
-            r.setStato(esito);
+            System.out.println("Richiesta rifiutata correttamente");
         }
     }
 
@@ -41,7 +54,9 @@ public class Controller {
         if (coord.getisCoordinatore()) {
             coord.aggiungiSeduta(seduta);
             listaSedute.add(seduta);
-        };
+        } else {
+            throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
+        }
     }
 
 
