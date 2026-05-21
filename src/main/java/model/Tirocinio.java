@@ -23,7 +23,7 @@ public abstract class Tirocinio {
         this.n_cfu = n_cfu;
         this.docente = docente;
         this.richieste = new ArrayList<Richiesta>();
-        this.stato = StatoTirocinio.Inattivo;
+        this.stato = StatoTirocinio.Aggiunto;
     }
 
     public StatoTirocinio getStato() {return stato;}
