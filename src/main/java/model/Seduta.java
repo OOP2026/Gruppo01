@@ -8,6 +8,7 @@ public class Seduta {
     private int numero_posti;
     private List<Tesi> prenotazioni;
     private Docente coordinatore;
+    private HashSet<Docente> commissione;
 
     public Seduta(LocalDateTime data_ora, String sede,int numero_posti, Docente coordinatore) {
         this.data_ora = data_ora;
@@ -15,6 +16,15 @@ public class Seduta {
         this.numero_posti = numero_posti;
         this.prenotazioni = new ArrayList<Tesi>();
         this.coordinatore = coordinatore;
+        this.commissione  = new HashSet<Docente>();
+    }
+
+    public void aggiungiInCommissione(Docente d) {
+        commissione.add(d);
+    }
+
+    public void rimuoviDaCommissione(Docente d) {
+        commissione.remove(d);
     }
 
     public LocalDateTime getData_ora() {
