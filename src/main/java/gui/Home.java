@@ -1,31 +1,31 @@
 package gui;
 import controller.Controller;
 import javax.swing.*;
+import java.awt.*;
 
 public class Home extends JFrame {
 	private Controller controller;
-	private JPanel finestra1;
-	private JTextField User;
-	private JPasswordField Pwd;
-	private JButton logButton;
 	private JPanel panel1;
-	private JTextField user;
-
+	private JTextField usernameTextField;
+	private JPasswordField passwordField1;
+	private JButton button1;
 
 	public Home() {
-		this.controller = new Controller();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
-		this.setLocationRelativeTo(null);
-
-
+		this.controller= new Controller();
 	}
-
+	private JPanel finestra1;
+	private Window Finestra;
 
 	public static void main(String[] args) {
 		Home interfaccia = new Home();
-		interfaccia.setVisible(true);
+		JFrame Frame = new JFrame("Home");
+		Frame.setContentPane(new Home().finestra1);
+		Frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Frame.setVisible(true);
 	}
 
-
+	private void createUIComponents() {
+		// TODO: place custom component creation code here
+	}
 }
+
