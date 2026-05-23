@@ -149,14 +149,49 @@ public class Controller {
         return s.getTesi().getStato();
     }
 
-    public Utente effettuaLogin(String user, String pwd) {
-        for (Utente u : listaUtenti) {
-            if (u.login(user, pwd)) {
-                return u;
+    public Studente effettuaLoginStudente(String user, String pwd) {
+        for (Studente stud : listaStudenti) {
+            if (stud.login(user, pwd)) {
+                return stud;
             }
         }
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
+
+    public Docente effettuaLoginDocente(String user, String pwd) {
+        for (Docente d : listaDocenti) {
+            if (d.login(user, pwd)) {
+                return d;
+            }
+        }
+        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
+    }
+
+    public void registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
+
+        for (Utente u : listaUtenti) {
+            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
+                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
+            }
+        }
+
+        Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
+        listaStudenti.add(nuovoStudente);
+    }
+    //si ipotizza che la verifica dell'esistenza effettiva degli utenti nell'Università sia di docente che di studente siano fatte in un codice a parte, esterno al progetto.
+
+    public void registraDocente(String nome, String cognome, String email, String username, String password) {
+
+        for (Utente u : listaUtenti) {
+            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
+                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
+            }
+        }
+
+        Docente nuovoDocente = new Docente(nome, cognome, email, username, password);
+        listaDocenti.add(nuovoDocente);
+    }
+
 }
 
 
