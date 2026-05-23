@@ -70,7 +70,7 @@ public class Seduta {
         numero_posti = numero_posti--;
     }
 
-    public List<Studente> studentiPrenotati() {
+    public List<Studente> getStudentiPrenotati() {
         ArrayList<Studente> listaPrenotati = new ArrayList<>();
         for (Tesi t : prenotazioni) {
             if (t.getStato() == Stato_Tesi.Approvata) {

@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -32,6 +33,7 @@ public class Docente extends Utente {
     public boolean getisCoordinatore() {
         return is_coordinatore;
     }
+
     public void setIs_coordinatore(boolean is_coordinatore) {
         this.is_coordinatore = is_coordinatore;
     }
@@ -45,8 +47,6 @@ public class Docente extends Utente {
     public void aggiungiSeduta(Seduta s) {
         this.sedutePubblicate.add(s);
     }
-
-
     public void aggiungiTesi(Tesi ts) {
         if (ts != null && !this.listaTirocini.contains(ts)) {
             this.tesiDaValutare.add(ts);

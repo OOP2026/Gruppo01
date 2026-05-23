@@ -3,6 +3,12 @@ import model.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/*
+ATTENZIONE!!! LA LISTA DI OGGETTI CHE SEGUE È SOLO UN MODO PER GESTIRE MOMENTANEAMENTE (IN QUESTA FASE DEL
+PROGETTO IL DIALOGO TRA IL CONTROLLER E IL DATABASE. IN FASI PIù AVANZATE DEL PROGETTO, SI SOSTITUIRÀ TALE
+INSIEME DI LISTE CON L'EFFETTIVA RELAZIONE COL DATABASE. LO STESSO VALE PER GLI ADD PRESENTI
+NEI METODI DEL CONTROLLER PER LA CREAZIONE DEI VARI OGGETTI.
+ */
 public class Controller {
     private List<Docente> listaDocenti = new ArrayList<>();
     private List<Richiesta> listaRichieste = new ArrayList<>();
@@ -15,27 +21,44 @@ public class Controller {
     private List<Utente> listaUtenti = new ArrayList<>();
 
 
+
     public Controller() {
     }
 
-    ;
+    //Richiamato dalla GUI per la registrazione del Docente
+    public Docente creaDocente(String nome, String cognome, String email, String password, String username) {
+        Docente doc = new Docente(nome, cognome, email, password, username);
+        listaDocenti.add(doc); // da rivedere in fase DB
+        return doc;
+    }
 
+    public Studente creaStudente(String nome, String cognome, String email, String password, String username, String matricola) {
+        Studente stud = new Studente(nome, cognome, email, password, username, matricola);
+        listaStudenti.add(stud); // da rivedere in fase DB
+        return stud;
+    }
+
+    //Richiamato dalla gui per la registrazione dello Studente
+    // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioInterno
     public void aggiungiTirocinoInterno(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
         Tirocinio_Interno nuovoTirocinio = new Tirocinio_Interno(nome, durata, data_inizio, n_posti, n_cfu, dipartimento, laboratorio, docente);
         docente.aggiungiTirocinio(nuovoTirocinio);
-        listaTirocini.add(nuovoTirocinio);
+        listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
     }
 
+    // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioEsterno
     public void aggiungiTirocinioEsterno(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String azienda, String referente_aziendale, Docente docente) {
         Tirocinio_esterno nuovoTirocinio = new Tirocinio_esterno(nome, durata, data_inizio, n_posti, n_cfu, azienda, referente_aziendale, docente);
         docente.aggiungiTirocinio(nuovoTirocinio);
-        listaTirocini.add(nuovoTirocinio);
+        listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
     }
 
+    //Il Docente visualizza le richieste a lui arrivate
     public List<Richiesta> visualizzaRichieste() {
         return Collections.unmodifiableList(this.listaRichieste);
     }
 
+    //Il docente valuta le richieste di Tirocinio a lui arrivate
     public void valutaRichiesta(Richiesta r, Stato_richiesta esito) {
         if (r.getStato() != Stato_richiesta.In_attesa) {
             throw new IllegalStateException("ERRORE! Richiesta già valutata!");
@@ -46,21 +69,26 @@ public class Controller {
         r.setStato(esito);
         if (esito == Stato_richiesta.Approvata) {
             Tirocinio t = r.getTirocinio();
+            r.getRichiedente().setTirocinio(t);
             t.decrementaPosti();
         } else {
             System.out.println("Richiesta rifiutata correttamente");
         }
     }
 
-    public void inserisciSeduta(Docente coord, Seduta seduta) {
+    //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
+    public Seduta inserisciSeduta(Docente coord, LocalDateTime data_ora, String sede, int numero_posti) {
         if (coord.getisCoordinatore()) {
-            coord.aggiungiSeduta(seduta);
-            listaSedute.add(seduta);
-        } else {
+            Seduta sedutaCreata = new Seduta(data_ora, sede, numero_posti, coord);
+            coord.aggiungiSeduta(sedutaCreata);
+            listaSedute.add(sedutaCreata);
+            return sedutaCreata;
+            } else {
             throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
         }
     }
 
+    //Il docente valuta la Tesi
     public void valutaTesi(Tesi t, Stato_Tesi esito) {
         if (t.getStato() != Stato_Tesi.In_attesa) {
             throw new IllegalStateException("ERRORE! Richiesta già valutata!");
@@ -90,7 +118,7 @@ public class Controller {
     public void impostaSeduta(Seduta s, Docente coord) {
         if (coord.getisCoordinatore()) {
             // visualizzazione studenti (se la tesi è stata approvata)
-            List<Studente> listaStudenti = s.studentiPrenotati();
+            List<Studente> listaStudenti = s.getStudentiPrenotati();
             //imposta docenti
             for (Studente stud : listaStudenti) {
                 s.aggiungiInCommissione(stud.getTesi().getValutatore());

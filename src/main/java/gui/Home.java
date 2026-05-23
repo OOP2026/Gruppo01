@@ -1,7 +1,6 @@
 package gui;
 import controller.Controller;
 import javax.swing.*;
-import model.*;
 
 public class Home extends JFrame {
 	private Controller controller;
@@ -27,8 +26,7 @@ public class Home extends JFrame {
 			String PasswordInserita = String.valueOf(this.password.getPassword());
 			try {
 				if (studenteRadioButton.isSelected()) {
-					Studente oggettoStudente = controller.effettuaLoginStudente(userInserito, PasswordInserita);
-					Int_Studente interfacciaStud = new Int_Studente(this.controller, oggettoStudente);
+					Int_Studente interfacciaStud = new Int_Studente(this.controller, controller.effettuaLoginStudente(userInserito, PasswordInserita));
 				}
 			} catch (IllegalArgumentException loginErrato)  {
 				JOptionPane.showMessageDialog(this, loginErrato.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
@@ -40,8 +38,7 @@ public class Home extends JFrame {
 			String PasswordInserita = String.valueOf(this.password.getPassword());
 			try {
 				if (docenteRadioButton.isSelected()) {
-					Docente oggettoDocente = controller.effettuaLoginDocente(userInserito, PasswordInserita);
-					Int_Docente interfacciaDocente = new Int_Docente(this.controller, oggettoDocente);
+					Int_Docente interfacciaDocente = new Int_Docente(this.controller, controller.effettuaLoginDocente(userInserito, PasswordInserita));
 				}
 			} catch (IllegalArgumentException loginErrato)  {
 				JOptionPane.showMessageDialog(this, loginErrato.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
