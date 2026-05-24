@@ -6,10 +6,8 @@ import javax.swing.*;
 
 public class Int_Docente extends JFrame {
     private Controller controller;
-    private Docente docenteLoggato;
 
-    public Int_Docente(Controller controller, Docente docente) {
+    public Int_Docente(Controller controller) {
         this.controller = controller;
-        this.docenteLoggato = docente;
     }
 }

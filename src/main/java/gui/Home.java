@@ -8,10 +8,11 @@ public class Home extends JFrame {
 	private JPasswordField password;
 	private JTextField user;
 	private JPanel finestra;
-	private JTextField HOMETextField;
-	private JButton CREAACCOUNTButton;
+	private JButton RegisterButton;
+	//i JRadioButton serviranno sia per la selezione del login che per quella della registrazione
 	private JRadioButton studenteRadioButton;
 	private JRadioButton docenteRadioButton;
+	private JTextPane HOMETextPane;
 
 	public Home() {
 		this.controller = new Controller();
@@ -26,13 +27,14 @@ public class Home extends JFrame {
 			String userInserito = this.user.getText();
 			String PasswordInserita = String.valueOf(this.password.getPassword());
 			try {
-				if (studenteRadioButton.isSelected() && controller.effettuaLoginStudente(userInserito, PasswordInserita)) {
-					Int_Studente interfacciaStud = new Int_Studente(this.controller, controller.getMatricolaStudenteLoggato());
+				if (studenteRadioButton.isSelected()) {
+					//crea l'interfaccia Studente, gli passa sia controller che oggetto Studente desiderato
+					Int_Studente interfacciaStud = new Int_Studente(this.controller);
 					interfacciaStud.setVisible(true);
 					this.dispose();
-
 				} else if (docenteRadioButton.isSelected()) {
-					Int_Docente interfacciaStud = new Int_Docente(this.controller, controller.effettuaLoginDocente(userInserito, PasswordInserita));
+					//crea l'interfaccia Docente, gli passa sia controller che oggetto Docente desiderato
+					Int_Docente interfacciaStud = new Int_Docente(this.controller);
 					interfacciaStud.setVisible(true);
 					this.dispose();
 				} else {
@@ -41,7 +43,29 @@ public class Home extends JFrame {
 				JOptionPane.showMessageDialog(this, loginErrato.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
 			}
 		});
+
+		RegisterButton.addActionListener(e -> {
+			if (studenteRadioButton.isSelected()) {
+				//se viene premuto il JRadioButton Studente, crea l'interfaccia registrazione Studente, e gli passa il controller
+				Reg_Studente regStud = new Reg_Studente(this.controller);
+				regStud.setVisible(true);
+				this.dispose();
+			} else if (docenteRadioButton.isSelected()) {
+				//se viene premuto il JRadioButton Docente, crea l'interfaccia registrazione Studente, e gli passa il controller
+				Reg_Studente regStud = new Reg_Studente(this.controller);
+				regStud.setVisible(true);
+				this.dispose();
+			} else {
+				JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}
+		});
+
+
+
+
+
 	}
+
+
 
 	public static void main(String[] args) {
 		{

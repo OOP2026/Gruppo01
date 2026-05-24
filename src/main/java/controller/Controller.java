@@ -196,7 +196,7 @@ public class Controller {
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
 
-    public String getMatricolaStudenteLoggato(Studente s) {
+    public String getMatricolaStudente(Studente s) {
         return s.getMatricola();
     }
 
@@ -208,10 +208,11 @@ public class Controller {
         }
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
-
-    public String getEmailDocente (Docente d) {
+    public String getEmailDocente(Docente d){
         return d.getEmail();
     }
+
+
     public void registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
 
         for (Utente u : listaUtenti) {
