@@ -1,5 +1,9 @@
 package gui;
 import controller.Controller;
+import gui.Docente.Int_Docente;
+import gui.Registrazioni.Reg_Studente;
+import gui.Studente.Int_Studente;
+
 import javax.swing.*;
 
 public class Home extends JFrame {

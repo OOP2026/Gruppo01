@@ -1,28 +1,25 @@
-package gui;
+package gui.Registrazioni;
 
 import controller.Controller;
-
+import gui.Home;;
 import javax.swing.*;
 
-;
-
-public class Reg_Studente extends JFrame {
+public class Reg_Docente extends JFrame {
     private Controller controller;
-    private JTextPane REGISTRAZIONESTUDENTETextPane;
+    private JTextPane REGISTRAZIONEDOCENTETextPane;
     private JTextField nomeTextField;
-    private JTextField cognomeTextField;
+    private JTextField CognomeTextField;
     private JTextField EmailTextField;
-    private JTextField MatricolaTextField;
     private JTextField UsernameTextField;
     private JTextField PwdTextField;
     private JTextField CfrmPwdTextField;
     private JButton RegButton;
-    private JPanel RegSFinestra;
+    private JPanel RegDFinestra;
 
-    public Reg_Studente(Controller controller) {
+    public Reg_Docente(Controller controller) {
         this.controller = controller;
-        this.setContentPane(RegSFinestra);
-        this.setTitle("Portale Registrazione Studente");
+        this.setContentPane(RegDFinestra);
+        this.setTitle("Portale Registrazione Docente");
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -30,17 +27,16 @@ public class Reg_Studente extends JFrame {
         RegButton.addActionListener(e -> {
             //salviamo in variabili tutte le informazioni inserite dall'utente
             String nome = nomeTextField.getText();
-            String cognome = cognomeTextField.getText();
+            String cognome = CognomeTextField.getText();
             String email = EmailTextField.getText().trim();
-            String matricola = MatricolaTextField.getText();
             String username = UsernameTextField.getText();
             String pwd = PwdTextField.getText();
             //si utilizzerà un JTextField in più per confermare la Password scelta
             String confPwd = CfrmPwdTextField.getText();
+            //si ipotizza di avere una lista di mail di docenti coordinatori, impostati successivamente all'implementazione del database
 
             //se qualche campo è stato lasciato vuoto, viene lanciato il messaggio di Errore
-            if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() ||
-                    matricola.isEmpty() || username.isEmpty() || pwd.isEmpty() || confPwd.isEmpty()) {
+            if (nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || username.isEmpty() || pwd.isEmpty() || confPwd.isEmpty()) {
 
                 JOptionPane.showMessageDialog(this, "ERRORE! Tutti i campi sono obbligatori.", "Dati Mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -51,7 +47,7 @@ public class Reg_Studente extends JFrame {
                 return;
             }
             try {
-                controller.registraStudente(nome, cognome, email, matricola, username, pwd);
+                controller.registraDocente(nome, cognome, email, username, pwd);
                 JOptionPane.showMessageDialog(this, "Registrazione completata con successo! Ora puoi accedere.");
                 this.dispose();
                 Home finestraLogin = new Home();
@@ -61,9 +57,5 @@ public class Reg_Studente extends JFrame {
                 JOptionPane.showMessageDialog(this, regError.getMessage(), "Errore di Registrazione", JOptionPane.ERROR_MESSAGE);
             }
         });
-
     }
-
-
-
 }

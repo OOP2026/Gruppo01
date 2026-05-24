@@ -1,7 +1,6 @@
-package gui;
+package gui.Studente;
 
 import controller.Controller;
-import model.Studente;
 import javax.swing.*;
 
 public class Int_Studente extends JFrame {
@@ -9,5 +8,11 @@ public class Int_Studente extends JFrame {
 
     public Int_Studente(Controller controller) {
         this.controller = controller;
+        /*
+         - Compila Richiesta (istanzia l'oggetto)
+         - Carica Tesi
+         - Verifica_Stato_Richiesta
+         - Verifica_Stato_Tesi
+         */
     }
 }
