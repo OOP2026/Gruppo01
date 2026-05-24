@@ -21,30 +21,26 @@ public class Home extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
+		//se viene premuto il JRadioButton Studente, viene creata l'interaccia studente, altrimenti crea l'interfaccia Docente
 		LoginButton.addActionListener(e -> {
 			String userInserito = this.user.getText();
 			String PasswordInserita = String.valueOf(this.password.getPassword());
 			try {
-				if (studenteRadioButton.isSelected()) {
-					Int_Studente interfacciaStud = new Int_Studente(this.controller, controller.effettuaLoginStudente(userInserito, PasswordInserita));
-				}
+				if (studenteRadioButton.isSelected() && controller.effettuaLoginStudente(userInserito, PasswordInserita)) {
+					Int_Studente interfacciaStud = new Int_Studente(this.controller, controller.getMatricolaStudenteLoggato());
+					interfacciaStud.setVisible(true);
+					this.dispose();
+
+				} else if (docenteRadioButton.isSelected()) {
+					Int_Docente interfacciaStud = new Int_Docente(this.controller, controller.effettuaLoginDocente(userInserito, PasswordInserita));
+					interfacciaStud.setVisible(true);
+					this.dispose();
+				} else {
+					JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}
 			} catch (IllegalArgumentException loginErrato)  {
 				JOptionPane.showMessageDialog(this, loginErrato.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
 			}
 		});
-
-		LoginButton.addActionListener(e -> {
-			String userInserito = this.user.getText();
-			String PasswordInserita = String.valueOf(this.password.getPassword());
-			try {
-				if (docenteRadioButton.isSelected()) {
-					Int_Docente interfacciaDocente = new Int_Docente(this.controller, controller.effettuaLoginDocente(userInserito, PasswordInserita));
-				}
-			} catch (IllegalArgumentException loginErrato)  {
-				JOptionPane.showMessageDialog(this, loginErrato.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
-			}
-		});
-
 	}
 
 	public static void main(String[] args) {

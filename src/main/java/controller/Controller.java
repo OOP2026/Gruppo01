@@ -32,13 +32,14 @@ public class Controller {
         return doc;
     }
 
+    //Richiamato dalla gui per la registrazione dello Studente
     public Studente creaStudente(String nome, String cognome, String email, String password, String username, String matricola) {
         Studente stud = new Studente(nome, cognome, email, password, username, matricola);
         listaStudenti.add(stud); // da rivedere in fase DB
         return stud;
     }
 
-    //Richiamato dalla gui per la registrazione dello Studente
+
     // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioInterno
     public void aggiungiTirocinoInterno(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
         Tirocinio_Interno nuovoTirocinio = new Tirocinio_Interno(nome, durata, data_inizio, n_posti, n_cfu, dipartimento, laboratorio, docente);
@@ -59,20 +60,28 @@ public class Controller {
     }
 
     //Il docente valuta le richieste di Tirocinio a lui arrivate
-    public void valutaRichiesta(Richiesta r, Stato_richiesta esito) {
+    public void valutaRichiesta(Docente doc, Richiesta r, Stato_richiesta esito) {
+        if (!r.getTirocinio().getDocente().equals(doc)) {
+            throw new SecurityException("ERRORE! Operazione negata. Non sei il referente di questo tirocinio.");
+        }
         if (r.getStato() != Stato_richiesta.In_attesa) {
             throw new IllegalStateException("ERRORE! Richiesta già valutata!");
         }
         if (esito == Stato_richiesta.In_attesa) {
             throw new IllegalArgumentException("ERRORE! Scegliere tra Approvata e Rifiutata.");
         }
-        r.setStato(esito);
         if (esito == Stato_richiesta.Approvata) {
             Tirocinio t = r.getTirocinio();
+            if (t.getN_posti() <= 0) {
+                throw new IllegalStateException("ERRORE! I posti per questo tirocinio sono esauriti.");
+            }
+            r.setStato(esito);
             r.getRichiedente().setTirocinio(t);
             t.decrementaPosti();
-        } else {
+        } else if (esito == Stato_richiesta.Rifiutata) {
+            r.setStato(esito);
             System.out.println("Richiesta rifiutata correttamente");
+            //se il valore è Rifiutata, lo studente può fare una nuova richiesta tirocinio.
         }
     }
 
@@ -102,6 +111,7 @@ public class Controller {
             s.decrementaPosti();
         } else {
             System.out.println("Richiesta rifiutata correttamente");
+
         }
     }
 
@@ -177,24 +187,31 @@ public class Controller {
         return s.getTesi().getStato();
     }
 
-    public Studente effettuaLoginStudente(String user, String pwd) {
+    public boolean effettuaLoginStudente(String user, String pwd) {
         for (Studente stud : listaStudenti) {
             if (stud.login(user, pwd)) {
-                return stud;
+                return true;
             }
         }
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
 
-    public Docente effettuaLoginDocente(String user, String pwd) {
+    public String getMatricolaStudenteLoggato(Studente s) {
+        return s.getMatricola();
+    }
+
+    public boolean effettuaLoginDocente(String user, String pwd) {
         for (Docente d : listaDocenti) {
             if (d.login(user, pwd)) {
-                return d;
+                return true;
             }
         }
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
 
+    public String getEmailDocente (Docente d) {
+        return d.getEmail();
+    }
     public void registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
 
         for (Utente u : listaUtenti) {
