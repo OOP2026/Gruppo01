@@ -1,6 +1,7 @@
 package controller;
 import model.*;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.*;
 
 /*
@@ -50,14 +51,14 @@ public class Controller {
 
 
     // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioInterno
-    public void aggiungiTirocinoInterno(String nome, String durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
+    public void aggiungiTirocinoInterno(String nome, String durata, LocalDate data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
         Tirocinio_Interno nuovoTirocinio = new Tirocinio_Interno(nome, durata, data_inizio, n_posti, n_cfu, dipartimento, laboratorio, docente);
         docente.aggiungiTirocinio(nuovoTirocinio);
         listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
     }
 
     // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioEsterno
-    public void aggiungiTirocinioEsterno(String nome, String durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String azienda, String referente_aziendale, Docente docente) {
+    public void aggiungiTirocinioEsterno(String nome, String durata, LocalDate data_inizio, int n_posti, int n_cfu, String azienda, String referente_aziendale, Docente docente) {
         Tirocinio_esterno nuovoTirocinio = new Tirocinio_esterno(nome, durata, data_inizio, n_posti, n_cfu, azienda, referente_aziendale, docente);
         docente.aggiungiTirocinio(nuovoTirocinio);
         listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB

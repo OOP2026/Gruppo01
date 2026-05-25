@@ -1,12 +1,12 @@
 package model;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.*;
 
 
 public abstract class Tirocinio {
     private String nome;
     private String durata; //numero di ore
-    private LocalDateTime data_inizio;
+    private LocalDate data_inizio;
     private List<String> argomenti;
     private int n_posti;
     private int n_cfu;
@@ -14,7 +14,7 @@ public abstract class Tirocinio {
     private List<Richiesta> richieste;
     private StatoTirocinio stato;
 
-    public Tirocinio(String nome, String durata, LocalDateTime data_inizio, int n_posti, int n_cfu, Docente docente) {
+    public Tirocinio(String nome, String durata, LocalDate data_inizio, int n_posti, int n_cfu, Docente docente) {
         this.nome = nome;
         this.durata = durata;
         this.data_inizio = data_inizio;
@@ -36,7 +36,7 @@ public abstract class Tirocinio {
         return durata;
     }
 
-    public LocalDateTime getData_inizio() {
+    public LocalDate getData_inizio() {
         return data_inizio;
     }
 
@@ -66,7 +66,7 @@ public abstract class Tirocinio {
         this.durata = durata;
     }
 
-    public void setData_inizio(LocalDateTime data_inizio) {
+    public void setData_inizio(LocalDate data_inizio) {
         this.data_inizio = data_inizio;
     }
 

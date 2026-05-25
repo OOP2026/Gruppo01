@@ -50,6 +50,7 @@ public class Int_Tirocinio_Esterno extends JFrame {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             try {
                 LocalDate dataInizio = LocalDate.parse(data_inizio, formato);
+                controller.aggiungiTirocinioEsterno(nome, durata, dataInizio, n_posti, n_cfu, azienda, referente, controller.getdocLoggato());
 
 
             } catch (DateTimeParseException erroreDataInserita) {
@@ -57,7 +58,7 @@ public class Int_Tirocinio_Esterno extends JFrame {
                 JOptionPane.showMessageDialog(this, "Errore: devi inserire una data valida nel formato GG/MM/AAAA!");
             }
 
-            controller.aggiungiTirocinioEsterno(nome, durata, dataInizio, n_posti, n_cfu, azienda, referente, controller.getdocLoggato());
+
         });
 
 
