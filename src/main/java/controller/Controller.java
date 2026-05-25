@@ -19,10 +19,19 @@ public class Controller {
     private List<Tirocinio_esterno> listaTirocini_esterni = new ArrayList<>();
     private List<Tirocinio_Interno> listaTirocini_interni = new ArrayList<>();
     private List<Utente> listaUtenti = new ArrayList<>();
-
+    private Docente DocenteLoggato = null;
+    private Studente StudenteLoggato = null;
 
 
     public Controller() {
+    }
+
+    public Docente getdocLoggato() {
+        return DocenteLoggato;
+    }
+
+    public Studente getstudLoggato() {
+        return StudenteLoggato;
     }
 
     //Richiamato dalla GUI per la registrazione del Docente
@@ -41,14 +50,14 @@ public class Controller {
 
 
     // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioInterno
-    public void aggiungiTirocinoInterno(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
+    public void aggiungiTirocinoInterno(String nome, String durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
         Tirocinio_Interno nuovoTirocinio = new Tirocinio_Interno(nome, durata, data_inizio, n_posti, n_cfu, dipartimento, laboratorio, docente);
         docente.aggiungiTirocinio(nuovoTirocinio);
         listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
     }
 
     // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioEsterno
-    public void aggiungiTirocinioEsterno(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String azienda, String referente_aziendale, Docente docente) {
+    public void aggiungiTirocinioEsterno(String nome, String durata, LocalDateTime data_inizio, int n_posti, int n_cfu, String azienda, String referente_aziendale, Docente docente) {
         Tirocinio_esterno nuovoTirocinio = new Tirocinio_esterno(nome, durata, data_inizio, n_posti, n_cfu, azienda, referente_aziendale, docente);
         docente.aggiungiTirocinio(nuovoTirocinio);
         listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
@@ -190,6 +199,7 @@ public class Controller {
     public boolean effettuaLoginStudente(String user, String pwd) {
         for (Studente stud : listaStudenti) {
             if (stud.login(user, pwd)) {
+                StudenteLoggato = stud;
                 return true;
             }
         }
@@ -203,6 +213,7 @@ public class Controller {
     public boolean effettuaLoginDocente(String user, String pwd) {
         for (Docente d : listaDocenti) {
             if (d.login(user, pwd)) {
+                DocenteLoggato = d;
                 return true;
             }
         }

@@ -5,7 +5,7 @@ import java.util.*;
 
 public abstract class Tirocinio {
     private String nome;
-    private int durata; //numero di ore
+    private String durata; //numero di ore
     private LocalDateTime data_inizio;
     private List<String> argomenti;
     private int n_posti;
@@ -14,7 +14,7 @@ public abstract class Tirocinio {
     private List<Richiesta> richieste;
     private StatoTirocinio stato;
 
-    public Tirocinio(String nome, int durata, LocalDateTime data_inizio, int n_posti, int n_cfu, Docente docente) {
+    public Tirocinio(String nome, String durata, LocalDateTime data_inizio, int n_posti, int n_cfu, Docente docente) {
         this.nome = nome;
         this.durata = durata;
         this.data_inizio = data_inizio;
@@ -32,7 +32,7 @@ public abstract class Tirocinio {
         return nome;
     }
 
-    public int getDurata() {
+    public String getDurata() {
         return durata;
     }
 
@@ -62,7 +62,7 @@ public abstract class Tirocinio {
         this.nome = nome;
     }
 
-    public void setDurata(int durata) {
+    public void setDurata(String durata) {
         this.durata = durata;
     }
 
