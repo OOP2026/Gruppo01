@@ -63,10 +63,6 @@ public class Home extends JFrame {
 				JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}
 		});
 
-
-
-
-
 	}
 
 
