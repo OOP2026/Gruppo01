@@ -19,6 +19,11 @@ public class Int_Docente extends JFrame {
 
     public Int_Docente(Controller controller) {
         this.controller = controller;
+        this.setContentPane(FinestraDocente);
+        this.setTitle("Portale Login");
+        this.setSize(1024, 768);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
         //Crea oggetto Tirocinio (diviso in Interno e Esterno, con Jbutton)
         creaTirocinioButton.addActionListener(e ->{
