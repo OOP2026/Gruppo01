@@ -18,6 +18,10 @@ public class Home extends JFrame {
 	private JRadioButton docenteRadioButton;
 	private JTextPane HOMETextPane;
 
+	ButtonGroup gruppoScelte = new ButtonGroup();
+
+
+
 	public Home() {
 		this.controller = new Controller();
 		this.setContentPane(finestra);
@@ -25,6 +29,9 @@ public class Home extends JFrame {
 		this.setSize(1024, 768);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		gruppoScelte.add(studenteRadioButton);
+		gruppoScelte.add(docenteRadioButton);
+
 
 		//se viene premuto il JRadioButton Studente, viene creata l'interaccia studente, altrimenti crea l'interfaccia Docente
 		LoginButton.addActionListener(e -> {
