@@ -49,15 +49,41 @@ public class Controller {
         return stud;
     }
 
-    //Il Docente visualizza le richieste a lui arrivate
-    public List<Richiesta> visualizzaRichieste() {
-        return Collections.unmodifiableList(this.listaRichieste);
+    public List<String> getNomiTirociniDelDocente() {
+        List<String> listaNomi = new ArrayList<>();
+        for (Tirocinio t : DocenteLoggato.getListaTirocini()) {
+            listaNomi.add(t.getNome());
+        }
+        return listaNomi;
     }
 
+    //restituisce la lista delle richieste arrivate per quello specifico tirocinio
+    public List<String> RichiesteTir(String tirocinio) {
+        List<String> listaStudenti = new ArrayList<>();
+        for (Richiesta r : listaRichieste) {
+            if(r.getTirocinio().getNome().equals(tirocinio)) {
+                listaStudenti.add(r.getRichiedente().getMatricola());
+            }
+        }
+        return listaStudenti;
+    }
+
+
     //Il docente valuta le richieste di Tirocinio a lui arrivate
-    public void valutaRichiesta(Docente doc, Richiesta r, Stato_richiesta esito) {
+
+    public void valutaRichiesta(String nomeTirocinio, String matricolaStudente, Stato_richiesta esito) {
+
+        // 1. Recupera il docente dalla sessione
+        Docente doc = this.getdocLoggato();
+
+        // 2. Trova l'oggetto Richiesta partendo dalla stringa della matricola
+        // (Devi scriverti un piccolo metodo di ricerca se non lo hai già)
+        Richiesta r = trovaRichiestaPerMatricola(matricolaStudente);
+        if (r == null) throw new IllegalArgumentException("Richiesta non trovata.");
+
+        // 3. Da qui in poi, la tua logica originale è perfetta
         if (!r.getTirocinio().getDocente().equals(doc)) {
-            throw new SecurityException("ERRORE! Operazione negata. Non sei il referente di questo tirocinio.");
+            throw new SecurityException("ERRORE! Non sei il referente di questo tirocinio.");
         }
         if (r.getStato() != Stato_richiesta.In_attesa) {
             throw new IllegalStateException("ERRORE! Richiesta già valutata!");
@@ -75,8 +101,6 @@ public class Controller {
             t.decrementaPosti();
         } else if (esito == Stato_richiesta.Rifiutata) {
             r.setStato(esito);
-            System.out.println("Richiesta rifiutata correttamente");
-            //se il valore è Rifiutata, lo studente può fare una nuova richiesta tirocinio.
         }
     }
 
