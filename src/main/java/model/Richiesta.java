@@ -6,7 +6,7 @@ public class Richiesta {
     private Tirocinio tirocinio;
 
     public Richiesta(Studente richiedente, Tirocinio tirocinio) {
-        this.stato = Stato_richiesta.In_attesa;
+        this.stato = Stato_richiesta.NULL;
         this.richiedente = richiedente;
         this.tirocinio = tirocinio;
     }

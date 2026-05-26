@@ -1,6 +1,7 @@
 package gui;
 import controller.Controller;
 import gui.Docente.Int_Docente;
+import gui.Registrazioni.Reg_Docente;
 import gui.Registrazioni.Reg_Studente;
 import gui.Studente.Int_Studente;
 
@@ -62,8 +63,8 @@ public class Home extends JFrame {
 				this.dispose();
 			} else if (docenteRadioButton.isSelected()) {
 				//se viene premuto il JRadioButton Docente, crea l'interfaccia registrazione Studente, e gli passa il controller
-				Reg_Studente regStud = new Reg_Studente(this.controller);
-				regStud.setVisible(true);
+				Reg_Docente RegDoc = new Reg_Docente(this.controller);
+				RegDoc.setVisible(true);
 				this.dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}

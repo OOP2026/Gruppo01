@@ -27,6 +27,26 @@ public class Controller {
     public Controller() {
     }
 
+    public String getStatoStudLoggato() {
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
+            return "Approvata";
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
+            return "Rifiutata";
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
+            return "In_attesa";
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.NULL)
+            return "Nessuna Richiesta Effettuata";
+        return "";
+    }
+    public String getStatoTesi() {
+        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
+            return "Approvata";
+        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
+            return "Rifiutata";
+        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa)
+            return "In_attesa";
+        return "";
+    }
     //Restituisce l'oggetto Studente sulla base della sua Matricola
     public Studente getStudentedDaMatricola(String Matricola) {
         for (Studente s : listaStudenti) {

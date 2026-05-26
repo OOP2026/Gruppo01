@@ -1,6 +1,8 @@
 package gui.Docente;
 
 import controller.Controller;
+import gui.Home;
+import gui.Registrazioni.Reg_Studente;
 
 import javax.swing.*;
 
@@ -29,6 +31,12 @@ public class Int_Docente extends JFrame {
            Aggiunta_Argomenti finestraAggArg = new Aggiunta_Argomenti(controller);
            finestraAggArg.setVisible(true);
            this.dispose();
+        });
+
+        logoutButton.addActionListener(e -> {
+            Home NewHome = new Home();
+            NewHome.setVisible(true);
+            this.dispose();
         });
 
 
