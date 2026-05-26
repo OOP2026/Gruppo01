@@ -27,6 +27,71 @@ public class Controller {
     public Controller() {
     }
 
+    //Restituisce l'oggetto Studente sulla base della sua Matricola
+    public Studente getStudentedDaMatricola(String Matricola) {
+        for (Studente s : listaStudenti) {
+            if (s.getMatricola().equals(Matricola)) {return s;}
+
+        }
+        throw new IllegalArgumentException("Studente non presente nel sistema");
+    }
+
+
+
+    //Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
+    public Tirocinio getTirocinioDaNome(String Nome) {
+        for (Tirocinio t : listaTirocini) {
+            if (t.getNome().equals(Nome)) {return t;}
+
+        }
+        throw new IllegalArgumentException("Tirocinio non presente nel sistema");
+    }
+
+
+    //trova i tirocini aperti del docente Loggato
+    public ArrayList<String> getNomiTirociniApertiDelDocente() {
+        ArrayList<String> nomiTirociniAperti = new ArrayList<>();
+        for (Tirocinio t : listaTirocini) {
+            if (t.getDocente().equals(this.DocenteLoggato) && t.getStato() == StatoTirocinio.Aperto) {
+                nomiTirociniAperti.add(t.getNome());
+            }
+        }
+
+        return nomiTirociniAperti;
+    }
+
+    //Il docente valuta le richieste di Tirocinio a lui arrivate
+
+    public void verificaPostiDiposibili (Tirocinio t){
+        if (t.getN_posti() == 0) {
+            t.setStato(StatoTirocinio.Pieno);
+        }
+    }
+    //Approva la Richiesta di Tirocinio
+
+
+    public void approvaRichiestaTirocinio(String Matricola, String Nome) {
+        //verifichiamo che
+        verificaPostiDiposibili(getTirocinioDaNome(Nome));
+
+        for (Richiesta r : listaRichieste) {
+            if (r.getRichiedente().getMatricola().equals(Matricola) && r.getTirocinio().getNome().equals(Nome) ) {
+                r.setStato(Stato_richiesta.Approvata);
+                r.getTirocinio().decrementaPosti();
+            }
+        }
+    }
+
+    //Rifiuta la Richiesta di Tirocinio
+    public void rifiutaRichiestaTirocinio(String Matricola, String Nome) {
+        for (Richiesta r : listaRichieste) {
+            if (r.getRichiedente().getMatricola().equals(Matricola) && r.getTirocinio().getNome().equals(Nome)) {
+                r.setStato(Stato_richiesta.Rifiutata);
+            }
+        }
+    }
+
+
     public Docente getdocLoggato() {
         return DocenteLoggato;
     }
@@ -69,40 +134,8 @@ public class Controller {
     }
 
 
-    //Il docente valuta le richieste di Tirocinio a lui arrivate
 
-    public void valutaRichiesta(String nomeTirocinio, String matricolaStudente, Stato_richiesta esito) {
 
-        // 1. Recupera il docente dalla sessione
-        Docente doc = this.getdocLoggato();
-
-        // 2. Trova l'oggetto Richiesta partendo dalla stringa della matricola
-        // (Devi scriverti un piccolo metodo di ricerca se non lo hai già)
-        Richiesta r = trovaRichiestaPerMatricola(matricolaStudente);
-        if (r == null) throw new IllegalArgumentException("Richiesta non trovata.");
-
-        // 3. Da qui in poi, la tua logica originale è perfetta
-        if (!r.getTirocinio().getDocente().equals(doc)) {
-            throw new SecurityException("ERRORE! Non sei il referente di questo tirocinio.");
-        }
-        if (r.getStato() != Stato_richiesta.In_attesa) {
-            throw new IllegalStateException("ERRORE! Richiesta già valutata!");
-        }
-        if (esito == Stato_richiesta.In_attesa) {
-            throw new IllegalArgumentException("ERRORE! Scegliere tra Approvata e Rifiutata.");
-        }
-        if (esito == Stato_richiesta.Approvata) {
-            Tirocinio t = r.getTirocinio();
-            if (t.getN_posti() <= 0) {
-                throw new IllegalStateException("ERRORE! I posti per questo tirocinio sono esauriti.");
-            }
-            r.setStato(esito);
-            r.getRichiedente().setTirocinio(t);
-            t.decrementaPosti();
-        } else if (esito == Stato_richiesta.Rifiutata) {
-            r.setStato(esito);
-        }
-    }
 
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
     public Seduta inserisciSeduta(Docente coord, LocalDateTime data_ora, String sede, int numero_posti) {

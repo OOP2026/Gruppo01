@@ -18,53 +18,56 @@ public class Visualizza_R_Tir extends JFrame {
     public Visualizza_R_Tir(Controller controller) {
         this.controller = controller;
         this.setContentPane(VisTir);
-        this.setTitle("Portale Login");
+        this.setTitle("Valuta Richieste Tirocinio");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+
         gruppoScelte.add(approvaRadioButton);
         gruppoScelte.add(rifiutaRadioButton);
 
-        //impostiamo la lista di tutti i tirocini asosciati al docente loggato
+       // Aggiunta tirocini associati al docente loggato
         TirociniComboBox.removeAllItems();
-        for (String nomeTir : controller.getNomiTirociniDelDocente()) {
-            TirociniComboBox.addItem(nomeTir);
+        for (String nomeTir : controller.getNomiTirociniApertiDelDocente()) {
+                TirociniComboBox.addItem(nomeTir);
         }
 
-        //Listener della combo Box dei Tirocini (se niente è selezionato, lancia il messaggio)
+
+
+        // LISTENER COMBOBOX TIROCINI
         TirociniComboBox.addActionListener(e -> {
-            String TirocinioSelezionato = (String) TirociniComboBox.getSelectedItem();
-            if (TirocinioSelezionato == null) {
-                JOptionPane.showMessageDialog(this, "Errore: Nessun tirocinio selezionato.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+            String tirocinioSelezionato = (String) TirociniComboBox.getSelectedItem();
+            StudentiComboBox.removeAllItems(); // Pulisce gli studenti precedenti
+
+            if (tirocinioSelezionato != null) {
+                for (String matricola : controller.RichiesteTir(tirocinioSelezionato)) {
+                    StudentiComboBox.addItem(matricola);
+                }
+            }
+        });
+
+        // LISTENER BOTTONE VALUTA
+        ValutaButton.addActionListener(e -> {
+
+            // A. Estrae i valori attuali
+            String tirocinioSel = (String) TirociniComboBox.getSelectedItem();
+            String matricolaSel = (String) StudentiComboBox.getSelectedItem();
+
+            // B. Controlli di sicurezza
+            if (tirocinioSel == null || matricolaSel == null) {
+                JOptionPane.showMessageDialog(this, "Seleziona un tirocinio e uno studente.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            //Listener della ComboBox delle Matricole associate a quel tirocinio (si riempie una volta selezionato il tirocinio in questione)
-            StudentiComboBox.removeAllItems();
-            for (String matricola : controller.RichiesteTir(TirocinioSelezionato)) {
-                StudentiComboBox.addItem(matricola);
-            };
-            StudentiComboBox.addActionListener(e2-> {
-                String RichiestaSelezionata = (String) StudentiComboBox.getSelectedItem();
-                if (RichiestaSelezionata == null) {
-                    JOptionPane.showMessageDialog(this, "Errore: Nessun tirocinio selezionato.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-
-                ValutaButton.addActionListener(e3 -> {
-                    if (approvaRadioButton.isSelected()) {
-                        //se viene premuto il JRadioButton Approva, richiama il metodo che cambia lo stato della richiesta.
-                        Reg_Studente regStud = new Reg_Studente(this.controller);
-                    } else if (rifiutaRadioButton.isSelected()) {
-                        //se viene premuto il JRadioButton Docente, crea l'interfaccia registrazione Studente, e gli passa il controller
-                        Reg_Studente regStud = new Reg_Studente(this.controller);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}
-                });
-
-
-            });
-
+            // C. Determina l'esito dai RadioButton
+            if (approvaRadioButton.isSelected()) {
+                controller.approvaRichiestaTirocinio(matricolaSel, tirocinioSel);
+            } else if (rifiutaRadioButton.isSelected()) {
+                controller.rifiutaRichiestaTirocinio(matricolaSel, tirocinioSel);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
         });
     }
