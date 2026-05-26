@@ -49,21 +49,6 @@ public class Controller {
         return stud;
     }
 
-
-    // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioInterno
-    public void aggiungiTirocinoInterno(String nome, String durata, LocalDate data_inizio, int n_posti, int n_cfu, String dipartimento, String laboratorio, Docente docente) {
-        Tirocinio_Interno nuovoTirocinio = new Tirocinio_Interno(nome, durata, data_inizio, n_posti, n_cfu, dipartimento, laboratorio, docente);
-        docente.aggiungiTirocinio(nuovoTirocinio);
-        listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
-    }
-
-    // Il docente (richiamato tra gli argomenti del metodo) costruisce l'oggetto TirocinioEsterno
-    public void aggiungiTirocinioEsterno(String nome, String durata, LocalDate data_inizio, int n_posti, int n_cfu, String azienda, String referente_aziendale, Docente docente) {
-        Tirocinio_esterno nuovoTirocinio = new Tirocinio_esterno(nome, durata, data_inizio, n_posti, n_cfu, azienda, referente_aziendale, docente);
-        docente.aggiungiTirocinio(nuovoTirocinio);
-        listaTirocini.add(nuovoTirocinio); // da rivedere in fase DB
-    }
-
     //Il Docente visualizza le richieste a lui arrivate
     public List<Richiesta> visualizzaRichieste() {
         return Collections.unmodifiableList(this.listaRichieste);
@@ -149,8 +134,16 @@ public class Controller {
         }
     }
 
-    public void aggiungiArgomenti(Tirocinio t, String s) {
-        t.aggiungiArgomento(s);
+    public void aggiungiArgomenti(String s, Docente d) {
+        d.aggiungiArgomento(s);
+    }
+
+    public void rimuoviArgomento (String s, Docente d) {
+        d.rimuoviArgomento(s);
+    }
+
+    public List<String> getListaArgomenti(Docente d) {
+       return d.getListaArgomenti();
     }
 
     public List<Tirocinio> visualizzaTirocini() {

@@ -7,7 +7,7 @@ public abstract class Tirocinio {
     private String nome;
     private String durata; //numero di ore
     private LocalDate data_inizio;
-    private List<String> argomenti;
+    private String argomento;
     private int n_posti;
     private int n_cfu;
     private Docente docente;
@@ -18,7 +18,7 @@ public abstract class Tirocinio {
         this.nome = nome;
         this.durata = durata;
         this.data_inizio = data_inizio;
-        this.argomenti = new ArrayList<String>();
+        this.argomento = new String();
         this.n_posti = n_posti;
         this.n_cfu = n_cfu;
         this.docente = docente;
@@ -40,8 +40,8 @@ public abstract class Tirocinio {
         return data_inizio;
     }
 
-    public List<String> getArgomenti() {
-        return argomenti;
+    public String getArgomento() {
+        return argomento;
     }
 
     public int getN_posti() {
@@ -87,10 +87,7 @@ public abstract class Tirocinio {
     }
 
 
-    public void aggiungiArgomento(String a){this.argomenti.add(a);}
-    public void rimuoviArgomento(String a){
-        this.argomenti.remove(a);
-    }
+    public void setArgomento(String a){this.argomento = a;}
     public void aggiungiRichiesta(Richiesta r){
         this.richieste.add(r);
     }

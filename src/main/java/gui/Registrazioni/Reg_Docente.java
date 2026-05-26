@@ -1,7 +1,7 @@
 package gui.Registrazioni;
 
 import controller.Controller;
-import gui.Home;;
+import gui.Home;
 import javax.swing.*;
 
 public class Reg_Docente extends JFrame {

@@ -1,7 +1,6 @@
 package gui.Docente;
 
 import controller.Controller;
-import gui.Studente.Int_Studente;
 
 import javax.swing.*;
 
@@ -9,7 +8,7 @@ public class Int_Docente extends JFrame {
     private Controller controller;
     private JPanel FinestraDocente;
     private JTextPane interfacciaDocenteTextPane;
-    private JButton creaTirocinioButton;
+    private JButton aggiungiArgomButton;
     private JButton visualizzaRichiesteTButton;
     private JButton logoutButton;
     private JButton VisualizzaTesiButton;
@@ -26,25 +25,18 @@ public class Int_Docente extends JFrame {
         this.setLocationRelativeTo(null);
 
         //Crea oggetto Tirocinio (diviso in Interno e Esterno, con Jbutton)
-        creaTirocinioButton.addActionListener(e ->{
-            if (internoRadioButton.isSelected()) {
-                //crea l'interfaccia per la creazione del Tirocinio interno.
-                Int_Tirocinio_Interno interfaccia_tir = new Int_Tirocinio_Interno(this.controller);
-                interfaccia_tir.setVisible(true);
-                this.dispose();
-            } else if (esternoRadioButton.isSelected()) {
-                //crea l'interfaccia per la creazione del Tirocinio esterno
-                Int_Tirocinio_Esterno interfaccia_tir = new Int_Tirocinio_Esterno(this.controller);
-                interfaccia_tir.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Seleziona un tipo di tirocinio.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}
+        aggiungiArgomButton.addActionListener(e ->{
+           Aggiunta_Argomenti finestraAggArg = new Aggiunta_Argomenti(controller);
+           finestraAggArg.setVisible(true);
+           this.dispose();
         });
 
 
         // Visualizza le richieste di Tirocinio arrivate e le valuta
         visualizzaRichiesteTButton.addActionListener(e -> {
-
+            Visualizza_R_Tir finestraRTir = new Visualizza_R_Tir(controller);
+            finestraRTir.setVisible(true);
+            this.dispose();
         });
 
 

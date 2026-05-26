@@ -1,5 +1,7 @@
 package model;
 
+import org.graalvm.compiler.printer.CanonicalStringGraphPrinter;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -9,6 +11,7 @@ public class Docente extends Utente {
     private List<Tirocinio> listaTirocini;
     private List<Seduta> sedutePubblicate;
     private List<Tesi> tesiDaValutare;
+    private List<String> listaArgomenti;
 
     public Docente(String nome, String cognome, String email, String password, String username) {
         super(nome, cognome, email, password, username);
@@ -64,5 +67,17 @@ public class Docente extends Utente {
       if(is_coordinatore)  {
           this.listaTirocini.remove(s);
       }
+    }
+
+    public void aggiungiArgomento(String a) {
+        listaArgomenti.add(a);
+    }
+
+    public void rimuoviArgomento(String a) {
+        listaArgomenti.remove(a);
+    }
+
+    public List<String> getListaArgomenti() {
+        return listaArgomenti;
     }
 }
