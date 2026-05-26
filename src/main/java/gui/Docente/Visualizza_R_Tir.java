@@ -68,7 +68,14 @@ public class Visualizza_R_Tir extends JFrame {
                 JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
         });
+
+
+        ReturnButton.addActionListener(e -> {
+            Int_Docente interfacciaDoc = new Int_Docente(controller);
+            interfacciaDoc.setVisible(true);
+            this.dispose();
+        });
+
     }
 }
