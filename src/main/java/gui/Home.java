@@ -9,7 +9,6 @@ import javax.swing.*;
 public class Home extends JFrame {
 	private Controller controller;
 	private JButton LoginButton;
-	private JPasswordField password;
 	private JTextField user;
 	private JPanel finestra;
 	private JButton RegisterButton;
@@ -17,7 +16,7 @@ public class Home extends JFrame {
 	private JRadioButton studenteRadioButton;
 	private JRadioButton docenteRadioButton;
 	private JTextPane HOMETextPane;
-
+	private JPasswordField passwordField1;
 	ButtonGroup gruppoScelte = new ButtonGroup();
 
 
@@ -36,7 +35,7 @@ public class Home extends JFrame {
 		//se viene premuto il JRadioButton Studente, viene creata l'interaccia studente, altrimenti crea l'interfaccia Docente
 		LoginButton.addActionListener(e -> {
 			String userInserito = this.user.getText();
-			String PasswordInserita = String.valueOf(this.password.getPassword());
+			String PasswordInserita = String.valueOf(this.passwordField1.getPassword());
 			try {
 				if (studenteRadioButton.isSelected()) {
 					//crea l'interfaccia Studente, gli passa sia controller che oggetto Studente desiderato
