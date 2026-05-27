@@ -2,7 +2,6 @@ package gui.Docente;
 
 import controller.Controller;
 import gui.Home;
-import gui.Registrazioni.Reg_Studente;
 
 import javax.swing.*;
 
@@ -15,8 +14,11 @@ public class Int_Docente extends JFrame {
     private JButton logoutButton;
     private JButton VisualizzaTesiButton;
     private JButton VisualizzaTirInCorsoButton;
+    private JButton impostaSedutaDiLaureaButton;
+    private JPanel Coordinatore;
     private JRadioButton internoRadioButton;
     private JRadioButton esternoRadioButton;
+
 
     public Int_Docente(Controller controller) {
         this.controller = controller;
@@ -25,6 +27,18 @@ public class Int_Docente extends JFrame {
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.Coordinatore.setVisible(false);
+        //if(controller.getdocLoggato().getisCoordinatore())
+        //this.Coordinatore.setVisible(true);
+
+
+        impostaSedutaDiLaureaButton.addActionListener(e -> {
+             = new Aggiunta_Argomenti(controller);
+            finestraAggArg.setVisible(true);
+            this.dispose();
+        });
+
+
 
         //Crea oggetto Tirocinio (diviso in Interno e Esterno, con Jbutton)
         aggiungiArgomButton.addActionListener(e ->{
