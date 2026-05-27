@@ -52,7 +52,7 @@ public class Int_CaricaTesi extends JFrame{
 
 
         logoutButton.addActionListener(e -> {
-            Home NewHome = new Home();
+            Home NewHome = new Home(controller);
             NewHome.setVisible(true);
             this.dispose();
         });

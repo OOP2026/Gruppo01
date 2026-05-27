@@ -10,63 +10,63 @@ PROGETTO IL DIALOGO TRA IL CONTROLLER E IL DATABASE. IN FASI PIù AVANZATE DEL P
 INSIEME DI LISTE CON L'EFFETTIVA RELAZIONE COL DATABASE. LO STESSO VALE PER GLI ADD PRESENTI
 NEI METODI DEL CONTROLLER PER LA CREAZIONE DEI VARI OGGETTI.
  */
+
 public class Controller {
-    private List<Docente> listaDocenti = new ArrayList<>();
-    private List<Richiesta> listaRichieste = new ArrayList<>();
-    private List<Seduta> listaSedute = new ArrayList<>();
-    private List<Studente> listaStudenti = new ArrayList<>();
-    private List<Tesi> listaTesi = new ArrayList<>();
-    private List<Tirocinio> listaTirocini = new ArrayList<>();
-    private List<Tirocinio_esterno> listaTirocini_esterni = new ArrayList<>();
-    private List<Tirocinio_Interno> listaTirocini_interni = new ArrayList<>();
-    private List<Utente> listaUtenti = new ArrayList<>();
+
+    private final List<Docente> listaDocenti = new ArrayList<>();
+    private final List<Richiesta> listaRichieste = new ArrayList<>();
+    private final List<Seduta> listaSedute = new ArrayList<>();
+    private final List<Studente> listaStudenti = new ArrayList<>();
+    private final List<Tesi> listaTesi = new ArrayList<>();
+    private final List<Tirocinio> listaTirocini = new ArrayList<>();
+    private final List<Tirocinio_esterno> listaTirocini_esterni = new ArrayList<>();
+    private final List<Tirocinio_Interno> listaTirocini_interni = new ArrayList<>();
+    private final List<Utente> listaUtenti = new ArrayList<>();
     private Docente DocenteLoggato = null;
     private Studente StudenteLoggato = null;
 
+    public Controller() {}
 
-    public Controller() {
-    }
-
-    public String getStatoStudLoggato() {
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
-            return "Approvata";
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
-            return "Rifiutata";
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
-            return "In_attesa";
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.NULL)
-            return "Nessuna Richiesta Effettuata";
-        return "";
-    }
-    public String getStatoTesi() {
-        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
-            return "Approvata";
-        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
-            return "Rifiutata";
-        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa)
-            return "In_attesa";
-        return "";
-    }
-    // Restituisce l'oggetto Studente sulla base della sua Matricola
-    public Studente getStudentedDaMatricola(String Matricola) {
-        for (Studente s : listaStudenti) {
-            if (s.getMatricola().equals(Matricola)) {return s;}
+    //region METODI BASE (HOME E LOGIN)
+    public void effettuaLoginStudente(String user, String pwd) {
+        for (Studente stud : listaStudenti) {
+            if (stud.login(user, pwd)) {
+                StudenteLoggato = stud;
+            }
         }
-        throw new IllegalArgumentException("Studente non presente nel sistema");
+        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
 
+    public void effettuaLoginDocente(String user, String pwd) {
+        for (Docente d : listaDocenti) {
+            if (d.login(user, pwd)) {
+                DocenteLoggato = d;
+            }
+        }
+        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
+    }
 
+    public Docente getdocLoggato() {
+        return DocenteLoggato;
+    }
 
-    // Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
-    public Tirocinio getTirocinioDaNome(String Nome) {
+    public Studente getstudLoggato() {
+        return StudenteLoggato;
+    }
+
+    public List<Tirocinio> visualizzaTirociniInCorso() {
+        ArrayList<Tirocinio> listaInCorso = new ArrayList<>();
         for (Tirocinio t : listaTirocini) {
-            if (t.getNome().equals(Nome)) {return t;}
-
+            if (t.getStato() == StatoTirocinio.In_corso) {
+                listaInCorso.add(t);
+            }
         }
-        throw new IllegalArgumentException("Tirocinio non presente nel sistema");
+        return listaInCorso;
     }
+    //endregion
 
 
+    //region METODI DEL DOCENTE LOGGATO
     //trova i tirocini aperti del docente Loggato
     public ArrayList<String> getNomiTirociniApertiDelDocente() {
         ArrayList<String> nomiTirociniAperti = new ArrayList<>();
@@ -75,24 +75,13 @@ public class Controller {
                 nomiTirociniAperti.add(t.getNome());
             }
         }
-
         return nomiTirociniAperti;
     }
 
-    //Il docente valuta le richieste di Tirocinio a lui arrivate
-
-    public void verificaPostiDiposibili (Tirocinio t){
-        if (t.getN_posti() == 0) {
-            t.setStato(StatoTirocinio.Pieno);
-        }
-    }
     //Approva la Richiesta di Tirocinio
-
-
     public void approvaRichiestaTirocinio(String Matricola, String Nome) {
         //verifichiamo che
         verificaPostiDiposibili(getTirocinioDaNome(Nome));
-
         for (Richiesta r : listaRichieste) {
             if (r.getRichiedente().getMatricola().equals(Matricola) && r.getTirocinio().getNome().equals(Nome) ) {
                 r.setStato(Stato_richiesta.Approvata);
@@ -110,27 +99,16 @@ public class Controller {
         }
     }
 
-
-    public Docente getdocLoggato() {
-        return DocenteLoggato;
+    public void aggiungiArgomenti(String s) {
+        DocenteLoggato.aggiungiArgomento(s);
     }
 
-    public Studente getstudLoggato() {
-        return StudenteLoggato;
+    public void rimuoviArgomento (String s) {
+        DocenteLoggato.rimuoviArgomento(s);
     }
 
-    //Richiamato dalla GUI per la registrazione del Docente
-    public Docente creaDocente(String nome, String cognome, String email, String password, String username) {
-        Docente doc = new Docente(nome, cognome, email, password, username);
-        listaDocenti.add(doc); // da rivedere in fase DB
-        return doc;
-    }
-
-    //Richiamato dalla gui per la registrazione dello Studente
-    public Studente creaStudente(String nome, String cognome, String email, String password, String username, String matricola) {
-        Studente stud = new Studente(nome, cognome, email, password, username, matricola);
-        listaStudenti.add(stud); // da rivedere in fase DB
-        return stud;
+    public List<String> getListaArgomenti() {
+        return DocenteLoggato.getListaArgomenti();
     }
 
     public List<String> getNomiTirociniDelDocente() {
@@ -152,22 +130,6 @@ public class Controller {
         return listaStudenti;
     }
 
-
-
-
-
-    //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
-    public Seduta inserisciSeduta(Docente coord, LocalDateTime data_ora, String sede, int numero_posti) {
-        if (coord.getisCoordinatore()) {
-            Seduta sedutaCreata = new Seduta(data_ora, sede, coord);
-            coord.aggiungiSeduta(sedutaCreata);
-            listaSedute.add(sedutaCreata);
-            return sedutaCreata;
-            } else {
-            throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
-        }
-    }
-
     //Il docente valuta la Tesi
     public void valutaTesi(Tesi t, Stato_Tesi esito) {
         if (t.getStato() != Stato_Tesi.In_attesa) {
@@ -179,43 +141,53 @@ public class Controller {
         t.setStato(esito);
         System.out.println("Richiesta rifiutata correttamente");
     }
+    //endregion
 
-    public List<Tirocinio> visualizzaTirociniInCorso() {
-        ArrayList<Tirocinio> listaInCorso = new ArrayList<>();
-        for (Tirocinio t : listaTirocini) {
-            if (t.getStato() == StatoTirocinio.In_corso) {
-                listaInCorso.add(t);
+
+    //region METODI REGISTRAZIONE
+    //Richiamato dalla GUI per la registrazione del Docente
+    public void registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
+
+        for (Utente u : listaUtenti) {
+            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
+                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
             }
         }
-        return listaInCorso;
+
+        Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
+        listaStudenti.add(nuovoStudente);
     }
 
-    public void impostaSeduta(Seduta s, Docente coord) {
-        if (coord.getisCoordinatore()) {
-            // visualizzazione studenti (se la tesi è stata approvata)
-            List<Studente> listaStudenti = s.getStudentiPrenotati();
-            //imposta docenti
-            for (Studente stud : listaStudenti) {
-                s.aggiungiInCommissione(stud.getTesi().getValutatore());
+    public void registraDocente(String nome, String cognome, String email, String username, String password) {
+
+        for (Utente u : listaUtenti) {
+            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
+                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
             }
-            //crea commissione
+        }
+
+        Docente nuovoDocente = new Docente(nome, cognome, email, username, password);
+        listaDocenti.add(nuovoDocente);
+    }
+    //endregion
+
+
+    //region METODI COORDINATORE
+    //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
+    public Seduta inserisciSeduta(LocalDateTime data_ora, String sede) {
+        if (DocenteLoggato.getisCoordinatore()) {
+            Seduta sedutaCreata = new Seduta(data_ora, sede, DocenteLoggato);
+            DocenteLoggato.aggiungiSeduta(sedutaCreata);
+            listaSedute.add(sedutaCreata);
+            return sedutaCreata;
         } else {
-            throw new IllegalStateException("ERRORE! Operazione permessa solo al coordinatore del corso.");
+            throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
         }
     }
+    //endregion
 
-    public void aggiungiArgomenti(String s, Docente d) {
-        d.aggiungiArgomento(s);
-    }
 
-    public void rimuoviArgomento (String s, Docente d) {
-        d.rimuoviArgomento(s);
-    }
-
-    public List<String> getListaArgomenti(Docente d) {
-       return d.getListaArgomenti();
-    }
-
+    //region METODI STUDENTE
     public List<Tirocinio> visualizzaTirocini() {
         List<Tirocinio> listaTirociniDisponibili = new ArrayList<>();
         for (Tirocinio t : listaTirocini) {
@@ -225,7 +197,6 @@ public class Controller {
         }
         return listaTirociniDisponibili;
     }
-
 
     public void compilaRichiesta(Tirocinio tirScelto, Studente stud) {
         if ((stud.getRichiesta() != null) && ((stud.getRichiesta().getStato() == Stato_richiesta.Approvata) || (stud.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
@@ -247,11 +218,62 @@ public class Controller {
         seduta.AggiungiPrenotazione(tesiDaCaricare);
     }
 
-    public Stato_richiesta verificaStatoRichiesta(Studente s) {
-        if (s.getRichiesta() == null) {
-            throw new IllegalStateException("ERRORE! Nessuna richiesta attiva per questo studente.");
+    //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
+    public String getStatoStudLoggato() {
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
+            return "Approvata";
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
+            return "Rifiutata";
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
+            return "In_attesa";
+        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.NULL)
+            return "Nessuna Richiesta Effettuata";
+        return "";
+    }
+
+    //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
+    public String getStatoTesi() {
+        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
+            return "Approvata";
+        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
+            return "Rifiutata";
+        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa)
+            return "In_attesa";
+        return "";
+    }
+    //endregion
+
+
+    //region GETTER STRANI E UTILITA
+    // Restituisce l'oggetto Studente sulla base della sua Matricola
+    public Studente getStudentedDaMatricola(String Matricola) {
+        for (Studente s : listaStudenti) {
+            if (s.getMatricola().equals(Matricola)) {return s;}
         }
-        return s.getRichiesta().getStato();
+        throw new IllegalArgumentException("Studente non presente nel sistema");
+    }
+
+    // Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
+    public Tirocinio getTirocinioDaNome(String Nome) {
+        for (Tirocinio t : listaTirocini) {
+            if (t.getNome().equals(Nome)) {return t;}
+
+        }
+        throw new IllegalArgumentException("Tirocinio non presente nel sistema");
+    }
+
+    public void verificaPostiDiposibili (Tirocinio t){
+        if (t.getN_posti() == 0) {
+            t.setStato(StatoTirocinio.Pieno);
+        }
+    }
+
+    public String getMatricolaStudente(Studente s) {
+        return s.getMatricola();
+    }
+
+    public String getEmailDocente(Docente d){
+        return d.getEmail();
     }
 
     public Stato_Tesi verificaStatoTesi(Studente s) {
@@ -260,60 +282,37 @@ public class Controller {
         }
         return s.getTesi().getStato();
     }
+    //endregion
 
-    public boolean effettuaLoginStudente(String user, String pwd) {
-        for (Studente stud : listaStudenti) {
-            if (stud.login(user, pwd)) {
-                StudenteLoggato = stud;
-                return true;
-            }
-        }
-        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
+
+    //region TEST
+    public void caricaDatiDiTest() {
+
+        // 1. Crea un paio di Docenti fittizi
+        // (NOTA: Adatta i parametri tra parentesi al costruttore reale della tua classe Docente)
+        Docente prof1 = new Docente("Mario", "Rossi", "m.rossi@unina.it", "docente1", "password123");
+        prof1.getListaArgomenti().add("Sistemi Operativi");
+        prof1.getListaArgomenti().add("Basi di Dati");
+
+        Docente coordinatore = new Docente("Anna", "Bianchi", "a.bianchi@unina.it", "admin", "admin");
+
+        // 2. Crea un paio di Studenti fittizi
+        // (NOTA: Adatta i parametri al costruttore reale di Studente)
+        Studente stud1 = new Studente("Luca", "Verdi", "l.verdi@studenti.unina.it", "N46001234", "studente1", "password123");
+
+        // 3. Inseriscili nelle liste del Controller (presumendo che si chiamino così)
+        this.listaDocenti.add(prof1);
+        this.listaDocenti.add(coordinatore);
+        this.listaStudenti.add(stud1);
+
+        // Opzionale: Puoi anche creare già una richiesta approvata o una seduta per testare
+        // subito la schermata del coordinatore senza fare tutta la trafila.
+    /*
+    Seduta sedutaTest = new Seduta("12/07/2026", "09:00", "Aula Magna");
+    this.listaSedute.add(sedutaTest);
+    */
+
+        System.out.println("SISTEMA: Dati di test caricati con successo.");
     }
-
-    public String getMatricolaStudente(Studente s) {
-        return s.getMatricola();
-    }
-
-    public boolean effettuaLoginDocente(String user, String pwd) {
-        for (Docente d : listaDocenti) {
-            if (d.login(user, pwd)) {
-                DocenteLoggato = d;
-                return true;
-            }
-        }
-        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
-    }
-    public String getEmailDocente(Docente d){
-        return d.getEmail();
-    }
-
-
-    public void registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
-
-        for (Utente u : listaUtenti) {
-            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
-                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
-            }
-        }
-
-        Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
-        listaStudenti.add(nuovoStudente);
-    }
-    //si ipotizza che la verifica dell'esistenza effettiva degli utenti nell'Università sia di docente che di studente siano fatte in un codice a parte, esterno al progetto.
-
-    public void registraDocente(String nome, String cognome, String email, String username, String password) {
-
-        for (Utente u : listaUtenti) {
-            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
-                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
-            }
-        }
-
-        Docente nuovoDocente = new Docente(nome, cognome, email, username, password);
-        listaDocenti.add(nuovoDocente);
-    }
-
+    //endregion
 }
-
-

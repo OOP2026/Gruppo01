@@ -37,7 +37,7 @@ public class Aggiunta_Argomenti extends JFrame {
                 JOptionPane.showMessageDialog(this, "Argomento già inserito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            controller.aggiungiArgomenti(Argomento, controller.getdocLoggato());
+            controller.aggiungiArgomenti(Argomento);
             JOptionPane.showMessageDialog(this, "Argomento aggiunto con successo!");
         });
 

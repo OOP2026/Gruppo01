@@ -59,7 +59,7 @@ public class Int_Docente extends JFrame {
         });
 
         logoutButton.addActionListener(e -> {
-            Home NewHome = new Home();
+            Home NewHome = new Home(controller);
             NewHome.setVisible(true);
             this.dispose();
         });

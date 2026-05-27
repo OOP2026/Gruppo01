@@ -50,7 +50,7 @@ public class Reg_Docente extends JFrame {
                 controller.registraDocente(nome, cognome, email, username, pwd);
                 JOptionPane.showMessageDialog(this, "Registrazione completata con successo! Ora puoi accedere.");
                 this.dispose();
-                Home finestraLogin = new Home();
+                Home finestraLogin = new Home(controller);
                 finestraLogin.setVisible(true);
                 // Cattura gli errori lanciati dal Controller (es. "Username già in uso")
             }catch (IllegalArgumentException regError) {

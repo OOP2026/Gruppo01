@@ -22,13 +22,12 @@ public class Home extends JFrame {
 
 
 
-	public Home() {
-		this.controller = new Controller();
+	public Home(Controller controller) {
+		this.controller = controller; // Assegna quello passato dall'esterno
 		this.setContentPane(finestra);
 		this.setTitle("Portale Login");
 		this.setSize(1024, 768);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
 		gruppoScelte.add(studenteRadioButton);
 		gruppoScelte.add(docenteRadioButton);
 
@@ -37,21 +36,30 @@ public class Home extends JFrame {
 		LoginButton.addActionListener(e -> {
 			String userInserito = this.user.getText();
 			String PasswordInserita = String.valueOf(this.passwordField1.getPassword());
+
 			try {
 				if (studenteRadioButton.isSelected()) {
-					//crea l'interfaccia Studente, gli passa sia controller che oggetto Studente desiderato
+					// Tenta il login come Studente, e nel caso apre l'interfaccia corrispondente
+					controller.effettuaLoginStudente(userInserito, PasswordInserita);
 					Int_Studente interfacciaStud = new Int_Studente(this.controller);
 					interfacciaStud.setVisible(true);
 					this.dispose();
+
 				} else if (docenteRadioButton.isSelected()) {
-					//crea l'interfaccia Docente, gli passa sia controller che oggetto Docente desiderato
-					Int_Docente interfacciaStud = new Int_Docente(this.controller);
-					interfacciaStud.setVisible(true);
+					// Tenta il login come Docente, e nel caso apre l'interfaccia corrispondente
+					controller.effettuaLoginDocente(userInserito, PasswordInserita);
+					Int_Docente interfacciaDoc = new Int_Docente(this.controller);
+					interfacciaDoc.setVisible(true);
 					this.dispose();
+
 				} else {
-					JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "Attenzione", JOptionPane.WARNING_MESSAGE);				}
-			} catch (IllegalArgumentException loginErrato)  {
-				JOptionPane.showMessageDialog(this, loginErrato.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
+					// Nessun ruolo selezionato
+					JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+				}
+
+			} catch (IllegalArgumentException ex) {
+				// Se uno dei due login lancia l'errore di login errato, viene mandato a schermo
+				JOptionPane.showMessageDialog(this, ex.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 

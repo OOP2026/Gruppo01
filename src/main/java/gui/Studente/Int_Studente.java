@@ -24,7 +24,7 @@ public class Int_Studente extends JFrame {
         this.setLocationRelativeTo(null);
 
         logoutButton.addActionListener(e -> {
-            Home NewHome = new Home();
+            Home NewHome = new Home(controller);
             NewHome.setVisible(true);
             this.dispose();
         });
