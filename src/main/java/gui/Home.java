@@ -74,12 +74,7 @@ public class Home extends JFrame {
 
 
 
-	public static void main(String[] args) {
-		{
-			Home interfaccia = new Home();
-			interfaccia.setVisible(true);
-		}
-	};
+
 
 
 }
