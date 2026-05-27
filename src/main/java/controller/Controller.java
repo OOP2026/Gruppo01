@@ -47,18 +47,17 @@ public class Controller {
             return "In_attesa";
         return "";
     }
-    //Restituisce l'oggetto Studente sulla base della sua Matricola
+    // Restituisce l'oggetto Studente sulla base della sua Matricola
     public Studente getStudentedDaMatricola(String Matricola) {
         for (Studente s : listaStudenti) {
             if (s.getMatricola().equals(Matricola)) {return s;}
-
         }
         throw new IllegalArgumentException("Studente non presente nel sistema");
     }
 
 
 
-    //Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
+    // Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
     public Tirocinio getTirocinioDaNome(String Nome) {
         for (Tirocinio t : listaTirocini) {
             if (t.getNome().equals(Nome)) {return t;}
@@ -160,7 +159,7 @@ public class Controller {
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
     public Seduta inserisciSeduta(Docente coord, LocalDateTime data_ora, String sede, int numero_posti) {
         if (coord.getisCoordinatore()) {
-            Seduta sedutaCreata = new Seduta(data_ora, sede, numero_posti, coord);
+            Seduta sedutaCreata = new Seduta(data_ora, sede, coord);
             coord.aggiungiSeduta(sedutaCreata);
             listaSedute.add(sedutaCreata);
             return sedutaCreata;
@@ -178,13 +177,7 @@ public class Controller {
             throw new IllegalArgumentException("ERRORE! Scegliere tra Approvata e Rifiutata.");
         }
         t.setStato(esito);
-        if (esito == Stato_Tesi.Approvata) {
-            Seduta s = t.getSeduta_richiesta();
-            s.decrementaPosti();
-        } else {
-            System.out.println("Richiesta rifiutata correttamente");
-
-        }
+        System.out.println("Richiesta rifiutata correttamente");
     }
 
     public List<Tirocinio> visualizzaTirociniInCorso() {
@@ -251,6 +244,7 @@ public class Controller {
         stud.setTesi(tesiDaCaricare);
         relatore.aggiungiTesi(tesiDaCaricare);
         listaTesi.add(tesiDaCaricare);
+        seduta.AggiungiPrenotazione(tesiDaCaricare);
     }
 
     public Stato_richiesta verificaStatoRichiesta(Studente s) {

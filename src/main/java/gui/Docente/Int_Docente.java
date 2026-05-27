@@ -14,8 +14,10 @@ public class Int_Docente extends JFrame {
     private JButton logoutButton;
     private JButton VisualizzaTesiButton;
     private JButton VisualizzaTirInCorsoButton;
-    private JButton impostaSedutaDiLaureaButton;
+    private JButton CreaSedutaButton;
     private JPanel Coordinatore;
+    private JButton GestisciCommissioniButton;
+    private JPanel Commissioni;
     private JRadioButton internoRadioButton;
     private JRadioButton esternoRadioButton;
 
@@ -28,13 +30,22 @@ public class Int_Docente extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
-        //if(controller.getdocLoggato().getisCoordinatore())
+        this.Commissioni.setVisible(false);
+
+        //if(controller.getdocLoggato().getisCoordinatore()) {
         //this.Coordinatore.setVisible(true);
+        //this.Commissioni.setVisible(true);
+        //}
 
+        CreaSedutaButton.addActionListener(e -> {
+            CreaSeduta impostaSeduta  = new CreaSeduta(controller);
+            impostaSeduta.setVisible(true);
+            this.dispose();
+        });
 
-        impostaSedutaDiLaureaButton.addActionListener(e -> {
-             = new Aggiunta_Argomenti(controller);
-            finestraAggArg.setVisible(true);
+        GestisciCommissioniButton.addActionListener(e -> {
+            Gestisci_Commissioni gestisciCommissioni  = new Gestisci_Commissioni(controller);
+            gestisciCommissioni.setVisible(true);
             this.dispose();
         });
 

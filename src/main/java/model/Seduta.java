@@ -5,15 +5,13 @@ import java.time.LocalDateTime;
 public class Seduta {
     private LocalDateTime data_ora;
     private String sede;
-    private int numero_posti;
     private List<Tesi> prenotazioni;
     private Docente coordinatore;
     private HashSet<Docente> commissione;
 
-    public Seduta(LocalDateTime data_ora, String sede,int numero_posti, Docente coordinatore) {
+    public Seduta(LocalDateTime data_ora, String sede,Docente coordinatore) {
         this.data_ora = data_ora;
         this.sede = sede;
-        this.numero_posti = numero_posti;
         this.prenotazioni = new ArrayList<Tesi>();
         this.coordinatore = coordinatore;
         this.commissione  = new HashSet<Docente>();
@@ -35,9 +33,6 @@ public class Seduta {
         return sede;
     }
 
-    public int getNumero_posti() {
-        return numero_posti;
-    }
 
     public List<Tesi> getPrenotazioni() {
         return prenotazioni;
@@ -55,9 +50,6 @@ public class Seduta {
         this.coordinatore = coordinatore;
     }
 
-    public void setNumero_posti(int numero_posti) {
-        this.numero_posti = numero_posti;
-    }
 
     public void AggiungiPrenotazione(Tesi t){
         this.prenotazioni.add(t);
@@ -66,9 +58,6 @@ public class Seduta {
         this.prenotazioni.remove(t);
     }
 
-    public void decrementaPosti() {
-        numero_posti = numero_posti--;
-    }
 
     public List<Studente> getStudentiPrenotati() {
         ArrayList<Studente> listaPrenotati = new ArrayList<>();
