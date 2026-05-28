@@ -9,7 +9,7 @@ public class Aggiunta_Argomenti extends JFrame {
     private JTextField ArgTextField;
     private JButton AggiungiButton;
     private JButton RimuoviButton;
-    private JComboBox ArgComboBox;
+    private JComboBox<String> ArgComboBox;
     private JButton ReturnButton;
     private JPanel finestraArgomenti;
 
@@ -38,6 +38,7 @@ public class Aggiunta_Argomenti extends JFrame {
                 return;
             }
             controller.aggiungiArgomenti(Argomento);
+            ArgComboBox.addItem(Argomento);
             JOptionPane.showMessageDialog(this, "Argomento aggiunto con successo!");
         });
 
