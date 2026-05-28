@@ -51,9 +51,9 @@ public class Int_Studente extends JFrame {
 
 
 
-       //   - Verifica_Stato_Richiesta
+       //  - Verifica_Stato_Richiesta
 
-        //StatoRichiestaTirocinio.setText("Stato Richiesta Tirocinio : " + controller.getStatoStudLoggato());
+        StatoRichiestaTirocinio.setText("Stato Richiesta Tirocinio : " + controller.getStatoStudLoggato());
         //statoTesiTextField.setText("Stato Tesi : " + controller.getStatoTesi());
 
 

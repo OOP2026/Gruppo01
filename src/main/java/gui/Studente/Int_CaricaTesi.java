@@ -12,6 +12,8 @@ public class Int_CaricaTesi extends JFrame{
     private JButton ConfermaButton;
     private JButton logoutButton;
     private JButton SfogliaButton;
+    private JButton ReturnButton;
+    private JTextField SLComboBox;
 
     public Int_CaricaTesi(Controller controller) {
         this.controller = controller;
@@ -23,7 +25,7 @@ public class Int_CaricaTesi extends JFrame{
 
 
 
-      /*  ConfermaButton.addActionListener(e -> {
+      ConfermaButton.addActionListener(e -> {
             String path = pathTextField.getText();
 
             // Controllo di sicurezza
@@ -34,17 +36,17 @@ public class Int_CaricaTesi extends JFrame{
 
             try {
                 // Chiama il metodo del controller passandogli il path (e lo studente loggato se necessario)
-                controller.(path);
+
 
                 JOptionPane.showMessageDialog(this, "Tesi caricata con successo!");
 
                 // Opzionale: pulizia o chiusura finestra dopo il caricamento
-                percorsoTextField.setText("");
+                pathTextField.setText("");
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
             }
-        });*/
+        });
 
 
 
@@ -74,6 +76,13 @@ public class Int_CaricaTesi extends JFrame{
             }
             // Se preme "Annulla", non succede niente e il text field rimane com'è
         });
+
+        ReturnButton.addActionListener(e -> {
+            Int_Studente interfacciaStud = new Int_Studente(controller);
+            interfacciaStud.setVisible(true);
+            this.dispose();
+        });
+
 
 
 

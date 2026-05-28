@@ -25,6 +25,7 @@
               </grid>
             </constraints>
             <properties>
+              <editable value="false"/>
               <text value="&#10;    Interfaccia Docente&#10;"/>
             </properties>
           </component>

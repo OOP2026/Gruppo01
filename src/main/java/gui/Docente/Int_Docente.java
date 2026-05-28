@@ -32,10 +32,10 @@ public class Int_Docente extends JFrame {
         this.Coordinatore.setVisible(false);
         this.Commissioni.setVisible(false);
 
-        //if(controller.getdocLoggato().getisCoordinatore()) {
-        //this.Coordinatore.setVisible(true);
-        //this.Commissioni.setVisible(true);
-        //}
+        if(controller.getdocLoggato().getisCoordinatore()) {
+        this.Coordinatore.setVisible(true);
+        this.Commissioni.setVisible(true);
+        }
 
         CreaSedutaButton.addActionListener(e -> {
             CreaSeduta impostaSeduta  = new CreaSeduta(controller);

@@ -28,6 +28,7 @@
             </constraints>
             <properties>
               <background color="-12314343"/>
+              <editable value="false"/>
               <text value="REGISTRAZIONE DOCENTE"/>
             </properties>
           </component>

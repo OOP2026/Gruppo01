@@ -11,7 +11,7 @@ public class Docente extends Utente {
     private List<Tirocinio> listaTirocini;
     private List<Seduta> sedutePubblicate;
     private List<Tesi> tesiDaValutare;
-    private List<String> listaArgomenti;
+    private List<String> listaArgomenti = new ArrayList<>();
 
     public Docente(String nome, String cognome, String email, String password, String username) {
         super(nome, cognome, email, password, username);

@@ -32,6 +32,7 @@ public class Controller {
         for (Studente stud : listaStudenti) {
             if (stud.login(user, pwd)) {
                 StudenteLoggato = stud;
+                return;
             }
         }
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
@@ -41,6 +42,7 @@ public class Controller {
         for (Docente d : listaDocenti) {
             if (d.login(user, pwd)) {
                 DocenteLoggato = d;
+                return;
             }
         }
         throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
@@ -188,31 +190,31 @@ public class Controller {
 
 
     //region METODI STUDENTE
-    public List<Tirocinio> visualizzaTirocini() {
-        List<Tirocinio> listaTirociniDisponibili = new ArrayList<>();
+    public List<String> visualizzaTirocini() {
+        List<String> listaTirociniDisponibili = new ArrayList<>();
         for (Tirocinio t : listaTirocini) {
             if (t.getStato() == StatoTirocinio.Aperto && t.getN_posti() > 0) {
-                listaTirociniDisponibili.add(t);
+                listaTirociniDisponibili.add(t.getNome());
             }
         }
         return listaTirociniDisponibili;
     }
 
-    public void compilaRichiesta(Tirocinio tirScelto, Studente stud) {
-        if ((stud.getRichiesta() != null) && ((stud.getRichiesta().getStato() == Stato_richiesta.Approvata) || (stud.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
+    public void compilaRichiesta(String tirScelto) {
+        if ((StudenteLoggato.getRichiesta() != null) && ((StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata) || (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
             throw new IllegalStateException("ERRORE! Hai già una richiesta attiva.");
         }
-        Richiesta r = new Richiesta(stud, tirScelto);
-        stud.setRichiesta(r);
+        Richiesta r = new Richiesta(StudenteLoggato, getTirocinioDaNome(tirScelto));
+        StudenteLoggato.setRichiesta(r);
         listaRichieste.add(r);
     }
 
-    public void caricaTesi(Studente stud, Seduta seduta, String titolo, String documento, Docente relatore) {
-        if ((stud.getTesi() != null) && ((stud.getTesi().getStato() == Stato_Tesi.Approvata) || (stud.getTesi().getStato() == Stato_Tesi.In_attesa))) {
+    public void caricaTesi(LocalDateTime seduta, String titolo, String documento, Docente relatore) {
+        if ((StudenteLoggato.getTesi() != null) && ((StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata) || (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa))) {
             throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
         }
-        Tesi tesiDaCaricare = new Tesi(titolo, documento, stud, seduta, relatore);
-        stud.setTesi(tesiDaCaricare);
+        Tesi tesiDaCaricare = new Tesi(titolo, documento, StudenteLoggato, seduta, relatore);
+        StudenteLoggato.setTesi(tesiDaCaricare);
         relatore.aggiungiTesi(tesiDaCaricare);
         listaTesi.add(tesiDaCaricare);
         seduta.AggiungiPrenotazione(tesiDaCaricare);
@@ -295,10 +297,24 @@ public class Controller {
         prof1.getListaArgomenti().add("Basi di Dati");
 
         Docente coordinatore = new Docente("Anna", "Bianchi", "a.bianchi@unina.it", "admin", "admin");
-
+        coordinatore.setIs_coordinatore(true);
         // 2. Crea un paio di Studenti fittizi
         // (NOTA: Adatta i parametri al costruttore reale di Studente)
-        Studente stud1 = new Studente("Luca", "Verdi", "l.verdi@studenti.unina.it", "N46001234", "studente1", "password123");
+        Studente stud1 = new Studente("Luca", "Verdi", "l.verdi@studenti.unina.it", "pas", "st", "N46001234");
+        LocalDate dataInizioTest = LocalDate.of(2026, 6, 10);
+
+
+
+        Tirocinio tirocinioTest = new Tirocinio_esterno("Sviluppo Backend in Java e SQL", "150 ore", dataInizioTest, 3, 6, "nike","maradona", prof1);
+
+// 3. Sovrascrivi lo stato iniziale "Aggiunto" per renderlo prenotabile
+        tirocinioTest.setStato(StatoTirocinio.Aperto);
+
+// 4. Salvalo nelle liste del Controller e del Docente relatore
+        this.listaTirocini.add(tirocinioTest);
+        prof1.getListaTirocini().add(tirocinioTest);
+        Richiesta r = new Richiesta(stud1, tirocinioTest);
+        stud1.setRichiesta(r);
 
         // 3. Inseriscili nelle liste del Controller (presumendo che si chiamino così)
         this.listaDocenti.add(prof1);
@@ -315,4 +331,5 @@ public class Controller {
         System.out.println("SISTEMA: Dati di test caricati con successo.");
     }
     //endregion
+
 }

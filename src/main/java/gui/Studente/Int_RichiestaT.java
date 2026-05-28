@@ -1,5 +1,6 @@
 package gui.Studente;
 import controller.Controller;
+import gui.Docente.Int_Docente;
 import gui.Home;
 
 import javax.swing.*;
@@ -9,8 +10,9 @@ public class Int_RichiestaT extends JFrame{
     private JPanel panel1;
     private JTextPane compilaRichiestaTextPane;
     private JComboBox LTDisponibiliComboBox;
-    private JButton RichiedioButton;
+    private JButton ReturnButton;
     private JButton logoutButton;
+    private JButton RichiediButton;
 
     public Int_RichiestaT(Controller controller) {
         this.controller = controller;
@@ -21,10 +23,32 @@ public class Int_RichiestaT extends JFrame{
         this.setLocationRelativeTo(null);
 
 
+
         logoutButton.addActionListener(e -> {
             Home NewHome = new Home(controller);
             NewHome.setVisible(true);
             this.dispose();
+        });
+
+        ReturnButton.addActionListener(e -> {
+            Int_Studente interfacciaStud = new Int_Studente(controller);
+            interfacciaStud.setVisible(true);
+            this.dispose();
+        });
+        LTDisponibiliComboBox.removeAllItems();
+        for(String nometirocinio : controller.visualizzaTirocini()){
+            LTDisponibiliComboBox.addItem(nometirocinio);
+        }
+
+        RichiediButton.addActionListener(e -> {
+            // Estrai il valore direttamente quando l'utente conferma l'azione
+            String tirocinioSelezionato = (String) LTDisponibiliComboBox.getSelectedItem();
+
+            if (tirocinioSelezionato != null) {
+                controller.compilaRichiesta(tirocinioSelezionato);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleziona un tirocinio prima di procedere.");
+            }
         });
 
 
