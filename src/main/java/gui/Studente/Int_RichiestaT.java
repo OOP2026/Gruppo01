@@ -6,7 +6,7 @@ import gui.Home;
 import javax.swing.*;
 
 public class Int_RichiestaT extends JFrame{
-    private Controller controller;
+    Controller controller;
     private JPanel panel1;
     private JTextPane compilaRichiestaTextPane;
     private JComboBox LTDisponibiliComboBox;
@@ -19,7 +19,7 @@ public class Int_RichiestaT extends JFrame{
         this.setContentPane(panel1);
         this.setTitle("Interfaccia Richiesta Tirocinio");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
 

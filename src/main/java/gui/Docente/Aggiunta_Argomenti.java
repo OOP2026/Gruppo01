@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 public class Aggiunta_Argomenti extends JFrame {
-    private Controller controller;
+    private transient Controller controller;
     private JTextField ArgTextField;
     private JButton AggiungiButton;
     private JButton RimuoviButton;
@@ -21,7 +21,7 @@ public class Aggiunta_Argomenti extends JFrame {
         this.setContentPane(finestraArgomenti);
         this.setTitle("Portale Login");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         ArgComboBox.removeAllItems();
@@ -32,11 +32,11 @@ public class Aggiunta_Argomenti extends JFrame {
         AggiungiButton.addActionListener(e -> {
             String Argomento = ArgTextField.getText();
             if (Argomento.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Inserire un argomento.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Inserire un argomento.", "Argomento Vuoto", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             if (controller.getdocLoggato().getListaArgomenti().contains(Argomento)) {
-                JOptionPane.showMessageDialog(this, "Argomento già inserito.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Argomento già inserito.", "Argomento già presente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             controller.aggiungiArgomenti(Argomento);
@@ -51,7 +51,7 @@ public class Aggiunta_Argomenti extends JFrame {
                 controller.rimuoviArgomento(argomento);
                 ArgComboBox.removeItem(argomento);
             } catch (NullPointerException exception) {
-                JOptionPane.showMessageDialog(this, "Errore: Nessun argomento selezionato da rimuovere.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Errore: Nessun argomento selezionato da rimuovere.", "Selezione vuota", JOptionPane.WARNING_MESSAGE);
             }
             JOptionPane.showMessageDialog(this, "Argomento rimosso con successo!");
         });

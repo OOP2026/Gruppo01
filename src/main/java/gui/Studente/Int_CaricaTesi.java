@@ -22,7 +22,7 @@ public class Int_CaricaTesi extends JFrame{
         this.setContentPane(FinestraCaricaTesi);
         this.setTitle("Interfaccia Tesi");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
 
@@ -33,14 +33,14 @@ public class Int_CaricaTesi extends JFrame{
             LocalDateTime dataora = (LocalDateTime) SLComboBox.getSelectedItem();
             // Controllo di sicurezza
             if (path.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Devi prima selezionare un file tramite il tasto Sfoglia.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Devi prima selezionare un file tramite il tasto Sfoglia.", "Percorso vuoto", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             if (titolo.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Devi prima inserire un titolo.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Devi prima inserire un titolo.", "Titolo Vuoto", JOptionPane.ERROR_MESSAGE);
             }
             if (dataora == null) {
-                JOptionPane.showMessageDialog(this, "Devi prima selezionare una seduta.", "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Devi prima selezionare una seduta.", "DataOra Vuota", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             try {
@@ -50,7 +50,7 @@ public class Int_CaricaTesi extends JFrame{
 
                 pathTextField.setText("");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Tesi non caricata", JOptionPane.ERROR_MESSAGE);
             }
         });
 

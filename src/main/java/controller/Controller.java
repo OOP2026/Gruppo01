@@ -19,19 +19,18 @@ public class Controller {
     private final List<Studente> listaStudenti = new ArrayList<>();
     private final List<Tesi> listaTesi = new ArrayList<>();
     private final List<Tirocinio> listaTirocini = new ArrayList<>();
-    private final List<Tirocinio_esterno> listaTirocini_esterni = new ArrayList<>();
-    private final List<Tirocinio_Interno> listaTirocini_interni = new ArrayList<>();
     private final List<Utente> listaUtenti = new ArrayList<>();
-    private Docente DocenteLoggato = null;
-    private Studente StudenteLoggato = null;
+    private Docente docenteLoggato = null;
+    private Studente studenteLoggato = null;
 
+    //Costruttore del Controller, non necessita di argomenti.
     public Controller() {}
 
     //region METODI BASE (HOME E LOGIN)
     public void effettuaLoginStudente(String user, String pwd) {
         for (Studente stud : listaStudenti) {
             if (stud.login(user, pwd)) {
-                StudenteLoggato = stud;
+                studenteLoggato = stud;
                 return;
             }
         }
@@ -41,7 +40,7 @@ public class Controller {
     public void effettuaLoginDocente(String user, String pwd) {
         for (Docente d : listaDocenti) {
             if (d.login(user, pwd)) {
-                DocenteLoggato = d;
+                docenteLoggato = d;
                 return;
             }
         }
@@ -49,11 +48,11 @@ public class Controller {
     }
 
     public Docente getdocLoggato() {
-        return DocenteLoggato;
+        return docenteLoggato;
     }
 
     public Studente getstudLoggato() {
-        return StudenteLoggato;
+        return studenteLoggato;
     }
 
     //endregion
@@ -61,10 +60,10 @@ public class Controller {
 
     //region METODI DEL DOCENTE LOGGATO
     //trova i tirocini aperti del docente Loggato
-    public ArrayList<String> getNomiTirociniApertiDelDocente() {
+    public List<String> getNomiTirociniApertiDelDocente() {
         ArrayList<String> nomiTirociniAperti = new ArrayList<>();
         for (Tirocinio t : listaTirocini) {
-            if (t.getDocente().equals(this.DocenteLoggato) && t.getStato() == StatoTirocinio.Aperto) {
+            if (t.getDocente().equals(this.docenteLoggato) && t.getStato() == StatoTirocinio.Aperto) {
                 nomiTirociniAperti.add(t.getNome());
             }
         }
@@ -72,37 +71,36 @@ public class Controller {
     }
 
     //Approva la Richiesta di Tirocinio
-    public void approvaRichiestaTirocinio(String Matricola, String Nome) {
-        //verifichiamo che
-        verificaPostiDiposibili(getTirocinioDaNome(Nome));
+    public void approvaRichiestaTirocinio(String matricola, String nome) {
+        verificaPostiDiposibili(getTirocinioDaNome(nome));
         for (Richiesta r : listaRichieste) {
-            if (r.getRichiedente().getMatricola().equals(Matricola) && r.getTirocinio().getNome().equals(Nome) ) {
+            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getNome().equals(nome) ) {
                 r.setStato(Stato_richiesta.Approvata);
                 r.getTirocinio().decrementaPosti();
             }
+            verificaPostiDiposibili(r.getTirocinio());
         }
     }
 
     //Rifiuta la Richiesta di Tirocinio
-    public void rifiutaRichiestaTirocinio(String Matricola, String Nome) {
+    public void rifiutaRichiestaTirocinio(String matricola, String nome) {
         for (Richiesta r : listaRichieste) {
-            if (r.getRichiedente().getMatricola().equals(Matricola) && r.getTirocinio().getNome().equals(Nome)) {
+            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getNome().equals(nome)) {
                 r.setStato(Stato_richiesta.Rifiutata);
             }
         }
     }
 
     public void aggiungiArgomenti(String s) {
-        DocenteLoggato.aggiungiArgomento(s);
+        docenteLoggato.aggiungiArgomento(s);
     }
 
-    public void rimuoviArgomento (String s) {
-        DocenteLoggato.rimuoviArgomento(s);
+    public void rimuoviArgomento (String s) {docenteLoggato.rimuoviArgomento(s);
     }
 
 
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
-    public List<String> RichiesteTir(String tirocinio) {
+    public List<String> richiesteTir(String tirocinio) {
         List<String> listaStudenti = new ArrayList<>();
         for (Richiesta r : listaRichieste) {
             if(r.getTirocinio().getNome().equals(tirocinio)) {
@@ -134,15 +132,15 @@ public class Controller {
     //Il docente riceve i titoli di tutte le tesi a lui associate, assieme all'id
     public List<String> getIdTesi() {
         ArrayList<String> listaTesi = new ArrayList<>();
-        for (Tesi t : DocenteLoggato.getTesi()) {
+        for (Tesi t : docenteLoggato.getTesi()) {
             listaTesi.add(t.getId() + ": " + t.getTitolo());
         }
         return listaTesi;
     }
 
-    public Tesi getTesidaID(String ID_TITOLO) {
-        for(Tesi t: DocenteLoggato.getTesi()){
-            String risultato = ID_TITOLO.split(":")[0].trim();
+    public Tesi getTesidaID(String idTitolo) {
+        for(Tesi t: docenteLoggato.getTesi()){
+            String risultato = idTitolo.split(":")[0].trim();
             if (risultato.equals(t.getId())){
                 return t;
             }
@@ -182,12 +180,11 @@ public class Controller {
 
     //region METODI COORDINATORE
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
-    public Seduta inserisciSeduta(LocalDateTime data_ora, String sede) {
-        if (DocenteLoggato.getisCoordinatore()) {
-            Seduta sedutaCreata = new Seduta(data_ora, sede, DocenteLoggato);
-            DocenteLoggato.aggiungiSeduta(sedutaCreata);
+    public void inserisciSeduta(LocalDateTime data_ora, String sede) {
+        if (docenteLoggato.getisCoordinatore()) {
+            Seduta sedutaCreata = new Seduta(data_ora, sede, docenteLoggato);
+            docenteLoggato.aggiungiSeduta(sedutaCreata);
             listaSedute.add(sedutaCreata);
-            return sedutaCreata;
         }
             throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
     }
@@ -248,21 +245,21 @@ public class Controller {
     }
 
     public void compilaRichiesta(String tirScelto) {
-        if ((StudenteLoggato.getRichiesta() != null) && ((StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata) || (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
+        if ((studenteLoggato.getRichiesta() != null) && ((studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata) || (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
             throw new IllegalStateException("ERRORE! Hai già una richiesta attiva.");
         }
-        Richiesta r = new Richiesta(StudenteLoggato, getTirocinioDaNome(tirScelto));
-        StudenteLoggato.setRichiesta(r);
+        Richiesta r = new Richiesta(studenteLoggato, getTirocinioDaNome(tirScelto));
+        studenteLoggato.setRichiesta(r);
         listaRichieste.add(r);
     }
 
     public void caricaTesi(LocalDateTime seduta, String titolo, String documento, Docente relatore) {
-        if ((StudenteLoggato.getTesi() != null) && ((StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata) || (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa))) {
+        if ((studenteLoggato.getTesi() != null) && ((studenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata) || (studenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa))) {
             throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
         }
         Seduta sedut1 = getSedutaDaData(seduta);
-        Tesi tesiDaCaricare = new Tesi(titolo, documento, StudenteLoggato, sedut1, relatore);
-        StudenteLoggato.setTesi(tesiDaCaricare);
+        Tesi tesiDaCaricare = new Tesi(titolo, documento, studenteLoggato, sedut1, relatore);
+        studenteLoggato.setTesi(tesiDaCaricare);
         relatore.aggiungiTesi(tesiDaCaricare);
         listaTesi.add(tesiDaCaricare);
         sedut1.AggiungiPrenotazione(tesiDaCaricare);
@@ -270,28 +267,28 @@ public class Controller {
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
     public String getStatoStudLoggato() {
-        if (StudenteLoggato.getRichiesta() == null) {
+        if (studenteLoggato.getRichiesta() == null) {
             return "Nessuna Richiesta Effettuata";
         }
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
+        if (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
             return "Approvata";
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
+        if (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
             return "Rifiutata";
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
+        if (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
             return "In_attesa";
         return "";
     }
 
     //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
     public String getStatoTesi() {
-        if (StudenteLoggato.getTesi() == null) {
+        if (studenteLoggato.getTesi() == null) {
             return "Nessuna Tesi Caricata";
         }
-        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
+        if (studenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
             return "Approvata";
-        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
+        if (studenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
             return "Rifiutata";
-        if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa)
+        if (studenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa)
             return "In_attesa";
         return "";
     }
@@ -299,13 +296,6 @@ public class Controller {
 
 
     //region GETTER STRANI E UTILITA
-    // Restituisce l'oggetto Studente sulla base della sua Matricola
-    public Studente getStudentedDaMatricola(String Matricola) {
-        for (Studente s : listaStudenti) {
-            if (s.getMatricola().equals(Matricola)) {return s;}
-        }
-        throw new IllegalArgumentException("Studente non presente nel sistema");
-    }
 
     // Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
     public Tirocinio getTirocinioDaNome(String Nome) {

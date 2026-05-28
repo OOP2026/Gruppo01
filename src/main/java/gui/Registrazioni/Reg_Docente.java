@@ -5,7 +5,7 @@ import gui.Home;
 import javax.swing.*;
 
 public class Reg_Docente extends JFrame {
-    private Controller controller;
+    Controller controller;
     private JTextPane REGISTRAZIONEDOCENTETextPane;
     private JTextField nomeTextField;
     private JTextField CognomeTextField;
@@ -21,7 +21,7 @@ public class Reg_Docente extends JFrame {
         this.setContentPane(RegDFinestra);
         this.setTitle("Portale Registrazione Docente");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         RegButton.addActionListener(e -> {

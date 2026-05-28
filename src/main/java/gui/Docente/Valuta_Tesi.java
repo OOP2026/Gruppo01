@@ -6,7 +6,7 @@ import gui.Home;
 import javax.swing.*;
 
 public class Valuta_Tesi extends JFrame {
-    private Controller controller;
+    Controller controller;
     private JPanel FinestraValTesi;
     private JButton ReturnButton;
     private JButton ValutaButton;
@@ -21,7 +21,7 @@ public class Valuta_Tesi extends JFrame {
         this.setContentPane(FinestraValTesi);
         this.setTitle("Valuta Richieste Tirocinio");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
 

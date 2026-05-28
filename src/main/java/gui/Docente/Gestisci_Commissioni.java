@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Gestisci_Commissioni extends JFrame{
-    private Controller controller;
+    Controller controller;
     private JPanel FinestraCommissioni;
     private JPanel FinestraSedute;
     private JButton ReturnButton;
@@ -25,7 +25,7 @@ public class Gestisci_Commissioni extends JFrame{
         this.setContentPane(FinestraCommissioni);
         this.setTitle("Portale Login");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
 

@@ -1,17 +1,15 @@
 package model;
 
 
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 
 public class Docente extends Utente {
     private boolean is_coordinatore;
-    private List<Tirocinio> listaTirocini;
-    private List<Seduta> sedutePubblicate;
-    private List<Tesi> tesiDaValutare;
-    private List<String> listaArgomenti = new ArrayList<>();
+    private final List<Tirocinio> listaTirocini;
+    private final List<Seduta> sedutePubblicate;
+    private final List<Tesi> tesiDaValutare;
+    private final List<String> listaArgomenti = new ArrayList<>();
 
     public Docente(String nome, String cognome, String email, String password, String username) {
         super(nome, cognome, email, password, username);
@@ -23,10 +21,6 @@ public class Docente extends Utente {
 
     public List<Tirocinio> getListaTirocini(){
         return listaTirocini;
-    }
-
-    public List<Seduta> getSedutePubblicate() {
-        return sedutePubblicate;
     }
 
     public List<Tesi> getTesi() {
@@ -50,23 +44,11 @@ public class Docente extends Utente {
     public void aggiungiSeduta(Seduta s) {
         this.sedutePubblicate.add(s);
     }
+
     public void aggiungiTesi(Tesi ts) {
-        if (ts != null && !this.listaTirocini.contains(ts)) {
+        if (ts != null && !this.tesiDaValutare.contains(ts)) {
             this.tesiDaValutare.add(ts);
         }
-    }
-    public void rimuoviTirocinio(Tirocinio t){
-            this.listaTirocini.remove(t);
-        }
-
-    public void rimuoviTesi(Tesi ts){
-        this.listaTirocini.remove(ts);
-    }
-
-    public void rimuoviTirocinio(Seduta s){
-      if(is_coordinatore)  {
-          this.listaTirocini.remove(s);
-      }
     }
 
     public void aggiungiArgomento(String a) {

@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.time.LocalDateTime;
 
 public class CreaSeduta extends JFrame{
-    private Controller controller;
+    Controller controller;
     private JButton ReturnButton;
     private JPanel FinestraSedute;
     private JButton confermaButton;
@@ -24,7 +24,7 @@ public class CreaSeduta extends JFrame{
         this.setContentPane(FinestraSedute);
         this.setTitle("Portale Login");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
 

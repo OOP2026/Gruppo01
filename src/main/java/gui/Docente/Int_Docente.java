@@ -6,7 +6,7 @@ import gui.Home;
 import javax.swing.*;
 
 public class Int_Docente extends JFrame {
-    private Controller controller;
+    Controller controller;
     private JPanel FinestraDocente;
     private JTextPane interfacciaDocenteTextPane;
     private JButton aggiungiArgomButton;
@@ -26,7 +26,7 @@ public class Int_Docente extends JFrame {
         this.setContentPane(FinestraDocente);
         this.setTitle("Portale Login");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
         this.Commissioni.setVisible(false);

@@ -6,7 +6,7 @@ import gui.Registrazioni.Reg_Studente;
 import javax.swing.*;
 
 public class Visualizza_R_Tir extends JFrame {
-    private Controller controller;
+    Controller controller;
     private JButton ReturnButton;
     private JRadioButton approvaRadioButton;
     private JRadioButton rifiutaRadioButton;
@@ -42,7 +42,7 @@ public class Visualizza_R_Tir extends JFrame {
             StudentiComboBox.removeAllItems(); // Pulisce gli studenti precedenti
 
             if (tirocinioSelezionato != null) {
-                for (String matricola : controller.RichiesteTir(tirocinioSelezionato)) {
+                for (String matricola : controller.richiesteTir(tirocinioSelezionato)) {
                     StudentiComboBox.addItem(matricola);
                 }
             }

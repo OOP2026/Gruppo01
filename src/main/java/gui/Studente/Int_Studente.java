@@ -6,9 +6,8 @@ import gui.Home;
 import javax.swing.*;
 
 public class Int_Studente extends JFrame {
-    private Controller controller;
+    Controller controller;
     private JPanel FinestraStudente;
-    private JTextPane interfacciaStudenteTextPane;
     private JButton logoutButton;
     private JButton compilaRichiestaButton;
     private JButton caricaTesiButton;
@@ -21,7 +20,7 @@ public class Int_Studente extends JFrame {
         this.setContentPane(FinestraStudente);
         this.setTitle("Interfaccia Studente");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
 
@@ -56,13 +55,8 @@ public class Int_Studente extends JFrame {
 
 
        //  - Verifica Stato_Richiesta e Stato_tesi
-
         StatoRichiestaTirocinio.setText("Stato Richiesta Tirocinio : " + controller.getStatoStudLoggato());
         statoTesiTextField.setText("Stato Tesi : " + controller.getStatoTesi());
-
-
-
-
 
     }
 }

@@ -98,7 +98,7 @@ public abstract class Tirocinio {
 
 
     public void decrementaPosti() {
-        n_posti = n_posti--;
+        n_posti--;
     }
 
 }

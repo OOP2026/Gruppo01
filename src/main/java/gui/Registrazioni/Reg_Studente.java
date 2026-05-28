@@ -8,7 +8,7 @@ import javax.swing.*;
 ;
 
 public class Reg_Studente extends JFrame {
-    private Controller controller;
+    Controller controller;
     private JTextPane REGISTRAZIONESTUDENTETextPane;
     private JTextField nomeTextField;
     private JTextField cognomeTextField;
@@ -25,7 +25,7 @@ public class Reg_Studente extends JFrame {
         this.setContentPane(RegSFinestra);
         this.setTitle("Portale Registrazione Studente");
         this.setSize(1024, 768);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         RegButton.addActionListener(e -> {
