@@ -101,13 +101,13 @@ public class Controller {
 
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
     public List<String> richiesteTir(String tirocinio) {
-        List<String> listaStudenti = new ArrayList<>();
+        List<String> listaStud = new ArrayList<>();
         for (Richiesta r : listaRichieste) {
             if(r.getTirocinio().getNome().equals(tirocinio)) {
-                listaStudenti.add(r.getRichiedente().getMatricola());
+                listaStud.add(r.getRichiedente().getMatricola());
             }
         }
-        return listaStudenti;
+        return listaStud;
     }
 
     //Il docente approva la Tesi
@@ -131,11 +131,11 @@ public class Controller {
 
     //Il docente riceve i titoli di tutte le tesi a lui associate, assieme all'id
     public List<String> getIdTesi() {
-        ArrayList<String> listaTesi = new ArrayList<>();
+        ArrayList<String> lista = new ArrayList<>();
         for (Tesi t : docenteLoggato.getTesi()) {
-            listaTesi.add(t.getId() + ": " + t.getTitolo());
+            lista.add(t.getId() + ": " + t.getTitolo());
         }
-        return listaTesi;
+        return lista;
     }
 
     public Tesi getTesidaID(String idTitolo) {
