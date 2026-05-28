@@ -149,18 +149,6 @@ public class Controller {
         }
         throw new IllegalArgumentException("Tesi non presente nel sistema");
     }
-
-
-    public void valutaTesi(Tesi t, Stato_Tesi esito) {
-        if (t.getStato() != Stato_Tesi.In_attesa) {
-            throw new IllegalStateException("ERRORE! Richiesta già valutata!");
-        }
-        if (esito == Stato_Tesi.In_attesa) {
-            throw new IllegalArgumentException("ERRORE! Scegliere tra Approvata e Rifiutata.");
-        }
-        t.setStato(esito);
-        System.out.println("Richiesta rifiutata correttamente");
-    }
     //endregion
 
 
@@ -200,10 +188,11 @@ public class Controller {
             DocenteLoggato.aggiungiSeduta(sedutaCreata);
             listaSedute.add(sedutaCreata);
             return sedutaCreata;
-        } else {
-            throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
         }
+            throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
     }
+
+
     public LocalDateTime assemblaDataOra(String giornoStr, String meseStr, String annoStr, String oraStr) {
         try {
             int giorno = Integer.parseInt(giornoStr.trim());
@@ -306,21 +295,6 @@ public class Controller {
             return "In_attesa";
         return "";
     }
-
-
-
-    public ArrayList<LocalDateTime> getDateSeduteAperte() {
-        ArrayList<LocalDateTime> dateSeduteAperte = new ArrayList<>();
-        for (Seduta s : listaSedute) {
-            if (s.getStato()) {
-                dateSeduteAperte.add(s.getData_ora());
-            }
-        }
-        return dateSeduteAperte;
-    }
-
-
-
     //endregion
 
 
@@ -357,24 +331,6 @@ public class Controller {
             t.setStato(StatoTirocinio.Pieno);
         }
     }
-
-    public String getMatricolaStudente(Studente s) {
-        return s.getMatricola();
-    }
-
-    public String getEmailDocente(Docente d){
-        return d.getEmail();
-    }
-
-    public Stato_Tesi verificaStatoTesi(Studente s) {
-        if (s.getTesi() == null) {
-            throw new IllegalStateException("ERRORE! Nessuna tesi caricata per questo studente.");
-        }
-        return s.getTesi().getStato();
-    }
-
-
-
     //endregion
 
 

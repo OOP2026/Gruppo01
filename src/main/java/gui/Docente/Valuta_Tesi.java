@@ -62,15 +62,6 @@ public class Valuta_Tesi extends JFrame {
             interfacciaDoc.setVisible(true);
             this.dispose();
         });
-
-
-
-
-
-
-
     }
-
-
 
 }
