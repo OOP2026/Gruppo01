@@ -1,6 +1,7 @@
 package gui.Docente;
 
 import controller.Controller;
+import gui.Home;
 import gui.Studente.Int_Studente;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class CreaSeduta extends JFrame{
     private JTextField MeseTextField;
     private JTextField AnnoTextField;
     private JTextField OraTextField;
+    private JButton logoutButton;
 
     public CreaSeduta(Controller controller) {
         this.controller = controller;
@@ -64,6 +66,11 @@ public class CreaSeduta extends JFrame{
         ReturnButton.addActionListener(e -> {
             Int_Docente interfacciaDoc = new Int_Docente(controller);
             interfacciaDoc.setVisible(true);
+            this.dispose();
+        });
+        logoutButton.addActionListener(e -> {
+            Home NewHome = new Home(controller);
+            NewHome.setVisible(true);
             this.dispose();
         });
 

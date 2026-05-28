@@ -1,5 +1,6 @@
 package gui.Docente;
 import controller.Controller;
+import gui.Home;
 
 import javax.swing.*;
 
@@ -12,6 +13,7 @@ public class Aggiunta_Argomenti extends JFrame {
     private JComboBox<String> ArgComboBox;
     private JButton ReturnButton;
     private JPanel finestraArgomenti;
+    private JButton logoutButton;
 
 
     public Aggiunta_Argomenti(Controller controller) {
@@ -58,6 +60,11 @@ public class Aggiunta_Argomenti extends JFrame {
         ReturnButton.addActionListener(e -> {
             Int_Docente intDocente = new Int_Docente(controller);
             intDocente.setVisible(true);
+            this.dispose();
+        });
+        logoutButton.addActionListener(e -> {
+            Home NewHome = new Home(controller);
+            NewHome.setVisible(true);
             this.dispose();
         });
     }

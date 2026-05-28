@@ -204,6 +204,28 @@ public class Controller {
         }
     }
 
+    public List<String[]> getDatiTabellaSeduta(LocalDateTime dataSeduta) {
+        List<String[]> righeTabella = new ArrayList<>();
+
+        // Scorre tutte le tesi caricate nel sistema
+        for (Tesi t : this.listaTesi) {
+
+            // Se la tesi fa parte della seduta selezionata dal coordinatore
+            if (t.getSeduta_richiesta().getData_ora().equals(dataSeduta)) {
+
+                // Estrae i dati convertendoli in semplici stringhe per proteggere il Model
+                String nomeDocente = t.getValutatore().getNome() + " " + t.getValutatore().getCognome();
+                String nomeStudente = t.getAutore().getNome() + " " + t.getAutore().getCognome();
+                String stato = t.getStato().toString(); // Converte l'Enum in Stringa
+
+                // Crea la riga e la aggiunge alla lista
+                String[] riga = {nomeDocente, nomeStudente, stato};
+                righeTabella.add(riga);
+            }
+        }
+
+        return righeTabella;}
+
     //endregion
 
 
