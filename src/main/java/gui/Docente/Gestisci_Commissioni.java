@@ -7,6 +7,10 @@ import javax.swing.*;
 public class Gestisci_Commissioni extends JFrame{
     private Controller controller;
     private JPanel FinestraCommissioni;
+    private JPanel FinestraSedute;
+    private JButton ReturnButton;
+    private JButton confermaButton;
+    private JComboBox comboBox1;
 
     public Gestisci_Commissioni(Controller controller) {
         this.controller = controller;
