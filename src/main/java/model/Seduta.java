@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Seduta {
     private LocalDateTime data_ora;
     private String sede;
+    public boolean stato; //true se è aperta, false se è chiusa (dopo che il coordinatore ha impostato la commissione)
     private List<Tesi> prenotazioni;
     private Docente coordinatore;
     private HashSet<Docente> commissione;
@@ -12,6 +13,7 @@ public class Seduta {
     public Seduta(LocalDateTime data_ora, String sede,Docente coordinatore) {
         this.data_ora = data_ora;
         this.sede = sede;
+        this.stato = true;
         this.prenotazioni = new ArrayList<Tesi>();
         this.coordinatore = coordinatore;
         this.commissione  = new HashSet<Docente>();
@@ -67,5 +69,14 @@ public class Seduta {
             }
         }
         return listaPrenotati;
+    }
+
+
+    public boolean getStato() {
+        return this.stato;
+    }
+
+    public void setStato(boolean stato) {
+        this.stato = stato;
     }
 }

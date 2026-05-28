@@ -213,11 +213,12 @@ public class Controller {
         if ((StudenteLoggato.getTesi() != null) && ((StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata) || (StudenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa))) {
             throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
         }
-        Tesi tesiDaCaricare = new Tesi(titolo, documento, StudenteLoggato, seduta, relatore);
+        Seduta sedut1 = getSedutaDaData(seduta);
+        Tesi tesiDaCaricare = new Tesi(titolo, documento, StudenteLoggato, sedut1, relatore);
         StudenteLoggato.setTesi(tesiDaCaricare);
         relatore.aggiungiTesi(tesiDaCaricare);
         listaTesi.add(tesiDaCaricare);
-        seduta.AggiungiPrenotazione(tesiDaCaricare);
+        sedut1.AggiungiPrenotazione(tesiDaCaricare);
     }
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
@@ -243,6 +244,21 @@ public class Controller {
             return "In_attesa";
         return "";
     }
+
+
+
+    public ArrayList<LocalDateTime> getDateSeduteAperte() {
+        ArrayList<LocalDateTime> dateSeduteAperte = new ArrayList<>();
+        for (Seduta s : listaSedute) {
+            if (s.getStato()) {
+                dateSeduteAperte.add(s.getData_ora());
+            }
+        }
+        return dateSeduteAperte;
+    }
+
+
+
     //endregion
 
 
@@ -259,10 +275,20 @@ public class Controller {
     public Tirocinio getTirocinioDaNome(String Nome) {
         for (Tirocinio t : listaTirocini) {
             if (t.getNome().equals(Nome)) {return t;}
-
         }
         throw new IllegalArgumentException("Tirocinio non presente nel sistema");
     }
+
+
+    public Seduta getSedutaDaData(LocalDateTime data) {
+        for (Seduta s : listaSedute) {
+            if (s.getData_ora() == data) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException("Seduta non presente nel sistema");
+    }
+
 
     public void verificaPostiDiposibili (Tirocinio t){
         if (t.getN_posti() == 0) {

@@ -3,6 +3,7 @@ import controller.Controller;
 import gui.Home;
 
 import javax.swing.*;
+import java.time.LocalDateTime;
 
 public class Int_CaricaTesi extends JFrame{
     Controller controller;
@@ -13,7 +14,8 @@ public class Int_CaricaTesi extends JFrame{
     private JButton logoutButton;
     private JButton SfogliaButton;
     private JButton ReturnButton;
-    private JTextField SLComboBox;
+    private JComboBox SLComboBox;
+    private JTextField TitoloTesiTextField;
 
     public Int_CaricaTesi(Controller controller) {
         this.controller = controller;
@@ -25,24 +27,28 @@ public class Int_CaricaTesi extends JFrame{
 
 
 
-      ConfermaButton.addActionListener(e -> {
+        ConfermaButton.addActionListener(e -> {
             String path = pathTextField.getText();
-
+            String titolo = TitoloTesiTextField.getText();
+            LocalDateTime dataora = (LocalDateTime) SLComboBox.getSelectedItem();
             // Controllo di sicurezza
             if (path.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Devi prima selezionare un file tramite il tasto Sfoglia.", "Errore", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            if (titolo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Devi prima inserire un titolo.", "Errore", JOptionPane.ERROR_MESSAGE);
+            }
+            if (dataora == null) {
+                JOptionPane.showMessageDialog(this, "Devi prima selezionare una seduta.", "Errore", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             try {
-                // Chiama il metodo del controller passandogli il path (e lo studente loggato se necessario)
-
-
+                // Chiama il metodo del controller passandogli path, titolo e seduta
+                controller.caricaTesi(dataora, titolo, path, controller.getstudLoggato().getRichiesta().getTirocinio().getDocente());
                 JOptionPane.showMessageDialog(this, "Tesi caricata con successo!");
 
-                // Opzionale: pulizia o chiusura finestra dopo il caricamento
                 pathTextField.setText("");
-
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
             }
