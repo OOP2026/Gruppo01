@@ -186,6 +186,24 @@ public class Controller {
             throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
         }
     }
+    public LocalDateTime assemblaDataOra(String giornoStr, String meseStr, String annoStr, String oraStr) {
+        try {
+            int giorno = Integer.parseInt(giornoStr.trim());
+            int mese = Integer.parseInt(meseStr.trim());
+            int anno = Integer.parseInt(annoStr.trim());
+            int ora = Integer.parseInt(oraStr.trim());
+            int minuti = 0 ;
+
+            return LocalDateTime.of(anno, mese, giorno, ora, minuti);
+
+        } catch (NumberFormatException ex) {
+            // L'utente ha inserito lettere o lasciato un campo vuoto
+            throw new IllegalArgumentException("Per favore, inserisci solo numeri interi nei campi della data.");
+        } catch (java.time.DateTimeException ex) {
+            throw new IllegalArgumentException("La data o l'orario inserito non esiste sul calendario.");
+        }
+    }
+
     //endregion
 
 

@@ -49,6 +49,9 @@ public class Int_RichiestaT extends JFrame{
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona un tirocinio prima di procedere.");
             }
+            Int_Studente interfacciaStud = new Int_Studente(controller);
+            interfacciaStud.setVisible(true);
+            this.dispose();
         });
 
 

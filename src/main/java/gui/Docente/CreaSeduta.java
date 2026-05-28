@@ -7,11 +7,13 @@ import javax.swing.*;
 public class CreaSeduta extends JFrame{
     private Controller controller;
     private JButton ReturnButton;
-    private JButton ValutaButton;
-    private JRadioButton approvaRadioButton;
-    private JRadioButton rifiutaRadioButton;
-    private JTextField textField1;
     private JPanel FinestraSedute;
+    private JButton confermaButton;
+    private JTextField SedeTextField;
+    private JTextField GiornoTextPanel;
+    private JTextField MeseTextField;
+    private JTextField AnnoTextField;
+    private JTextField OraTextField;
 
     public CreaSeduta(Controller controller) {
         this.controller = controller;
