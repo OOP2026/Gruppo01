@@ -223,19 +223,23 @@ public class Controller {
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
     public String getStatoStudLoggato() {
+        if (StudenteLoggato.getRichiesta() == null) {
+            return "Nessuna Richiesta Effettuata";
+        }
         if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
             return "Approvata";
         if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
             return "Rifiutata";
         if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
             return "In_attesa";
-        if (StudenteLoggato.getRichiesta().getStato() == Stato_richiesta.NULL)
-            return "Nessuna Richiesta Effettuata";
         return "";
     }
 
     //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
     public String getStatoTesi() {
+        if (StudenteLoggato.getTesi() == null) {
+            return "Nessuna Tesi Caricata";
+        }
         if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
             return "Approvata";
         if (StudenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
