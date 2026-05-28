@@ -313,49 +313,63 @@ public class Controller {
     //endregion
 
 
-    //region TEST
     public void caricaDatiDiTest() {
 
-        // 1. Crea un paio di Docenti fittizi
-        // (NOTA: Adatta i parametri tra parentesi al costruttore reale della tua classe Docente)
+        // --- 1. DOCENTI E COORDINATORE ---
         Docente prof1 = new Docente("Mario", "Rossi", "m.rossi@unina.it", "docente1", "password123");
         prof1.getListaArgomenti().add("Sistemi Operativi");
         prof1.getListaArgomenti().add("Basi di Dati");
 
         Docente coordinatore = new Docente("Anna", "Bianchi", "a.bianchi@unina.it", "admin", "admin");
-        coordinatore.setIs_coordinatore(true);
-        // 2. Crea un paio di Studenti fittizi
-        // (NOTA: Adatta i parametri al costruttore reale di Studente)
-        Studente stud1 = new Studente("Luca", "Verdi", "l.verdi@studenti.unina.it", "pas", "st", "N46001234");
-        LocalDate dataInizioTest = LocalDate.of(2026, 6, 10);
+        coordinatore.setIs_coordinatore(true); // Promozione a coordinatore
 
-
-
-        Tirocinio tirocinioTest = new Tirocinio_esterno("Sviluppo Backend in Java e SQL", "150 ore", dataInizioTest, 3, 6, "nike","maradona", prof1);
-
-// 3. Sovrascrivi lo stato iniziale "Aggiunto" per renderlo prenotabile
-        tirocinioTest.setStato(StatoTirocinio.Aperto);
-
-// 4. Salvalo nelle liste del Controller e del Docente relatore
-        this.listaTirocini.add(tirocinioTest);
-        prof1.getListaTirocini().add(tirocinioTest);
-        Richiesta r = new Richiesta(stud1, tirocinioTest);
-        stud1.setRichiesta(r);
-
-        // 3. Inseriscili nelle liste del Controller (presumendo che si chiamino così)
         this.listaDocenti.add(prof1);
         this.listaDocenti.add(coordinatore);
+
+
+        // --- 2. SEDUTE DI LAUREA ---
+        // Ne creiamo una aperta in modo che la tendina dello studente non sia vuota quando carica la tesi
+        LocalDateTime dataOraSeduta = LocalDateTime.of(2026, 7, 20, 9, 30);
+        Seduta sedutaTest = new Seduta(dataOraSeduta, "Aula Magna", coordinatore);
+
+        coordinatore.aggiungiSeduta(sedutaTest);
+        this.listaSedute.add(sedutaTest);
+
+
+        // --- 3. TIROCINI ---
+        LocalDate dataInizioTest = LocalDate.of(2026, 6, 10);
+
+        // Tirocinio 1: Esterno (Per lo Studente 1 che deve ancora scegliere)
+        Tirocinio tirocinio1 = new Tirocinio_esterno("Sviluppo Backend Java", "150 ore", dataInizioTest, 3, 6, "Nike", "Maradona", prof1);
+        tirocinio1.setStato(StatoTirocinio.Aperto);
+
+        // Tirocinio 2: Interno (Assegnato allo Studente 2)
+        Tirocinio tirocinio2 = new Tirocinio_Interno("Machine Learning e AI", "150 ore", dataInizioTest, 2, 6, "ingegneria", "01", prof1);
+        tirocinio2.setStato(StatoTirocinio.Aperto);
+
+        this.listaTirocini.add(tirocinio1);
+        this.listaTirocini.add(tirocinio2);
+        prof1.getListaTirocini().add(tirocinio1);
+        prof1.getListaTirocini().add(tirocinio2);
+
+
+        // --- 4. STUDENTI E RICHIESTE ---
+        // Studente 1: Nessuna richiesta (Usa questo per testare la compilazione della richiesta)
+        Studente stud1 = new Studente("Luca", "Verdi", "l.verdi@studenti.unina.it", "pas", "st", "N46001111");
+        Richiesta r1 = new Richiesta(stud1, tirocinio1);
+        // Studente 2: Richiesta giÃ approvata (Usa questo per testare direttamente il caricamento Tesi)
+        Studente stud2 = new Studente("Marco", "Neri", "m.neri@studenti.unina.it", "N46002222", "studente2", "password123");
+        Richiesta r2 = new Richiesta(stud2, tirocinio2);
+
+        // Forza l'approvazione scavalcando il docente
+        r2.setStato(Stato_richiesta.Approvata);
+        stud2.setRichiesta(r2);
+        this.listaRichieste.add(r2);
+
         this.listaStudenti.add(stud1);
+        this.listaStudenti.add(stud2);
 
-        // Opzionale: Puoi anche creare già una richiesta approvata o una seduta per testare
-        // subito la schermata del coordinatore senza fare tutta la trafila.
-    /*
-    Seduta sedutaTest = new Seduta("12/07/2026", "09:00", "Aula Magna");
-    this.listaSedute.add(sedutaTest);
-    */
-
-        System.out.println("SISTEMA: Dati di test caricati con successo.");
+        System.out.println("SISTEMA: Dati di test caricati con successo (Docenti, Sedute, Tirocini, Studenti).");
     }
-    //endregion
 
 }
