@@ -16,7 +16,6 @@ public class Valuta_Tesi extends JFrame {
     private JButton logoutButton;
 
 
-
     public Valuta_Tesi(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraValTesi);
@@ -26,22 +25,21 @@ public class Valuta_Tesi extends JFrame {
         this.setLocationRelativeTo(null);
 
 
-        for(String titoloTesi: controller.getTitoliTesi()) {
-            TesiComboBox.addItem(titoloTesi);
+        for(String idTesi: controller.getIdTesi()) {
+            TesiComboBox.addItem(idTesi);
         }
 
         ValutaButton.addActionListener(e -> {
 
-            // A. Estrae i valori attuali
+
             String TesiSelezionata = (String) TesiComboBox.getSelectedItem();
 
-            // B. Controlli di sicurezza
             if (TesiSelezionata == null) {
                 JOptionPane.showMessageDialog(this, "Seleziona una tesi.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            // C. Determina l'esito dai RadioButton
+            // Determina l'esito dai RadioButton
             if (approvaRadioButton.isSelected()) {
                 controller.approvaTesi(TesiSelezionata);
             } else if (rifiutaRadioButton.isSelected()) {

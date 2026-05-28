@@ -1,8 +1,10 @@
 package model;
+import java.util.UUID;
 
 public class Tesi {
 
     private String titolo;
+    private String idTesi;
     private Stato_Tesi stato;
     private String fileTesi; //la stringa contenente il path
     private Studente autore;
@@ -11,11 +13,16 @@ public class Tesi {
 
     public Tesi(String titolo, String fileTesi, Studente autore, Seduta seduta_richiesta, Docente valutatore) {
         this.titolo = titolo;
+        this.idTesi = UUID.randomUUID().toString();
         this.fileTesi = fileTesi;
         this.stato = Stato_Tesi.In_attesa;
         this.autore = autore;
         this.seduta_richiesta = seduta_richiesta;
         this.valutatore = valutatore;
+    }
+
+    public String getId() {
+        return idTesi;
     }
 
     public String getTitolo() {

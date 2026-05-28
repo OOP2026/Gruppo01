@@ -29,7 +29,7 @@ public class Docente extends Utente {
         return sedutePubblicate;
     }
 
-    public List<Tesi> getTesiValutate() {
+    public List<Tesi> getTesi() {
         return tesiDaValutare;
     }
 

@@ -113,26 +113,41 @@ public class Controller {
     }
 
     //Il docente approva la Tesi
-    public void approvaTesi(String Titolo) {}
+    public void approvaTesi(String id) {
+        Tesi t =  getTesidaID(id);
+        t.setStato(Stato_Tesi.Approvata);
+    }
+
 
 
 
 
     //Il docente boccia la Tesi
-    public void rifiutaTesi() {}
-
-
-
-
-    //Il docente riceve i titoli di tutte le tesi a lui associate
-    public List<String> getTitoliTesi() {
-
+    public void rifiutaTesi(String id) {
+        Tesi t =  getTesidaID(id);
+        t.setStato(Stato_Tesi.Rifiutata);
     }
 
-    public Tesi getTesiDaTitolo(String Titolo) {
-        for(Tesi t: listaTesi){
 
+
+
+    //Il docente riceve i titoli di tutte le tesi a lui associate, assieme all'id
+    public List<String> getIdTesi() {
+        ArrayList<String> listaTesi = new ArrayList<>();
+        for (Tesi t : DocenteLoggato.getTesi()) {
+            listaTesi.add(t.getId() + ": " + t.getTitolo());
         }
+        return listaTesi;
+    }
+
+    public Tesi getTesidaID(String ID_TITOLO) {
+        for(Tesi t: DocenteLoggato.getTesi()){
+            String risultato = ID_TITOLO.split(":")[0].trim();
+            if (risultato.equals(t.getId())){
+                return t;
+            }
+        }
+        throw new IllegalArgumentException("Tesi non presente nel sistema");
     }
 
 
