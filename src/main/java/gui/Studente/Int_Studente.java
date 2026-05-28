@@ -14,6 +14,7 @@ public class Int_Studente extends JFrame {
     private JButton caricaTesiButton;
     private JTextField statoTesiTextField;
     private JTextField StatoRichiestaTirocinio;
+    private JTextField NomeCognomeS;
 
     public Int_Studente(Controller controller) {
         this.controller = controller;
@@ -22,6 +23,9 @@ public class Int_Studente extends JFrame {
         this.setSize(1024, 768);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+
+
+        NomeCognomeS.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
 
         logoutButton.addActionListener(e -> {
             Home NewHome = new Home(controller);
@@ -51,13 +55,12 @@ public class Int_Studente extends JFrame {
 
 
 
-       //  - Verifica_Stato_Richiesta
+       //  - Verifica Stato_Richiesta e Stato_tesi
 
         StatoRichiestaTirocinio.setText("Stato Richiesta Tirocinio : " + controller.getStatoStudLoggato());
-        //statoTesiTextField.setText("Stato Tesi : " + controller.getStatoTesi());
+        statoTesiTextField.setText("Stato Tesi : " + controller.getStatoTesi());
 
 
-       //  - Verifica_Stato_Tesi
 
 
 

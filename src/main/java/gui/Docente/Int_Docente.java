@@ -18,6 +18,7 @@ public class Int_Docente extends JFrame {
     private JPanel Coordinatore;
     private JButton GestisciCommissioniButton;
     private JPanel Commissioni;
+    private JTextField NomeCognomeDoc;
     private JRadioButton internoRadioButton;
     private JRadioButton esternoRadioButton;
 
@@ -36,6 +37,8 @@ public class Int_Docente extends JFrame {
         this.Coordinatore.setVisible(true);
         this.Commissioni.setVisible(true);
         }
+
+        NomeCognomeDoc.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
 
         CreaSedutaButton.addActionListener(e -> {
             CreaSeduta impostaSeduta  = new CreaSeduta(controller);
