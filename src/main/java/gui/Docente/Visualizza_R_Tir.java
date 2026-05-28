@@ -1,5 +1,6 @@
 package gui.Docente;
 import controller.Controller;
+import gui.Home;
 import gui.Registrazioni.Reg_Studente;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class Visualizza_R_Tir extends JFrame {
     private JComboBox TirociniComboBox;
     private JComboBox StudentiComboBox;
     private JButton ValutaButton;
+    private JButton logoutButton;
     ButtonGroup gruppoScelte = new ButtonGroup();
 
     public Visualizza_R_Tir(Controller controller) {
@@ -74,6 +76,13 @@ public class Visualizza_R_Tir extends JFrame {
         ReturnButton.addActionListener(e -> {
             Int_Docente interfacciaDoc = new Int_Docente(controller);
             interfacciaDoc.setVisible(true);
+            this.dispose();
+        });
+
+
+        logoutButton.addActionListener(e -> {
+            Home NewHome = new Home(controller);
+            NewHome.setVisible(true);
             this.dispose();
         });
 

@@ -56,15 +56,6 @@ public class Controller {
         return StudenteLoggato;
     }
 
-    public List<Tirocinio> visualizzaTirociniInCorso() {
-        ArrayList<Tirocinio> listaInCorso = new ArrayList<>();
-        for (Tirocinio t : listaTirocini) {
-            if (t.getStato() == StatoTirocinio.In_corso) {
-                listaInCorso.add(t);
-            }
-        }
-        return listaInCorso;
-    }
     //endregion
 
 
@@ -109,17 +100,6 @@ public class Controller {
         DocenteLoggato.rimuoviArgomento(s);
     }
 
-    public List<String> getListaArgomenti() {
-        return DocenteLoggato.getListaArgomenti();
-    }
-
-    public List<String> getNomiTirociniDelDocente() {
-        List<String> listaNomi = new ArrayList<>();
-        for (Tirocinio t : DocenteLoggato.getListaTirocini()) {
-            listaNomi.add(t.getNome());
-        }
-        return listaNomi;
-    }
 
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
     public List<String> RichiesteTir(String tirocinio) {
@@ -132,7 +112,30 @@ public class Controller {
         return listaStudenti;
     }
 
-    //Il docente valuta la Tesi
+    //Il docente approva la Tesi
+    public void approvaTesi(String Titolo) {}
+
+
+
+
+    //Il docente boccia la Tesi
+    public void rifiutaTesi() {}
+
+
+
+
+    //Il docente riceve i titoli di tutte le tesi a lui associate
+    public List<String> getTitoliTesi() {
+
+    }
+
+    public Tesi getTesiDaTitolo(String Titolo) {
+        for(Tesi t: listaTesi){
+
+        }
+    }
+
+
     public void valutaTesi(Tesi t, Stato_Tesi esito) {
         if (t.getStato() != Stato_Tesi.In_attesa) {
             throw new IllegalStateException("ERRORE! Richiesta già valutata!");
@@ -354,6 +357,9 @@ public class Controller {
         }
         return s.getTesi().getStato();
     }
+
+
+
     //endregion
 
 

@@ -13,14 +13,12 @@ public class Int_Docente extends JFrame {
     private JButton visualizzaRichiesteTButton;
     private JButton logoutButton;
     private JButton VisualizzaTesiButton;
-    private JButton VisualizzaTirInCorsoButton;
     private JButton CreaSedutaButton;
     private JPanel Coordinatore;
     private JButton GestisciCommissioniButton;
     private JPanel Commissioni;
     private JTextField NomeCognomeDoc;
-    private JRadioButton internoRadioButton;
-    private JRadioButton esternoRadioButton;
+    private JButton VisualizzaTirociniButton;
 
 
     public Int_Docente(Controller controller) {
@@ -75,7 +73,11 @@ public class Int_Docente extends JFrame {
             this.dispose();
         });
 
-
+        VisualizzaTesiButton.addActionListener(e-> {
+            Valuta_Tesi valutaTesi = new Valuta_Tesi(controller);
+            valutaTesi.setVisible(true);
+            this.dispose();
+        });
         // Visualizza Tesi a lui a associate e le valuta
 
         // Visualizza Tirocini disponibili

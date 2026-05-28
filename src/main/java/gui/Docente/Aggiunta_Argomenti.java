@@ -46,14 +46,13 @@ public class Aggiunta_Argomenti extends JFrame {
 
 
         RimuoviButton.addActionListener(e -> {
-            String argomentoSelezionato = (String) ArgComboBox.getSelectedItem();
-            if (argomentoSelezionato == null) {
+            try {
+                String argomento = ArgComboBox.getSelectedItem().toString();
+                controller.rimuoviArgomento(argomento);
+                ArgComboBox.removeItem(argomento);
+            } catch (NullPointerException exception) {
                 JOptionPane.showMessageDialog(this, "Errore: Nessun argomento selezionato da rimuovere.", "Attenzione", JOptionPane.WARNING_MESSAGE);
-                return; // Blocca l'esecuzione
             }
-
-            controller.getdocLoggato().getListaArgomenti().remove(argomentoSelezionato);
-            ArgComboBox.removeItem(argomentoSelezionato);
             JOptionPane.showMessageDialog(this, "Argomento rimosso con successo!");
         });
 
