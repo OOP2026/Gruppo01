@@ -26,6 +26,10 @@ public class Richiesta {
     public void setStato(Stato_richiesta stato) {
         this.stato = stato;
     }
+
+    public boolean verifyStatoApprovata() {
+        return (this.stato == Stato_richiesta.Approvata);
+    }
 }
 
 

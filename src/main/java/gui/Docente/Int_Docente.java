@@ -2,10 +2,9 @@ package gui.Docente;
 
 import controller.Controller;
 import gui.Home;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.util.List;
+
 import javax.swing.*;
+import java.util.List;
 
 public class Int_Docente extends JFrame {
     Controller controller;
@@ -21,6 +20,8 @@ public class Int_Docente extends JFrame {
     private JPanel Commissioni;
     private JTextField NomeCognomeDoc;
     private JButton VisualizzaTirociniButton;
+    private JTable tabellaTirocini;
+    private JButton terminaVisualizzazioneButton;
 
 
     public Int_Docente(Controller controller) {
@@ -32,6 +33,8 @@ public class Int_Docente extends JFrame {
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
         this.Commissioni.setVisible(false);
+        this.tabellaTirocini.setVisible(false);
+        this.terminaVisualizzazioneButton.setVisible(false);
 
         if(controller.getdocLoggato().getisCoordinatore()) {
         this.Coordinatore.setVisible(true);
@@ -40,6 +43,7 @@ public class Int_Docente extends JFrame {
 
         NomeCognomeDoc.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
 
+        //Se coordinatore, imposta la Seduta
         CreaSedutaButton.addActionListener(e -> {
             CreaSeduta impostaSeduta  = new CreaSeduta(controller);
             impostaSeduta.setVisible(true);
@@ -54,7 +58,7 @@ public class Int_Docente extends JFrame {
 
 
 
-        //Crea oggetto Tirocinio (diviso in Interno e Esterno, con Jbutton)
+        //Apre l'interfaccia per aggiungere l'argomento
         aggiungiArgomButton.addActionListener(e ->{
            Aggiunta_Argomenti finestraAggArg = new Aggiunta_Argomenti(controller);
            finestraAggArg.setVisible(true);
@@ -75,62 +79,48 @@ public class Int_Docente extends JFrame {
             this.dispose();
         });
 
+
+        // Visualizza Tesi a lui associate e le valuta
         VisualizzaTesiButton.addActionListener(e-> {
             Valuta_Tesi valutaTesi = new Valuta_Tesi(controller);
             valutaTesi.setVisible(true);
             this.dispose();
         });
-        // Visualizza Tesi a lui a associate e le valuta
 
-        // Visualizza Tirocini disponibili
 
-        //Se coordinatore, imposta la Seduta
 
-        public class PopupTirociniInCorso extends JDialog {
+        // Visualizza Tirocini in corso
+        VisualizzaTirociniButton.addActionListener(e -> {
+            try {
+               // Recupera dal controller
+                List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
 
-            public PopupTirocini(JFrame parent, List<Tirocinio> listaTirocini) {
-                super(parent, "Tirocini in Corso e Studenti Associati", true); // modale = true
-
-                // Configurazione base
-                this.setSize(600, 400);
-                this.setLocationRelativeTo(parent);
-                this.setLayout(new BorderLayout());
-
-                // 1. Creazione del modello della tabella (Celle NON modificabili)
-                String[] colonne = {"Matricola", "Studente", "Titolo Tirocinio", "Stato"};
-                DefaultTableModel tableModel = new DefaultTableModel(colonne, 0) {
-                };
-
-                // 2. Popolamento dei dati
-                if (listaTirocini != null) {
-                    for (Tirocinio t : listaTirocini) {
-                        // Adatta i metodi getter in base a come li hai scritti nel Model
-                        String matricola = t.getStudente().getMatricola();
-                        String nomeCompleto = t.getStudente().getNome() + " " + t.getStudente().getCognome();
-                        String titolo = t.getTitolo();
-                        String stato = t.getStato().toString(); // Assumendo che Stato sia una Enum
-
-                        tableModel.addRow(new Object[]{matricola, nomeCompleto, titolo, stato});
-                    }
+                // 2. Se la lista è vuota, avvisa l'utente e interrompi
+                if (datiTabella == null || datiTabella.isEmpty()) {
+                    JOptionPane.showMessageDialog(this,
+                            "Nessun tirocinio in corso associato a questo docente.",
+                            "Informazione",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
 
-                // 3. Creazione della JTable e aggiunta dello ScrollPane
-                JTable table = new JTable(tableModel);
-                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                table.getTableHeader().setReorderingAllowed(false); // Impedisce di spostare le colonne
+                // 3. Crea e mostra la tabella passando la lista di array di stringhe
+                tabellaTirocini.setVisible(true);
+                terminaVisualizzazioneButton.setVisible(true);
 
-                JScrollPane scrollPane = new JScrollPane(table);
-                this.add(scrollPane, BorderLayout.CENTER);
-
-                // 4. Pannello inferiore con bottone di chiusura
-                JPanel panelBottom = new JPanel();
-                JButton btnChiudi = new JButton("Chiudi");
-                btnChiudi.addActionListener(e -> this.dispose()); // Chiude e distrugge il popup
-
-                panelBottom.add(btnChiudi);
-                this.add(panelBottom, BorderLayout.SOUTH);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Errore durante il caricamento dei tirocini: " + ex.getMessage(),
+                        "Errore",
+                        JOptionPane.ERROR_MESSAGE);
             }
-        }
+        });
+
+        terminaVisualizzazioneButton.addActionListener(e -> {
+            tabellaTirocini.setVisible(false);
+        });
+
+
 
 
     }

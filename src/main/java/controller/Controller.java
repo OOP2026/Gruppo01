@@ -83,12 +83,42 @@ public class Controller {
     }
 
 
-    //Visualizza gli studenti dei Tirocini attualmente in corso di cui il docente è rensponsabile
+    public List<String[]> visualizzaTirocinioStudenti() {
+        List<String[]> righeTabella = new ArrayList<>();
+        //Per ogni tirocinio del docente
+        for (Tirocinio t : docenteLoggato.getListaTirocini()) {
+
+            //Filtra solo quelli in corso
+            if (t.getStato() == StatoTirocinio.In_corso) {
+                String nomeTirocinio = t.getNome();
+
+                //Cerca gli studenti con richiesta approvata per questo tirocinio
+                for (Richiesta r : t.getRichieste()) {
+                    if (r.verifyStatoApprovata()) {
+
+                        Studente studente = r.getRichiedente();
+
+                        // 4. Prepara i dati della singola riga
+                        String matricola = studente.getMatricola();
+                        String nomeCompleto = studente.getNome() + " " + studente.getCognome();
+
+                        // 5. Crea l'array di stringhe (la riga) e lo aggiunge alla lista
+                        String[] riga = new String[] {
+                                nomeTirocinio,
+                                matricola,
+                                nomeCompleto,
+                        };
+                        righeTabella.add(riga);
+                    }
+                }
+            }
+        }
+        return righeTabella;
+    }
 
 
 
-
-    //Rifiuta la Richiesta di Tirocinio
+    // la Richiesta di Tirocinio
     public void rifiutaRichiestaTirocinio(String matricola, String nome) {
         for (Richiesta r : listaRichieste) {
             if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getNome().equals(nome)) {
@@ -217,10 +247,8 @@ public class Controller {
     public List<String[]> getDatiTabellaSeduta(LocalDateTime dataSeduta) {
         List<String[]> righeTabella = new ArrayList<>();
 
-        // Scorre tutte le tesi caricate nel sistema
         for (Tesi t : this.listaTesi) {
 
-            // Se la tesi fa parte della seduta selezionata dal coordinatore
             if (t.getSeduta_richiesta().getData_ora().equals(dataSeduta)) {
 
                 // Estrae i dati convertendoli in semplici stringhe per proteggere il Model
@@ -234,7 +262,8 @@ public class Controller {
             }
         }
 
-        return righeTabella;}
+        return righeTabella;
+    }
 
     //endregion
 

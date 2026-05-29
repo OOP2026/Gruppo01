@@ -34,21 +34,16 @@ public class Gestisci_Commissioni extends JFrame{
         TabellaStudenti.setModel(modelloTabella);
 
 
-// 2. L'EVENTO SULLA TENDINA
-// Aggiungiamo un listener che scatta ogni volta che il coordinatore cambia la selezione
+        // Il listener scatta ogni volta che il coordinatore cambia la selezione
         SeduteCombobox.addActionListener(e -> {
 
-            // Prendi la data selezionata
             LocalDateTime sedutaScelta = (LocalDateTime) SeduteCombobox.getSelectedItem();
 
             if (sedutaScelta != null) {
-                // A. Svuota la tabella da eventuali dati della seduta precedente
                 modelloTabella.setRowCount(0);
 
-                // B. Chiedi i dati puliti al Controller (Nessuna violazione architetturale!)
                 List<String[]> nuoviDati = controller.getDatiTabellaSeduta(sedutaScelta);
 
-                // C. Inserisci le righe una per una
                 for (String[] riga : nuoviDati) {
                     modelloTabella.addRow(riga);
                 }
