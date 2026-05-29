@@ -1,7 +1,6 @@
 package gui.Docente;
 import controller.Controller;
 import gui.Home;
-import gui.Registrazioni.Reg_Studente;
 
 import javax.swing.*;
 
@@ -15,13 +14,15 @@ public class Visualizza_R_Tir extends JFrame {
     private JComboBox StudentiComboBox;
     private JButton ValutaButton;
     private JButton logoutButton;
+    private JTextArea textArea1;
+    private JLabel RICHIESTEDITIROCINIOLabel;
     ButtonGroup gruppoScelte = new ButtonGroup();
 
     public Visualizza_R_Tir(Controller controller) {
         this.controller = controller;
         this.setContentPane(VisTir);
-        this.setTitle("Valuta Richieste Tirocinio");
-        this.setSize(1024, 768);
+        this.setTitle("VALUTAZIONE RICHIESTE DI TIROCINIO");
+        this.setSize(500, 300);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

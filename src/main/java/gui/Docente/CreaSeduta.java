@@ -2,7 +2,6 @@ package gui.Docente;
 
 import controller.Controller;
 import gui.Home;
-import gui.Studente.Int_Studente;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
@@ -18,12 +17,13 @@ public class CreaSeduta extends JFrame{
     private JTextField AnnoTextField;
     private JTextField OraTextField;
     private JButton logoutButton;
+    private JLabel CREASEDUTALabel;
 
     public CreaSeduta(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraSedute);
-        this.setTitle("Portale Login");
-        this.setSize(1024, 768);
+        this.setTitle("CREAZIONE SEDUTA");
+        this.setSize(750, 300);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

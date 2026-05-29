@@ -14,15 +14,20 @@ public class Valuta_Tesi extends JFrame {
     private JRadioButton rifiutaRadioButton;
     private JComboBox<String> TesiComboBox;
     private JButton logoutButton;
+    private JLabel VALUTATESILabel;
+    ButtonGroup gruppoScelte = new ButtonGroup();
 
 
     public Valuta_Tesi(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraValTesi);
-        this.setTitle("Valuta Richieste Tirocinio");
-        this.setSize(1024, 768);
+        this.setTitle("VALUTAZIONE TESI");
+        this.setSize(500, 300);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        gruppoScelte.add(approvaRadioButton);
+        gruppoScelte.add(rifiutaRadioButton);
+
 
 
         for(String idTesi: controller.getIdTesi()) {

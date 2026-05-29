@@ -16,7 +16,7 @@ public class Int_RichiestaT extends JFrame{
     public Int_RichiestaT(Controller controller) {
         this.controller = controller;
         this.setContentPane(panel1);
-        this.setTitle("Interfaccia Richiesta Tirocinio");
+        this.setTitle("RICHIESTA DI TIROCINIO");
         this.setSize(500, 350);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);

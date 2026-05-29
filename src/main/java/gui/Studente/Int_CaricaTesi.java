@@ -20,7 +20,7 @@ public class Int_CaricaTesi extends JFrame{
     public Int_CaricaTesi(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraCaricaTesi);
-        this.setTitle("INTEFACCIA CARICA TESI");
+        this.setTitle("CARICAMENTO TESI");
         this.setSize(500, 350);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);

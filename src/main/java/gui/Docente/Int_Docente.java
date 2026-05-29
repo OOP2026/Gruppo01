@@ -9,7 +9,7 @@ import java.util.List;
 public class Int_Docente extends JFrame {
     Controller controller;
     private JPanel FinestraDocente;
-    private JTextPane interfacciaDocenteTextPane;
+    private JLabel INTERFACCIADOCENTELabel;
     private JButton aggiungiArgomButton;
     private JButton visualizzaRichiesteTButton;
     private JButton logoutButton;
@@ -27,8 +27,8 @@ public class Int_Docente extends JFrame {
     public Int_Docente(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraDocente);
-        this.setTitle("Portale Login");
-        this.setSize(1024, 768);
+        this.setTitle("INTERFACCIA DOCENTE");
+        this.setSize(500, 500);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
@@ -96,17 +96,18 @@ public class Int_Docente extends JFrame {
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
 
                 // 2. Se la lista è vuota, avvisa l'utente e interrompi
-                if (datiTabella == null || datiTabella.isEmpty()) {
+              /*  if (datiTabella == null || datiTabella.isEmpty()) {
                     JOptionPane.showMessageDialog(this,
                             "Nessun tirocinio in corso associato a questo docente.",
                             "Informazione",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
-                }
+                }*/
 
                 // 3. Crea e mostra la tabella passando la lista di array di stringhe
                 tabellaTirocini.setVisible(true);
                 terminaVisualizzazioneButton.setVisible(true);
+                setSize(500, 800);
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
@@ -118,6 +119,7 @@ public class Int_Docente extends JFrame {
 
         terminaVisualizzazioneButton.addActionListener(e -> {
             tabellaTirocini.setVisible(false);
+            setSize(500, 500);
         });
 
 

@@ -5,8 +5,6 @@ import gui.Home;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,12 +17,13 @@ public class Gestisci_Commissioni extends JFrame{
     private JComboBox SeduteCombobox;
     private JTable TabellaStudenti;
     private JButton logoutButton;
+    private JLabel GESTISCICOMMISSIONELabel;
 
     public Gestisci_Commissioni(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraCommissioni);
-        this.setTitle("Portale Login");
-        this.setSize(1024, 768);
+        this.setTitle("GESTIONE COMMISSIONE");
+        this.setSize(500, 600);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
@@ -60,6 +59,10 @@ public class Gestisci_Commissioni extends JFrame{
             Home NewHome = new Home(controller);
             NewHome.setVisible(true);
             this.dispose();
+        });
+
+        confermaButton.addActionListener(e -> {
+            
         });
     }
 }

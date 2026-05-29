@@ -14,13 +14,14 @@ public class Aggiunta_Argomenti extends JFrame {
     private JButton ReturnButton;
     private JPanel finestraArgomenti;
     private JButton logoutButton;
+    private JLabel modificaListaArgomentiLabel;
 
 
     public Aggiunta_Argomenti(Controller controller) {
         this.controller = controller;
         this.setContentPane(finestraArgomenti);
-        this.setTitle("Portale Login");
-        this.setSize(1024, 768);
+        this.setTitle("AGGIUNTA ARGOMENTI");
+        this.setSize(500, 300);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

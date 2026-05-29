@@ -3,12 +3,14 @@
   <grid id="27dc6" binding="VisTir" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="258"/>
+      <xy x="20" y="20" width="500" height="293"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-3245500"/>
+    </properties>
     <border type="none"/>
     <children>
-      <grid id="ae6d3" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="ae6d3" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -21,17 +23,18 @@
           <grid id="9c63e" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-3245500"/>
+            </properties>
             <border type="none"/>
             <children>
-              <component id="30a84" class="javax.swing.JButton" binding="ReturnButton">
+              <component id="3f195" class="javax.swing.JButton" binding="ReturnButton">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-8773859"/>
                   <text value="TORNA ALLA HOME"/>
                 </properties>
               </component>
@@ -52,13 +55,13 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-8773859"/>
+                  <background color="-13255108"/>
                   <text value="VALUTA"/>
                 </properties>
               </component>
               <component id="9b378" class="javax.swing.JRadioButton" binding="approvaRadioButton" default-binding="true">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <background color="-525825"/>
@@ -81,7 +84,9 @@
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-3245500"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="58df9" class="javax.swing.JComboBox" binding="TirociniComboBox">
@@ -101,7 +106,9 @@
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-3245500"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="87408" class="javax.swing.JComboBox" binding="StudentiComboBox">
@@ -134,7 +141,7 @@
                   <text value="Logout"/>
                 </properties>
               </component>
-              <component id="d477d" class="javax.swing.JTextPane" default-binding="true">
+              <component id="d956a" class="javax.swing.JLabel" binding="RICHIESTEDITIROCINIOLabel" default-binding="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="50"/>
@@ -142,8 +149,31 @@
                 </constraints>
                 <properties>
                   <background color="-9029114"/>
+                  <foreground color="-525825"/>
+                  <text value="RICHIESTE DI TIROCINIO "/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="60364" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-3245500"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="3e7dc" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-3245500"/>
                   <editable value="false"/>
-                  <text value="Richieste di Tirocinio"/>
                 </properties>
               </component>
             </children>

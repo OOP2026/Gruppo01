@@ -15,11 +15,12 @@ public class Reg_Docente extends JFrame {
     private JTextField CfrmPwdTextField;
     private JButton RegButton;
     private JPanel RegDFinestra;
+    private JButton TORNAALLAHOMEButton;
 
     public Reg_Docente(Controller controller) {
         this.controller = controller;
         this.setContentPane(RegDFinestra);
-        this.setTitle("Portale Registrazione Docente");
+        this.setTitle("PORTALE REGISTRAZIONE DOCENTE");
         this.setSize(500, 450);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -56,6 +57,12 @@ public class Reg_Docente extends JFrame {
             }catch (IllegalArgumentException regError) {
                 JOptionPane.showMessageDialog(this, regError.getMessage(), "Errore di Registrazione", JOptionPane.ERROR_MESSAGE);
             }
+        });
+
+        TORNAALLAHOMEButton.addActionListener(e->{
+            Home NewHome = new Home(controller);
+            NewHome.setVisible(true);
+            this.dispose();
         });
     }
 }

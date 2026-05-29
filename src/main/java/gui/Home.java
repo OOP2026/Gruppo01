@@ -26,7 +26,7 @@ public class Home extends JFrame {
 	public Home(Controller controller) {
 		this.controller = controller; // Assegna quello passato dall'esterno
 		this.setContentPane(finestra);
-		this.setTitle("Portale Login");
+		this.setTitle("PORTALE LOGIN");
 		this.setSize(300, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gruppoScelte.add(studenteRadioButton);

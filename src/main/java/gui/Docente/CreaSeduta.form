@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="790" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-3245500"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="2462b" binding="FinestraSedute" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -14,26 +16,14 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-12888010"/>
+          <background color="-3245500"/>
         </properties>
         <border type="none"/>
         <children>
-          <component id="b7f29" class="javax.swing.JTextPane" default-binding="true">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="200" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-12314343"/>
-              <editable value="false"/>
-              <text value="Crea Seduta"/>
-            </properties>
-          </component>
           <grid id="504e9" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -44,6 +34,7 @@
                 </constraints>
                 <properties>
                   <background color="-8773859"/>
+                  <foreground color="-525825"/>
                   <text value="TORNA ALLA HOME"/>
                 </properties>
               </component>
@@ -54,8 +45,13 @@
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
-            <border type="none" title="Sede"/>
+            <properties>
+              <background color="-3245500"/>
+              <foreground color="-525825"/>
+            </properties>
+            <border type="none" title="Sede">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <component id="70349" class="javax.swing.JTextField" binding="SedeTextField">
                 <constraints>
@@ -74,7 +70,9 @@
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-3245500"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="99bb9" class="javax.swing.JButton" binding="confermaButton" default-binding="true">
@@ -97,7 +95,9 @@
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-3245500"/>
+            </properties>
             <border type="none"/>
             <children>
               <grid id="e85a1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -105,8 +105,13 @@
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Giorno"/>
+                <properties>
+                  <background color="-3245500"/>
+                  <foreground color="-525825"/>
+                </properties>
+                <border type="none" title="Giorno">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="f7ffe" class="javax.swing.JTextField" binding="GiornoTextPanel">
                     <constraints>
@@ -123,8 +128,13 @@
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Mese"/>
+                <properties>
+                  <background color="-3245500"/>
+                  <foreground color="-525825"/>
+                </properties>
+                <border type="none" title="Mese">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="1cbfe" class="javax.swing.JTextField" binding="MeseTextField">
                     <constraints>
@@ -141,8 +151,13 @@
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Anno"/>
+                <properties>
+                  <background color="-3245500"/>
+                  <foreground color="-525825"/>
+                </properties>
+                <border type="none" title="Anno">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="cc87b" class="javax.swing.JTextField" binding="AnnoTextField">
                     <constraints>
@@ -159,8 +174,13 @@
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Ora"/>
+                <properties>
+                  <background color="-3245500"/>
+                  <foreground color="-525825"/>
+                </properties>
+                <border type="none" title="Ora">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="974e" class="javax.swing.JTextField" binding="OraTextField">
                     <constraints>
@@ -174,20 +194,34 @@
               </grid>
             </children>
           </grid>
-          <grid id="4b5ad" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="4b5ad" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-11003379"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="fc26e" class="javax.swing.JButton" binding="logoutButton" default-binding="true">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text value="Logout"/>
+                </properties>
+              </component>
+              <component id="e8445" class="javax.swing.JLabel" binding="CREASEDUTALabel" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="50"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-12314343"/>
+                  <foreground color="-525825"/>
+                  <text value="CREA SEDUTA"/>
                 </properties>
               </component>
             </children>

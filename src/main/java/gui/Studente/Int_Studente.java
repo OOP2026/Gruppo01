@@ -19,7 +19,7 @@ public class Int_Studente extends JFrame {
     public Int_Studente(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraStudente);
-        this.setTitle("Interfaccia Studente");
+        this.setTitle("INTERFACCIA STUDENTE");
         this.setSize(500, 350);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
