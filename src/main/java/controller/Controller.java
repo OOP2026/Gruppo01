@@ -82,6 +82,12 @@ public class Controller {
         }
     }
 
+
+    //Visualizza gli studenti dei Tirocini attualmente in corso di cui il docente è rensponsabile
+
+
+
+
     //Rifiuta la Richiesta di Tirocinio
     public void rifiutaRichiestaTirocinio(String matricola, String nome) {
         for (Richiesta r : listaRichieste) {
