@@ -225,6 +225,51 @@ public class Controller {
             throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
     }
 
+    //La gui per creare la lista delle sedute aperte ha bisogno di una Lista di Stringhe
+    public List<String> creaListaSeduteAperte() {
+        List<String> result = new ArrayList<>();
+        List<Seduta> seduteAperte = new ArrayList<>();
+
+        // Raccogliamo solo gli oggetti Seduta con stato aperto
+        for (Seduta s : docenteLoggato.getListaSedute()) {
+            if (s.getStato()) {
+                seduteAperte.add(s);
+            }
+        }
+
+        // Ordiniamo gli oggetti in base alla loro data
+        seduteAperte.sort(Comparator.comparing(Seduta::getData_ora));
+
+        // Estrapoliamo le stringhe
+        for (Seduta s : seduteAperte) {
+            result.add(s.getSede() + " - " + s.getData_ora().toString());
+        }
+
+        return result;
+    }
+
+    public Seduta assemblaSeduta(String sedeData) {
+        // Usiamo il separatore robusto definito sopra
+        String[] parts = sedeData.split(" - ");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Formato stringa seduta non valido.");
+        }
+
+        String sede = parts[0].trim();
+        String dataOra = parts[1].trim();
+
+        for (Seduta s : docenteLoggato.getListaSedute()) {
+            if (sede.equals(s.getSede()) && dataOra.equals(s.getData_ora().toString())) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException("Seduta inesistente");
+    }
+
+    public void confermaSeduta(String sede_data) {
+        Seduta seduta = assemblaSeduta(sede_data);
+        seduta.setStato(false);
+    }
 
     public LocalDateTime assemblaDataOra(String giornoStr, String meseStr, String annoStr, String oraStr) {
         try {
@@ -263,6 +308,11 @@ public class Controller {
         }
 
         return righeTabella;
+    }
+
+    //riceve dalla gui "Gestisci_commissioni" la stringa contenente
+    public void confermaSeduta() {
+
     }
 
     //endregion

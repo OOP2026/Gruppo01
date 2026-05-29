@@ -14,7 +14,7 @@ public class Gestisci_Commissioni extends JFrame{
     private JPanel FinestraSedute;
     private JButton ReturnButton;
     private JButton confermaButton;
-    private JComboBox SeduteCombobox;
+    private JComboBox<String> SeduteCombobox;
     private JTable TabellaStudenti;
     private JButton logoutButton;
     private JLabel GESTISCICOMMISSIONELabel;
@@ -32,6 +32,13 @@ public class Gestisci_Commissioni extends JFrame{
         DefaultTableModel modelloTabella = new DefaultTableModel(nomiColonne, 0);
         TabellaStudenti.setModel(modelloTabella);
 
+        //Riempiamo la ComboBox delle sedute disponibili
+        List<String> seduteDisponibili = controller.creaListaSeduteAperte();
+        if (seduteDisponibili != null && !seduteDisponibili.isEmpty()) {
+            for (String seduta : seduteDisponibili) {
+                SeduteCombobox.addItem(seduta);
+            }
+        }
 
         // Il listener scatta ogni volta che il coordinatore cambia la selezione
         SeduteCombobox.addActionListener(e -> {
@@ -49,6 +56,29 @@ public class Gestisci_Commissioni extends JFrame{
             }
         });
 
+        confermaButton.addActionListener(e -> {
+            String sedutaSelezionata = (String) SeduteCombobox.getSelectedItem();
+
+            if (sedutaSelezionata != null) {
+                try {
+                    // Passi la stringa al Controller (che farà split e ricerca)
+                    controller.confermaSeduta(sedutaSelezionata);
+
+                    JOptionPane.showMessageDialog(this,
+                            "Seduta confermata e chiusa con successo.",
+                            "Seduta chiusa",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (IllegalArgumentException ex) {
+                    // Intercetta l'errore "Seduta inesistente" o "Formato stringa non valido"
+                    JOptionPane.showMessageDialog(this,
+                            "Errore del sistema: " + ex.getMessage(),
+                            "Errore",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
 
         ReturnButton.addActionListener(e -> {
             Int_Docente interfacciaDoc = new Int_Docente(controller);
@@ -61,8 +91,6 @@ public class Gestisci_Commissioni extends JFrame{
             this.dispose();
         });
 
-        confermaButton.addActionListener(e -> {
-            
-        });
+
     }
 }

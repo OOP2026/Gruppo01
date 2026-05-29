@@ -1,11 +1,12 @@
 package model;
+import java.time.LocalDate;
 import java.util.*;
 import java.time.LocalDateTime;
 
 public class Seduta {
     private LocalDateTime data_ora;
     private String sede;
-    public boolean stato; //true se è aperta, false se è chiusa (dopo che il coordinatore ha impostato la commissione)
+    private boolean stato; //true se è aperta, false se è chiusa (dopo che il coordinatore ha impostato la commissione)
     private List<Tesi> prenotazioni;
     private Docente coordinatore;
     private HashSet<Docente> commissione;

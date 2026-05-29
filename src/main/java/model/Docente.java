@@ -62,4 +62,6 @@ public class Docente extends Utente {
     public List<String> getListaArgomenti() {
         return listaArgomenti;
     }
+
+    public List<Seduta> getListaSedute() {return sedutePubblicate;}
 }
