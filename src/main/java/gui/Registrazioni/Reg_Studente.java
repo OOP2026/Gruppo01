@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class Reg_Studente extends JFrame {
     Controller controller;
-    private JTextPane REGISTRAZIONESTUDENTETextPane;
+    private JLabel REGISTRAZIONESTUDENTELabel;
     private JTextField nomeTextField;
     private JTextField cognomeTextField;
     private JTextField EmailTextField;
@@ -24,7 +24,7 @@ public class Reg_Studente extends JFrame {
         this.controller = controller;
         this.setContentPane(RegSFinestra);
         this.setTitle("Portale Registrazione Studente");
-        this.setSize(1024, 768);
+        this.setSize(500, 500);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

@@ -18,6 +18,7 @@ public class Home extends JFrame {
 	private JRadioButton docenteRadioButton;
 	private JPasswordField passwordField1;
 	private JTextField HOMETextField;
+	private JTextArea textArea2;
 	ButtonGroup gruppoScelte = new ButtonGroup();
 
 
@@ -26,7 +27,7 @@ public class Home extends JFrame {
 		this.controller = controller; // Assegna quello passato dall'esterno
 		this.setContentPane(finestra);
 		this.setTitle("Portale Login");
-		this.setSize(1024, 768);
+		this.setSize(300, 400);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gruppoScelte.add(studenteRadioButton);
 		gruppoScelte.add(docenteRadioButton);

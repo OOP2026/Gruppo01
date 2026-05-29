@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Reg_Docente extends JFrame {
     Controller controller;
-    private JTextPane REGISTRAZIONEDOCENTETextPane;
+    private JLabel REGISTRAZIONEDOCENTELabel;
     private JTextField nomeTextField;
     private JTextField CognomeTextField;
     private JTextField EmailTextField;
@@ -20,7 +20,7 @@ public class Reg_Docente extends JFrame {
         this.controller = controller;
         this.setContentPane(RegDFinestra);
         this.setTitle("Portale Registrazione Docente");
-        this.setSize(1024, 768);
+        this.setSize(500, 450);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 

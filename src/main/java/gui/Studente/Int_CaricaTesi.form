@@ -13,7 +13,9 @@
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-13467216"/>
+        </properties>
         <border type="none"/>
         <children>
           <grid id="5f086" layout-manager="GridLayoutManager" row-count="7" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -22,27 +24,21 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-12950497"/>
+              <background color="-13467216"/>
             </properties>
             <border type="none"/>
             <children>
-              <component id="67c54" class="javax.swing.JTextPane" binding="caricaTesiTextPane" default-binding="true">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <preferred-size width="230" height="50"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <text value="      &#9;&#9;&#10;&#9;&#9;Carica Tesi"/>
-                </properties>
-              </component>
               <grid id="cb8dc" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Percorso Tesi"/>
+                <properties>
+                  <background color="-13467216"/>
+                </properties>
+                <border type="none" title="Percorso Tesi">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="eef52" class="javax.swing.JTextField" binding="pathTextField">
                     <constraints>
@@ -59,7 +55,7 @@
               <grid id="d3ace" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
@@ -74,20 +70,34 @@
                   </component>
                 </children>
               </grid>
-              <grid id="9fddd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="9fddd" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-13610883"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="35f3e" class="javax.swing.JButton" binding="logoutButton" default-binding="true">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="Logout"/>
+                    </properties>
+                  </component>
+                  <component id="9872c" class="javax.swing.JLabel" binding="CARICATESILabel" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                        <preferred-size width="230" height="50"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <background color="-13610883"/>
+                      <foreground color="-525825"/>
+                      <text value="      &#9;&#9;&#10;&#9;                &#9;CARICA TESI  "/>
                     </properties>
                   </component>
                 </children>
@@ -97,7 +107,9 @@
                 <constraints>
                   <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-13467216"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <hspacer id="ae740">
@@ -120,8 +132,12 @@
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Seleziona Seduta"/>
+                <properties>
+                  <background color="-13467216"/>
+                </properties>
+                <border type="none" title="Seleziona Seduta">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="ef677" class="javax.swing.JComboBox" binding="SLComboBox">
                     <constraints>
@@ -138,7 +154,9 @@
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-13467216"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <hspacer id="737cb">
@@ -161,8 +179,12 @@
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
-                <border type="none" title="Titolo Tesi"/>
+                <properties>
+                  <background color="-13467216"/>
+                </properties>
+                <border type="none" title="Titolo Tesi">
+                  <title-color color="-525825"/>
+                </border>
                 <children>
                   <component id="35a6e" class="javax.swing.JTextField" binding="TitoloTesiTextField">
                     <constraints>

@@ -3,14 +3,14 @@
   <grid id="27dc6" binding="RegDFinestra" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="598" height="503"/>
+      <xy x="20" y="20" width="598" height="507"/>
     </constraints>
     <properties>
       <background color="-3245500"/>
     </properties>
     <border type="none"/>
     <children>
-      <grid id="75eeb" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="75eeb" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -20,27 +20,17 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="7edb0" class="javax.swing.JTextPane" binding="REGISTRAZIONEDOCENTETextPane" default-binding="true">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="200" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-12314343"/>
-              <editable value="false"/>
-              <text value="REGISTRAZIONE DOCENTE"/>
-            </properties>
-          </component>
           <grid id="ba24c" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
-            <border type="none" title="Nome"/>
+            <border type="none" title="Nome">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <component id="cea72" class="javax.swing.JTextField" binding="nomeTextField" default-binding="true">
                 <constraints>
@@ -62,12 +52,14 @@
           <grid id="5afd3" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
-            <border type="none" title="Cognome"/>
+            <border type="none" title="Cognome">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <component id="5b05c" class="javax.swing.JTextField" binding="CognomeTextField">
                 <constraints>
@@ -89,12 +81,14 @@
           <grid id="142fb" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
-            <border type="none" title="Email"/>
+            <border type="none" title="Email">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <component id="3d427" class="javax.swing.JTextField" binding="EmailTextField">
                 <constraints>
@@ -116,12 +110,14 @@
           <grid id="283d2" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
-            <border type="none" title="Username"/>
+            <border type="none" title="Username">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <component id="a7821" class="javax.swing.JTextField" binding="UsernameTextField">
                 <constraints>
@@ -143,12 +139,14 @@
           <grid id="ab857" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
-            <border type="none" title="Password "/>
+            <border type="none" title="Password ">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <hspacer id="9c339">
                 <constraints>
@@ -170,12 +168,14 @@
           <grid id="d1434" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
-            <border type="none" title="Conferma Password"/>
+            <border type="none" title="Conferma Password">
+              <title-color color="-525825"/>
+            </border>
             <children>
               <hspacer id="b07ea">
                 <constraints>
@@ -197,10 +197,10 @@
           <grid id="9ac25" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-9029114"/>
+              <background color="-3245500"/>
             </properties>
             <border type="none"/>
             <children>
@@ -209,8 +209,32 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <background color="-8773859"/>
+                  <background color="-13255108"/>
                   <text value="REGISTRATI"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="c55ec" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-9029114"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="ce981" class="javax.swing.JLabel" binding="REGISTRAZIONEDOCENTELabel" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="50"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-9029114"/>
+                  <foreground color="-525825"/>
+                  <text value="REGISTRAZIONE DOCENTE"/>
                 </properties>
               </component>
             </children>

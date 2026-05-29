@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Int_CaricaTesi extends JFrame{
     Controller controller;
     private JPanel FinestraCaricaTesi;
-    private JTextPane caricaTesiTextPane;
+    private JLabel CARICATESILabel;
     private JTextField pathTextField;
     private JButton ConfermaButton;
     private JButton logoutButton;
@@ -20,8 +20,8 @@ public class Int_CaricaTesi extends JFrame{
     public Int_CaricaTesi(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraCaricaTesi);
-        this.setTitle("Interfaccia Tesi");
-        this.setSize(1024, 768);
+        this.setTitle("INTEFACCIA CARICA TESI");
+        this.setSize(500, 350);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
