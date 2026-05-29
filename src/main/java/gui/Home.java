@@ -16,9 +16,9 @@ public class Home extends JFrame {
 	//i JRadioButton serviranno sia per la selezione del login che per quella della registrazione
 	private JRadioButton studenteRadioButton;
 	private JRadioButton docenteRadioButton;
-	private JTextPane HOMETextPane;
 	private JPasswordField passwordField1;
 	private JTextArea textArea1;
+	private JTextField HOMETextField;
 	ButtonGroup gruppoScelte = new ButtonGroup();
 
 
