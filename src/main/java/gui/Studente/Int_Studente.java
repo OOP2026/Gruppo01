@@ -24,7 +24,7 @@ public class Int_Studente extends JFrame {
         this.setLocationRelativeTo(null);
 
 
-        NomeCognomeS.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
+        NomeCognomeS.setText(controller.getstudLoggato().getNome() + " " + controller.getstudLoggato().getCognome());
 
         logoutButton.addActionListener(e -> {
             Home NewHome = new Home(controller);

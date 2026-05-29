@@ -18,6 +18,7 @@ public class Home extends JFrame {
 	private JRadioButton docenteRadioButton;
 	private JTextPane HOMETextPane;
 	private JPasswordField passwordField1;
+	private JTextArea textArea1;
 	ButtonGroup gruppoScelte = new ButtonGroup();
 
 
