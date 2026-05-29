@@ -212,8 +212,10 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <background color="-526345"/>
+                      <background color="-1447188"/>
+                      <editable value="false"/>
                       <foreground color="-3023399"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>
