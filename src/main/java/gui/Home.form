@@ -187,6 +187,7 @@
             <properties>
               <background color="-16411031"/>
               <foreground color="-14935010"/>
+              <opaque value="true"/>
               <text value="Docente"/>
             </properties>
           </component>

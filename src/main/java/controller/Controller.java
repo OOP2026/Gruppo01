@@ -393,7 +393,7 @@ public class Controller {
 
     public Seduta getSedutaDaData(LocalDateTime data) {
         for (Seduta s : listaSedute) {
-            if (s.getData_ora() == data) {
+            if (s.getData_ora().equals(data)) {
                 return s;
             }
         }

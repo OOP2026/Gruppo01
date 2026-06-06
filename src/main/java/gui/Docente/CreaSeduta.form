@@ -34,7 +34,7 @@
                 </constraints>
                 <properties>
                   <background color="-8773859"/>
-                  <foreground color="-525825"/>
+                  <foreground color="-16777216"/>
                   <text value="TORNA ALLA HOME"/>
                 </properties>
               </component>
