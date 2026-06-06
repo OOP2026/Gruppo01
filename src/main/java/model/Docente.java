@@ -35,6 +35,7 @@ public class Docente extends Utente {
         this.is_coordinatore = is_coordinatore;
     }
 
+    //forse da usare con i database
     public void aggiungiTirocinio(Tirocinio t) {
         if (t != null && ! this.listaTirocini.contains(t)) {
             this.listaTirocini.add(t);

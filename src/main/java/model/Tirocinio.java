@@ -32,24 +32,8 @@ public abstract class Tirocinio {
         return nome;
     }
 
-    public String getDurata() {
-        return durata;
-    }
-
-    public LocalDate getData_inizio() {
-        return data_inizio;
-    }
-
-    public String getArgomento() {
-        return argomento;
-    }
-
     public int getN_posti() {
         return n_posti;
-    }
-
-    public int getN_cfu() {
-        return n_cfu;
     }
 
     public Docente getDocente() {
@@ -62,40 +46,13 @@ public abstract class Tirocinio {
         this.nome = nome;
     }
 
-    public void setDurata(String durata) {
-        this.durata = durata;
-    }
-
-    public void setData_inizio(LocalDate data_inizio) {
-        this.data_inizio = data_inizio;
-    }
-
     public List<Richiesta> getRichieste() {
         return richieste;
-    }
-
-    public void setN_posti(int n_posti) {
-        this.n_posti = n_posti;
-    }
-
-    public void setN_cfu(int n_cfu) {
-        this.n_cfu = n_cfu;
     }
 
     public void setDocente(Docente docente) {
         this.docente = docente;
     }
-
-
-    public void setArgomento(String a){this.argomento = a;}
-    public void aggiungiRichiesta(Richiesta r){
-        this.richieste.add(r);
-    }
-    public void rimuoviRichiesta(Richiesta r){
-        this.richieste.remove(r);
-    }
-
-
 
     public void decrementaPosti() {
         n_posti--;

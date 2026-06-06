@@ -17,21 +17,6 @@ public class Tirocinio_Interno extends Tirocinio{
         this.laboratorio = laboratorio;
     }
 
-    public String getDipartimento() {
-        return dipartimento;
-    }
-
-    public String getLaboratorio() {
-        return laboratorio;
-    }
-
-    public void setDipartimento(String dipartimento) {
-        this.dipartimento = dipartimento;
-    }
-
-    public void setLaboratorio(String laboratorio) {
-        this.laboratorio = laboratorio;
-    }
 }
 
 
