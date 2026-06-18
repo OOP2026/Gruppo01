@@ -40,8 +40,8 @@ public class Int_RichiestaT extends JFrame {
             this.dispose();
         });
         LTDisponibiliComboBox.removeAllItems();
-        for (String nometirocinio : controller.visualizzaTirocini()) {
-            LTDisponibiliComboBox.addItem(nometirocinio);
+        for (String idTirocinio : controller.visualizzaTirocini()) {
+            LTDisponibiliComboBox.addItem(idTirocinio);
         }
 
         RichiediButton.addActionListener(e -> {

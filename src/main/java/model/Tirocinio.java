@@ -4,6 +4,7 @@ import java.util.*;
 
 
 public abstract class Tirocinio {
+    private String id;
     private String nome;
     private String durata; //numero di ore
     private LocalDate data_inizio;
@@ -15,6 +16,7 @@ public abstract class Tirocinio {
     private StatoTirocinio stato;
 
     public Tirocinio(String nome, String durata, LocalDate data_inizio, int n_posti, int n_cfu, Docente docente) {
+        this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.durata = durata;
         this.data_inizio = data_inizio;
@@ -58,4 +60,5 @@ public abstract class Tirocinio {
         n_posti--;
     }
 
+    public String getid() {return id;}
 }

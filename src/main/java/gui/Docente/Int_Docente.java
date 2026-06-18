@@ -98,15 +98,14 @@ public class Int_Docente extends JFrame {
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
 
                 // 2. Se la lista è vuota, avvisa l'utente e interrompi
-              /*  if (datiTabella == null || datiTabella.isEmpty()) {
+                if (datiTabella == null || datiTabella.isEmpty()) {
                     JOptionPane.showMessageDialog(this,
                             "Nessun tirocinio in corso associato a questo docente.",
                             "Informazione",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
-                }*/
+                }
 
-                // 3. Crea e mostra la tabella passando la lista di array di stringhe
                 tabellaTirocini.setVisible(true);
                 terminaVisualizzazioneButton.setVisible(true);
                 setSize(500, 800);

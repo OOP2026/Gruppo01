@@ -19,7 +19,6 @@ public class Visualizza_R_Tir extends JFrame {
     private JButton logoutButton;
     private JTextArea textArea1;
     private JLabel RICHIESTEDITIROCINIOLabel;
-    private JPanel carar;
     ButtonGroup gruppoScelte = new ButtonGroup();
 
     public Visualizza_R_Tir(Controller controller) {
@@ -42,7 +41,7 @@ public class Visualizza_R_Tir extends JFrame {
 
         // LISTENER COMBOBOX TIROCINI
         TirociniComboBox.addActionListener(e -> {
-            String tirocinioSelezionato = (String) TirociniComboBox.getSelectedItem();
+            String tirocinioSelezionato = ((String) TirociniComboBox.getSelectedItem()).split(";")[0];
             StudentiComboBox.removeAllItems(); // Pulisce gli studenti precedenti
 
             if (tirocinioSelezionato != null) {

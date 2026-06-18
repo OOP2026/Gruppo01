@@ -64,17 +64,17 @@ public class Controller {
         ArrayList<String> nomiTirociniAperti = new ArrayList<>();
         for (Tirocinio t : listaTirocini) {
             if (t.getDocente().equals(this.docenteLoggato) && t.getStato() == StatoTirocinio.Aperto) {
-                nomiTirociniAperti.add(t.getNome());
+                nomiTirociniAperti.add(t.getid() + ": " + t.getNome());
             }
         }
         return nomiTirociniAperti;
     }
 
     //Approva la Richiesta di Tirocinio
-    public void approvaRichiestaTirocinio(String matricola, String nome) {
-        verificaPostiDiposibili(getTirocinioDaNome(nome));
+    public void approvaRichiestaTirocinio(String matricola, String id) {
+        verificaPostiDiposibili(getTirocinioDaId(id));
         for (Richiesta r : listaRichieste) {
-            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getNome().equals(nome) ) {
+            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getid().equals(id) ) {
                 r.setStato(Stato_richiesta.Approvata);
                 r.getTirocinio().decrementaPosti();
             }
@@ -90,7 +90,7 @@ public class Controller {
 
             //Filtra solo quelli in corso
             if (t.getStato() == StatoTirocinio.In_corso) {
-                String nomeTirocinio = t.getNome();
+                String nomeTirocinio = t.getid() + ": "+ t.getNome();
 
                 //Cerca gli studenti con richiesta approvata per questo tirocinio
                 for (Richiesta r : t.getRichieste()) {
@@ -119,9 +119,9 @@ public class Controller {
 
 
     // la Richiesta di Tirocinio
-    public void rifiutaRichiestaTirocinio(String matricola, String nome) {
+    public void rifiutaRichiestaTirocinio(String matricola, String id) {
         for (Richiesta r : listaRichieste) {
-            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getNome().equals(nome)) {
+            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getid().equals(id)) {
                 r.setStato(Stato_richiesta.Rifiutata);
             }
         }
@@ -333,7 +333,7 @@ public class Controller {
         if ((studenteLoggato.getRichiesta() != null) && ((studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata) || (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
             throw new IllegalStateException("ERRORE! Hai già una richiesta attiva.");
         }
-        Richiesta r = new Richiesta(studenteLoggato, getTirocinioDaNome(tirScelto));
+        Richiesta r = new Richiesta(studenteLoggato, getTirocinioDaId(tirScelto));
         studenteLoggato.setRichiesta(r);
         listaRichieste.add(r);
     }
@@ -383,9 +383,9 @@ public class Controller {
     //region GETTER STRANI E UTILITA
 
     // Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
-    public Tirocinio getTirocinioDaNome(String Nome) {
+    public Tirocinio getTirocinioDaId(String id) {
         for (Tirocinio t : listaTirocini) {
-            if (t.getNome().equals(Nome)) {return t;}
+            if (t.getid().equals(id)) {return t;}
         }
         throw new IllegalArgumentException("Tirocinio non presente nel sistema");
     }

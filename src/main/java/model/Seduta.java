@@ -4,6 +4,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 public class Seduta {
+    private String id;
     private LocalDateTime data_ora;
     private String sede;
     private boolean stato; //true se è aperta, false se è chiusa (dopo che il coordinatore ha impostato la commissione)
@@ -12,6 +13,7 @@ public class Seduta {
     private HashSet<Docente> commissione;
 
     public Seduta(LocalDateTime data_ora, String sede,Docente coordinatore) {
+        this.id = UUID.randomUUID().toString();
         this.data_ora = data_ora;
         this.sede = sede;
         this.stato = true;
@@ -23,6 +25,8 @@ public class Seduta {
     public LocalDateTime getData_ora() {
         return data_ora;
     }
+
+    public String getId() {return id;}
 
     public String getSede() {
         return sede;
