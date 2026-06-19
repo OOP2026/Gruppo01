@@ -1,5 +1,7 @@
 package controller;
+import dao.DocenteDAO;
 import dao.StudenteDAO;
+import implementazioneDao.DocentePostgresDAO;
 import implementazioneDao.StudentePostgresDAO;
 import model.*;
 import java.time.LocalDateTime;
@@ -21,7 +23,6 @@ public class Controller {
     private final List<Studente> listaStudenti = new ArrayList<>();
     private final List<Tesi> listaTesi = new ArrayList<>();
     private final List<Tirocinio> listaTirocini = new ArrayList<>();
-    private final List<Utente> listaUtenti = new ArrayList<>();
     private Docente docenteLoggato = null;
     private Studente studenteLoggato = null;
 
@@ -192,21 +193,29 @@ public class Controller {
     //Richiamato dalla GUI per la registrazione del Docente
     public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
 
-        Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
+
         StudenteDAO dao = new StudentePostgresDAO();
-        return dao.registraStudente(nuovoStudente);
-    }
 
-    public void registraDocente(String nome, String cognome, String email, String username, String password) {
-
-        for (Utente u : listaUtenti) {
-            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
-                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
-            }
+        boolean successoDB = dao.registraStudente(nome, cognome, email, matricola, username, password);
+        if(successoDB) {
+            Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
+            listaStudenti.add(nuovoStudente);
         }
 
-        Docente nuovoDocente = new Docente(nome, cognome, email, username, password);
-        listaDocenti.add(nuovoDocente);
+        return successoDB;
+    }
+
+    public boolean registraDocente(String nome, String cognome, String email, String username, String password) {
+
+        DocenteDAO dao = new DocentePostgresDAO();
+
+        boolean successoDB = dao.registraDocente(nome, cognome, email, username, password);
+        if(successoDB) {
+            Studente nuovoStudente = new Studente(nome, cognome, email, username, password);
+            listaStudenti.add(nuovoStudente);
+        }
+
+        return successoDB;
     }
     //endregion
 

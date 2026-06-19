@@ -1,18 +1,17 @@
 package implementazioneDao;
 
-import dao.StudenteDAO;
+import dao.DocenteDAO;
 import database_connection.ConnessioneDatabase;
-import controller.Controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class StudentePostgresDAO implements StudenteDAO {
+public class DocentePostgresDAO implements DocenteDAO{
 
-   public boolean registraStudente(String nome, String cognome, String email, String password, String username, String matricola) {
+    public boolean registraDocente(String nome, String cognome, String email, String username, String password) {
         // Ipotizzo le colonne base. Dovranno corrispondere esattemente allo script SQL di Pasquale.
-        String sql = "INSERT INTO STUDENTE (Nome, Cognome, Email, Password, Username, Matricola) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO DOCENTE (Nome, Cognome, Email, Username,Password) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -20,9 +19,8 @@ public class StudentePostgresDAO implements StudenteDAO {
             ps.setString(1, nome);
             ps.setString(2, cognome);
             ps.setString(3, email);
-            ps.setString(4, password);
+            ps.setString(4, username);
             ps.setString(5, password);
-            ps.setString(6, matricola);
 
 
 
@@ -34,4 +32,5 @@ public class StudentePostgresDAO implements StudenteDAO {
             return false;
         }
     }
+
 }
