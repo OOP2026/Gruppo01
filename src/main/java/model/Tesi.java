@@ -4,16 +4,17 @@ import java.util.UUID;
 public class Tesi {
 
     private String titolo;
-    private String idTesi;
+    private int idTesi;
     private Stato_Tesi stato;
     private String fileTesi; //la stringa contenente il path
     private Studente autore;
     private Seduta seduta_richiesta;
     private Docente valutatore;
 
+    // Costruttore A(per Gui)
     public Tesi(String titolo, String fileTesi, Studente autore, Seduta seduta_richiesta, Docente valutatore) {
         this.titolo = titolo;
-        this.idTesi = UUID.randomUUID().toString();
+        this.idTesi = 0;
         this.fileTesi = fileTesi;
         this.stato = Stato_Tesi.In_attesa;
         this.autore = autore;
@@ -21,7 +22,17 @@ public class Tesi {
         this.valutatore = valutatore;
     }
 
-    public String getId() {
+    public Tesi(String titolo, String fileTesi, Studente autore, Seduta seduta_richiesta, Docente valutatore, int id) {
+        this.idTesi = id;
+        this.titolo = titolo;
+        this.fileTesi = fileTesi;
+        this.stato = Stato_Tesi.In_attesa;
+        this.autore = autore;
+        this.seduta_richiesta = seduta_richiesta;
+        this.valutatore = valutatore;
+    }
+
+    public int getId() {
         return idTesi;
     }
 

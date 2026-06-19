@@ -45,17 +45,32 @@ public class Int_RichiestaT extends JFrame {
         }
 
         RichiediButton.addActionListener(e -> {
-            // Estrai il valore direttamente quando l'utente conferma l'azione
-            String tirocinioSelezionato = (String) LTDisponibiliComboBox.getSelectedItem();
-
-            if (tirocinioSelezionato != null) {
-                controller.compilaRichiesta(tirocinioSelezionato);
-            } else {
-                JOptionPane.showMessageDialog(this, "Seleziona un tirocinio prima di procedere.");
+            // 1. Controllo di sicurezza preventivo sulla ComboBox
+            Object itemSelezionato = LTDisponibiliComboBox.getSelectedItem();
+            if (itemSelezionato == null) {
+                JOptionPane.showMessageDialog(this, "Seleziona un tirocinio prima di procedere.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                return; // Interrompe l'esecuzione del metodo
             }
-            Int_Studente interfacciaStud = new Int_Studente(controller);
-            interfacciaStud.setVisible(true);
-            this.dispose();
+
+            try {
+                // 2. Estrazione dell'ID dalla stringa ("15: Nome Tirocinio" -> 15)
+                String stringaSelezionata = (String) itemSelezionato;
+                int IDtirocinioSelezionato = Integer.parseInt(stringaSelezionata.split(":")[0].trim());
+
+                // 3. Esecuzione della logica
+                controller.compilaRichiesta(IDtirocinioSelezionato);
+
+                // 4. Ritorno alla schermata precedente
+                Int_Studente interfacciaStud = new Int_Studente(controller);
+                interfacciaStud.setVisible(true);
+                this.dispose();
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Errore nella lettura dell'ID del tirocinio.", "Errore di formato", JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalStateException ex) {
+                // Cattura l'eccezione se lo studente ha già una richiesta attiva (sollevata dal Controller)
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
 

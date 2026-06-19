@@ -4,7 +4,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 
 public class Seduta {
-    private String id;
+    private int id;
     private LocalDateTime data_ora;
     private String sede;
     private boolean stato; //true se è aperta, false se è chiusa (dopo che il coordinatore ha impostato la commissione)
@@ -12,8 +12,20 @@ public class Seduta {
     private Docente coordinatore;
     private HashSet<Docente> commissione;
 
+    // Costruttore A: serve prima della creazione dell'oggetto effettivo nel database
     public Seduta(LocalDateTime data_ora, String sede,Docente coordinatore) {
-        this.id = UUID.randomUUID().toString();
+        this.id = 0;
+        this.data_ora = data_ora;
+        this.sede = sede;
+        this.stato = true;
+        this.prenotazioni = new ArrayList<Tesi>();
+        this.coordinatore = coordinatore;
+        this.commissione  = new HashSet<Docente>();
+    }
+
+    // Costruttore B:
+    public Seduta(LocalDateTime data_ora, String sede,Docente coordinatore, int id) {
+        this.id = id;
         this.data_ora = data_ora;
         this.sede = sede;
         this.stato = true;
@@ -26,7 +38,7 @@ public class Seduta {
         return data_ora;
     }
 
-    public String getId() {return id;}
+    public int getId() {return id;}
 
     public String getSede() {
         return sede;
