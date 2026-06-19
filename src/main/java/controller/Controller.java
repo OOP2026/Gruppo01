@@ -1,4 +1,6 @@
 package controller;
+import dao.StudenteDAO;
+import implementazioneDao.StudentePostgresDAO;
 import model.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -188,16 +190,11 @@ public class Controller {
 
     //region METODI REGISTRAZIONE
     //Richiamato dalla GUI per la registrazione del Docente
-    public void registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
-
-        for (Utente u : listaUtenti) {
-            if (u.getUsername().equals(username) || u.getEmail().equals(email)) {
-                throw new IllegalArgumentException("ERRORE! Username o Email già presenti nel sistema.");
-            }
-        }
+    public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
 
         Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
-        listaStudenti.add(nuovoStudente);
+        StudenteDAO dao = new StudentePostgresDAO();
+        return dao.registraStudente(nuovoStudente);
     }
 
     public void registraDocente(String nome, String cognome, String email, String username, String password) {
@@ -406,66 +403,7 @@ public class Controller {
             t.setStato(StatoTirocinio.Pieno);
         }
     }
+
+
     //endregion
-
-
-    public void caricaDatiDiTest() {
-
-        // --- 1. DOCENTI E COORDINATORE ---
-        Docente prof1 = new Docente("Mario", "Rossi", "m.rossi@unina.it", "docente1", "password123");
-        prof1.getListaArgomenti().add("Sistemi Operativi");
-        prof1.getListaArgomenti().add("Basi di Dati");
-
-        Docente coordinatore = new Docente("Anna", "Bianchi", "a.bianchi@unina.it", "admin", "admin");
-        coordinatore.setIs_coordinatore(true); // Promozione a coordinatore
-
-        this.listaDocenti.add(prof1);
-        this.listaDocenti.add(coordinatore);
-
-
-        // --- 2. SEDUTE DI LAUREA ---
-        // Ne creiamo una aperta in modo che la tendina dello studente non sia vuota quando carica la tesi
-        LocalDateTime dataOraSeduta = LocalDateTime.of(2026, 7, 20, 9, 30);
-        Seduta sedutaTest = new Seduta(dataOraSeduta, "Aula Magna", coordinatore);
-
-        coordinatore.aggiungiSeduta(sedutaTest);
-        this.listaSedute.add(sedutaTest);
-
-
-        // --- 3. TIROCINI ---
-        LocalDate dataInizioTest = LocalDate.of(2026, 6, 10);
-
-        // Tirocinio 1: Esterno (Per lo Studente 1 che deve ancora scegliere)
-        Tirocinio tirocinio1 = new Tirocinio_esterno("Sviluppo Backend Java", "150 ore", dataInizioTest, 3, 6, "Nike", "Maradona", prof1);
-        tirocinio1.setStato(StatoTirocinio.Aperto);
-
-        // Tirocinio 2: Interno (Assegnato allo Studente 2)
-        Tirocinio tirocinio2 = new Tirocinio_Interno("Machine Learning e AI", "150 ore", dataInizioTest, 2, 6, "ingegneria", "01", prof1);
-        tirocinio2.setStato(StatoTirocinio.Aperto);
-
-        this.listaTirocini.add(tirocinio1);
-        this.listaTirocini.add(tirocinio2);
-        prof1.getListaTirocini().add(tirocinio1);
-        prof1.getListaTirocini().add(tirocinio2);
-
-
-        // --- 4. STUDENTI E RICHIESTE ---
-        // Studente 1: Nessuna richiesta (Usa questo per testare la compilazione della richiesta)
-        Studente stud1 = new Studente("Luca", "Verdi", "l.verdi@studenti.unina.it", "pas", "st", "N46001111");
-        Richiesta r1 = new Richiesta(stud1, tirocinio1);
-        // Studente 2: Richiesta giÃ approvata (Usa questo per testare direttamente il caricamento Tesi)
-        Studente stud2 = new Studente("Marco", "Neri", "m.neri@studenti.unina.it", "N46002222", "studente2", "password123");
-        Richiesta r2 = new Richiesta(stud2, tirocinio2);
-
-        // Forza l'approvazione scavalcando il docente
-        r2.setStato(Stato_richiesta.Approvata);
-        stud2.setRichiesta(r2);
-        this.listaRichieste.add(r2);
-
-        this.listaStudenti.add(stud1);
-        this.listaStudenti.add(stud2);
-
-        System.out.println("SISTEMA: Dati di test caricati con successo (Docenti, Sedute, Tirocini, Studenti).");
-    }
-
 }

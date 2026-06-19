@@ -16,7 +16,6 @@ public class Studente extends Utente{
         this.richiesta = null;
         this.tirocinio = null;
     }
-
     public String getMatricola() {
         return matricola;
     }

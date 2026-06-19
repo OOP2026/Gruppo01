@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnessioneDatabase {
 
     // Parametri di connessione (modifica la password se necessario)
-    private static final String URL = "jdbc:postgresql://localhost:5432/gestione_tesi";
+    private static final String URL = "jdbc:postgresql://localhost:5432/Seduta_Laurea";
     private static final String USER = "postgres"; // O "fredd" se hai usato il tuo utente di sistema
-    private static final String PASSWORD = "admin"; // Inserisci la password che hai impostato
+    private static final String PASSWORD = "fredd"; // Inserisci la password che hai impostato
 
     // L'unica istanza statica della connessione
     private static Connection connection = null;

@@ -34,6 +34,11 @@ public abstract class Utente {
     public String getCognome() {
         return cognome;
     }
+    public String getPassword() {
+        return password;
+    }
+
+
 
     public void setPassword(String password) {
         this.password = password;
