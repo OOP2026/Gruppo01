@@ -61,7 +61,7 @@ public class Reg_Studente extends JFrame {
                 return;
             }
             try {
-                controller.registraStudente(nome, cognome, email, pwd, username, matricola);
+                controller.registraStudente(nome, cognome, email,matricola, username, pwd );
                 JOptionPane.showMessageDialog(this, "Registrazione completata con successo! Ora puoi accedere.");
                 this.dispose();
                 Home finestraLogin = new Home(controller);

@@ -10,7 +10,7 @@ public abstract class Utente {
     private String cognome;
 
 
-    public Utente(String nome, String cognome, String email, String password, String username) {
+    public Utente(String nome, String cognome, String email, String username,String password ) {
         this.username = username;
         this.password = password;
         this.email = email;

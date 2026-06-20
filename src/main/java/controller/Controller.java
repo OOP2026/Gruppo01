@@ -30,24 +30,43 @@ public class Controller {
     public Controller() {}
 
     //region METODI BASE (HOME E LOGIN)
-    public void effettuaLoginStudente(String user, String pwd) {
-        for (Studente stud : listaStudenti) {
-            if (stud.login(user, pwd)) {
-                studenteLoggato = stud;
-                return;
-            }
+    public boolean effettuaLoginStudente(String user, String pwd) {
+        StudentePostgresDAO studDAO = new StudentePostgresDAO();
+
+        // Riceve solo i dati grezzi
+        List<String> dati = studDAO.loginStudente(user, pwd);
+
+        if (dati == null || dati.isEmpty()) {
+            return false;
+        } else {
+            // Il Controller costruisce l'oggetto estraendo i valori dalla lista in base all'ordine di inserimento
+            String nome = dati.get(0);
+            String cognome = dati.get(1);
+            String email = dati.get(2);
+            String matricola = dati.get(3);
+
+            this.studenteLoggato = new Studente(nome, cognome, email, matricola, user, pwd);
+            return true;
         }
-        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
 
-    public void effettuaLoginDocente(String user, String pwd) {
-        for (Docente d : listaDocenti) {
-            if (d.login(user, pwd)) {
-                docenteLoggato = d;
-                return;
-            }
+    public boolean effettuaLoginDocente(String user, String pwd) {
+        DocentePostgresDAO docDAO = new DocentePostgresDAO();
+
+        // Riceve solo i dati grezzi
+        List<String> dati = docDAO.loginDocente(user, pwd);
+
+        if (dati == null || dati.isEmpty()) {
+            return false;
+        } else {
+            // Il Controller costruisce l'oggetto estraendo i valori dalla lista in base all'ordine di inserimento
+            String nome = dati.get(0);
+            String cognome = dati.get(1);
+            String email = dati.get(2);
+
+            this.docenteLoggato = new Docente(nome, cognome, email, user, pwd);
+            return true;
         }
-        throw new IllegalArgumentException("ERRORE| Nome_utente o password errati.");
     }
 
     public Docente getdocLoggato() {

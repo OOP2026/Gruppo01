@@ -11,8 +11,8 @@ public class Docente extends Utente {
     private final List<Tesi> tesiDaValutare;
     private final List<String> listaArgomenti = new ArrayList<>();
 
-    public Docente(String nome, String cognome, String email, String password, String username) {
-        super(nome, cognome, email, password, username);
+    public Docente(String nome, String cognome, String email,String username ,String password ) {
+        super(nome, cognome, email, username,password );
         this.is_coordinatore = false;
         this.listaTirocini = new ArrayList<Tirocinio>();
         this.sedutePubblicate = new ArrayList<Seduta>();

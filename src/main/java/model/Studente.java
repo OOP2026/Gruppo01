@@ -9,8 +9,8 @@ public class Studente extends Utente{
    private Richiesta richiesta;
    private Tirocinio tirocinio;
 
-    public Studente(String nome, String cognome, String email, String password, String username, String matricola) {
-        super(nome, cognome, email, password, username);
+    public Studente(String nome, String cognome, String email,String matricola , String username,String password ) {
+        super(nome, cognome, email,username , password);
         this.matricola = matricola;
         this.tesi = null;
         this.richiesta = null;

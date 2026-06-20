@@ -1,5 +1,6 @@
 package implementazioneDao;
-
+import java.sql.ResultSet;
+import java.util.*;
 import dao.StudenteDAO;
 import database_connection.ConnessioneDatabase;
 import controller.Controller;
@@ -10,9 +11,9 @@ import java.sql.SQLException;
 
 public class StudentePostgresDAO implements StudenteDAO {
 
-   public boolean registraStudente(String nome, String cognome, String email, String password, String username, String matricola) {
+    public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
         // Ipotizzo le colonne base. Dovranno corrispondere esattemente allo script SQL di Pasquale.
-        String sql = "INSERT INTO STUDENTE (Nome, Cognome, Email, Password, Username, Matricola) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO STUDENTE (Nome, Cognome, Email,  Matricola, Username,Password) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -20,10 +21,9 @@ public class StudentePostgresDAO implements StudenteDAO {
             ps.setString(1, nome);
             ps.setString(2, cognome);
             ps.setString(3, email);
-            ps.setString(4, password);
-            ps.setString(5, password);
-            ps.setString(6, matricola);
-
+            ps.setString(4, matricola);
+            ps.setString(5, username);
+            ps.setString(6, password);
 
 
             int righeInserite = ps.executeUpdate();
@@ -33,5 +33,35 @@ public class StudentePostgresDAO implements StudenteDAO {
             System.err.println("Errore SQL durante la registrazione dello studente: " + e.getMessage());
             return false;
         }
+    }
+
+    public List<String> loginStudente(String utente, String password) {
+        String sql = "SELECT * FROM STUDENTE WHERE Username = ? AND Password = ?";
+        List<String> datiStudente = new ArrayList<>();
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, utente);
+            ps.setString(2, password);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Estrae i dati grezzi e li impacchetta
+                    datiStudente.add(rs.getString("Nome"));
+                    datiStudente.add(rs.getString("Cognome"));
+                    datiStudente.add(rs.getString("Email"));
+                    datiStudente.add(rs.getString("Matricola"));
+
+                    return datiStudente;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il login dello studente: " + e.getMessage());
+        }
+
+        // Ritorna null se l'utente non esiste o la password è errata
+        return null;
     }
 }
