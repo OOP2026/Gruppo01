@@ -211,8 +211,8 @@ public class Controller {
 
         boolean successoDB = dao.registraDocente(nome, cognome, email, username, password);
         if(successoDB) {
-            Studente nuovoStudente = new Studente(nome, cognome, email, username, password);
-            listaStudenti.add(nuovoStudente);
+            Docente nuovoDocente = new Docente(nome, cognome, email, username, password);
+            listaDocenti.add(nuovoDocente);
         }
 
         return successoDB;
