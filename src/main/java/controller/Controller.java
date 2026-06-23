@@ -2,6 +2,7 @@ package controller;
 import dao.DocenteDAO;
 import dao.StudenteDAO;
 import implementazioneDao.DocentePostgresDAO;
+import implementazioneDao.OperazioniStudentePostgresDAO;
 import implementazioneDao.StudentePostgresDAO;
 import model.*;
 import java.time.LocalDateTime;
@@ -390,18 +391,22 @@ public class Controller {
     }
 
     //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
-    public String getStatoTesi() {
-        if (studenteLoggato.getTesi() == null) {
-            return "Nessuna Tesi Caricata";
+    public String getStatoTesi(String matricola) {
+        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+
+        // 1. Ottiene la stringa grezza dal DAO
+        String statoTestuale = dao.getStatoTesi(matricola);
+
+        if (statoTestuale == null) {
+            return null; // O gestisci l'errore come preferisci
         }
-        if (studenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata)
-            return "Approvata";
-        if (studenteLoggato.getTesi().getStato() == Stato_Tesi.Rifiutata)
-            return "Rifiutata";
-        if (studenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa)
-            return "In_attesa";
-        return "";
+        return statoTestuale;
     }
+
+    public String getMatricola(){
+        return studenteLoggato.getMatricola();
+    }
+
     //endregion
 
 
