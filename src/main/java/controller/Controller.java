@@ -346,23 +346,24 @@ public class Controller {
 
 
     //region METODI STUDENTE
-    public List<String> visualizzaTirocini() {
-        List<String> listaTirociniDisponibili = new ArrayList<>();
-        for (Tirocinio t : listaTirocini) {
-            if (t.getStato() == StatoTirocinio.Aperto && t.getN_posti() > 0) {
-                listaTirociniDisponibili.add(t.getNome());
-            }
+    public List<String> visualizzaTirociniDisponibili() {
+        OperazioniStudenteDAO dao = new OperazioniStudentePostgresDAO();
+        //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
+        List<String> listaTirociniDisponibili = dao.getTirociniDisponibili();
+        if (listaTirociniDisponibili == null) {
+            return null;
         }
         return listaTirociniDisponibili;
     }
 
-    public void compilaRichiesta(int tirScelto) {
-        if ((studenteLoggato.getRichiesta() != null) && ((studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata) || (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa))) {
-            throw new IllegalStateException("ERRORE! Hai già una richiesta attiva.");
-        }
-        Richiesta r = new Richiesta(studenteLoggato, getTirocinioDaId(tirScelto));
-        studenteLoggato.setRichiesta(r);
-        listaRichieste.add(r);
+    public void compilaRichiesta(String tirScelto) {
+
+        //formatta la stringa per trovare il codice del tirocinio e creare l'oggetto richiesta
+        int idTirocinio = Integer.parseInt(tirScelto.split(":")[0]);
+        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+
+        dao.compilaRichiesta(idTirocinio, studenteLoggato.getMatricola());
+
     }
 
     public void caricaTesi(String sedutaScelta, String titolo, String documento) {

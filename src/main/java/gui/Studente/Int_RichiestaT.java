@@ -39,8 +39,9 @@ public class Int_RichiestaT extends JFrame {
             interfacciaStud.setVisible(true);
             this.dispose();
         });
+
         LTDisponibiliComboBox.removeAllItems();
-        for (String idTirocinio : controller.visualizzaTirocini()) {
+        for (String idTirocinio : controller.visualizzaTirociniDisponibili()) {
             LTDisponibiliComboBox.addItem(idTirocinio);
         }
 
@@ -54,11 +55,10 @@ public class Int_RichiestaT extends JFrame {
 
             try {
                 // 2. Estrazione dell'ID dalla stringa ("15: Nome Tirocinio" -> 15)
-                String stringaSelezionata = (String) itemSelezionato;
-                int IDtirocinioSelezionato = Integer.parseInt(stringaSelezionata.split(":")[0].trim());
+                String tirocinioSelezionato = (String) itemSelezionato;
 
                 // 3. Esecuzione della logica
-                controller.compilaRichiesta(IDtirocinioSelezionato);
+                controller.compilaRichiesta(tirocinioSelezionato);
 
                 // 4. Ritorno alla schermata precedente
                 Int_Studente interfacciaStud = new Int_Studente(controller);

@@ -32,6 +32,7 @@ public class Int_CaricaTesi extends JFrame {
         this.setLocationRelativeTo(null);
 
         //riempiamo la ComboBox delle Sedute aperte
+        SLComboBox.removeAllItems();
         for(String seduta: controller.getSeduteAperte()) {
             SLComboBox.addItem(seduta);
         }

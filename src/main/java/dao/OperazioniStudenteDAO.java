@@ -7,4 +7,6 @@ public interface OperazioniStudenteDAO {
     List<String> getSeduteAperte();
     void caricaTesi(String titolo,String path, String usernameDocente, String matricolaAutore,int idSeduta);
     String getDocenteRelatore(String matricola);
+    List<String> getTirociniDisponibili();
+    void compilaRichiesta(int idTirocnio, String matricola);
 }
