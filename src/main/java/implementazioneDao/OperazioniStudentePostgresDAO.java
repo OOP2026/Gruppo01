@@ -76,4 +76,40 @@ public class OperazioniStudentePostgresDAO implements OperazioniStudenteDAO {
 
         return listaSedute;
     }
+
+    public void caricaTesi(String titolo, String path, String usernameDocente, String matricolaAutore, int idSeduta) {
+        String sql = "INSERT INTO TESI (titolo,file,username_valutatore,matricola_autore,id_seduta values(?,?,?,?,?)";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, titolo);
+            ps.setString(2, path);
+            ps.setString(3, usernameDocente);
+            ps.setString(4, matricolaAutore);
+            ps.setInt(5, idSeduta);
+
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante la registrazione dello studente: " + e.getMessage());
+        }
+    }
+    public String getDocenteRelatore(String matricola){
+        String sql = "SELECT username_relatore FROM TIROCINIO T,RICHIESTA R WHERE T.id = R.id_tirocinio AND matricola_studente = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, matricola);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("username_relatore");
+                }
+            }
+
+        } catch (SQLException e) {
+           System.err.println("Errore SQL durante la registrazione dello studente: " + e.getMessage());
+
+        }
+        return null;
+    }
 }
+

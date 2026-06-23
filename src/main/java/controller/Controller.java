@@ -365,26 +365,16 @@ public class Controller {
         listaRichieste.add(r);
     }
 
-    public void caricaTesi(String sedutaScelta, String titolo, String documento, Docente relatore) {
+    public void caricaTesi(String sedutaScelta, String titolo, String documento) {
         if ((studenteLoggato.getTesi() != null) && (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.Approvata.toString()) || (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.In_attesa.toString())))) {
             throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
         }
         OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+        String relatore = dao.getDocenteRelatore(getMatricola());
 
         // 1. Ottiene la stringa grezza dal DAO
-        List<String> datiTesi = dao.getStatoRichiesta(matricola);
-
-        if (statoTestuale == null) {
-            return null; // O gestisci l'errore come preferisci
-        }
-        return statoTestuale;
-
-        Seduta sedut1 = getSedutadaID(sedutaScelta);
-        Tesi tesiDaCaricare = new Tesi(titolo, documento, studenteLoggato, sedut1, relatore);
-        studenteLoggato.setTesi(tesiDaCaricare);
-        relatore.aggiungiTesi(tesiDaCaricare);
-        listaTesi.add(tesiDaCaricare);
-        sedut1.AggiungiPrenotazione(tesiDaCaricare);
+        int idseduta = Integer.parseInt(sedutaScelta.split(":")[0]);
+        dao.caricaTesi(titolo,documento, studenteLoggato.getMatricola(),relatore,idseduta);
     }
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato

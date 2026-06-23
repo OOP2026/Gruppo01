@@ -54,7 +54,7 @@ public class Int_CaricaTesi extends JFrame {
             }
             try {
                 // Chiama il metodo del controller passandogli path, titolo e seduta
-                controller.caricaTesi(sedutaScelta, titolo, path, controller.getstudLoggato().getRichiesta().getTirocinio().getDocente());
+                controller.caricaTesi(sedutaScelta, titolo, path);
                 JOptionPane.showMessageDialog(this, "Tesi caricata con successo!");
 
                 pathTextField.setText("");
