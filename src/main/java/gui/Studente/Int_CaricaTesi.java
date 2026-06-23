@@ -31,11 +31,15 @@ public class Int_CaricaTesi extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
+        //riempiamo la ComboBox delle Sedute aperte
+        for(String seduta: controller.getSeduteAperte()) {
+            SLComboBox.addItem(seduta);
+        }
 
         ConfermaButton.addActionListener(e -> {
             String path = pathTextField.getText();
             String titolo = TitoloTesiTextField.getText();
-            LocalDateTime dataora = (LocalDateTime) SLComboBox.getSelectedItem();
+            String sedutaScelta = (String) SLComboBox.getSelectedItem();
             // Controllo di sicurezza
             if (path.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Devi prima selezionare un file tramite il tasto Sfoglia.", "Percorso vuoto", JOptionPane.ERROR_MESSAGE);
@@ -44,13 +48,13 @@ public class Int_CaricaTesi extends JFrame {
             if (titolo.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Devi prima inserire un titolo.", "Titolo Vuoto", JOptionPane.ERROR_MESSAGE);
             }
-            if (dataora == null) {
+            if (sedutaScelta == null) {
                 JOptionPane.showMessageDialog(this, "Devi prima selezionare una seduta.", "DataOra Vuota", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             try {
                 // Chiama il metodo del controller passandogli path, titolo e seduta
-                controller.caricaTesi(dataora, titolo, path, controller.getstudLoggato().getRichiesta().getTirocinio().getDocente());
+                controller.caricaTesi(sedutaScelta, titolo, path, controller.getstudLoggato().getRichiesta().getTirocinio().getDocente());
                 JOptionPane.showMessageDialog(this, "Tesi caricata con successo!");
 
                 pathTextField.setText("");

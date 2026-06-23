@@ -1,5 +1,6 @@
 package controller;
 import dao.DocenteDAO;
+import dao.OperazioniStudenteDAO;
 import dao.StudenteDAO;
 import implementazioneDao.DocentePostgresDAO;
 import implementazioneDao.OperazioniStudentePostgresDAO;
@@ -364,11 +365,21 @@ public class Controller {
         listaRichieste.add(r);
     }
 
-    public void caricaTesi(LocalDateTime seduta, String titolo, String documento, Docente relatore) {
-        if ((studenteLoggato.getTesi() != null) && ((studenteLoggato.getTesi().getStato() == Stato_Tesi.Approvata) || (studenteLoggato.getTesi().getStato() == Stato_Tesi.In_attesa))) {
+    public void caricaTesi(String sedutaScelta, String titolo, String documento, Docente relatore) {
+        if ((studenteLoggato.getTesi() != null) && (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.Approvata.toString()) || (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.In_attesa.toString())))) {
             throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
         }
-        Seduta sedut1 = getSedutaDaData(seduta);
+        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+
+        // 1. Ottiene la stringa grezza dal DAO
+        List<String> datiTesi = dao.getStatoRichiesta(matricola);
+
+        if (statoTestuale == null) {
+            return null; // O gestisci l'errore come preferisci
+        }
+        return statoTestuale;
+
+        Seduta sedut1 = getSedutadaID(sedutaScelta);
         Tesi tesiDaCaricare = new Tesi(titolo, documento, studenteLoggato, sedut1, relatore);
         studenteLoggato.setTesi(tesiDaCaricare);
         relatore.aggiungiTesi(tesiDaCaricare);
@@ -377,7 +388,7 @@ public class Controller {
     }
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
-    public String getStatoRichiesta(String Matricola) {
+    public String getStatoRichiesta(String matricola) {
         OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
 
         // 1. Ottiene la stringa grezza dal DAO
@@ -397,7 +408,7 @@ public class Controller {
         String statoTestuale = dao.getStatoTesi(matricola);
 
         if (statoTestuale == null) {
-            return null; // O gestisci l'errore come preferisci
+            return null;
         }
         return statoTestuale;
     }
@@ -406,6 +417,18 @@ public class Controller {
         return studenteLoggato.getMatricola();
     }
 
+
+
+    public List<String> getSeduteAperte() {
+        OperazioniStudenteDAO dao= new OperazioniStudentePostgresDAO();
+        //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
+        List<String> seduteAperte = dao.getSeduteAperte();
+        if (seduteAperte == null) {
+            return null;
+        }
+        return seduteAperte;
+
+    }
     //endregion
 
 
@@ -420,7 +443,7 @@ public class Controller {
     }
 
 
-    public Seduta getSedutaDaData(LocalDateTime data) {
+    public Seduta getSedutadaID(LocalDateTime data) {
         for (Seduta s : listaSedute) {
             if (s.getData_ora().equals(data)) {
                 return s;
