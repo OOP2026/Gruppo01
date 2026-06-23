@@ -1,8 +1,10 @@
 package controller;
 import dao.DocenteDAO;
+import dao.OperazioniDocenteDAO;
 import dao.OperazioniStudenteDAO;
 import dao.StudenteDAO;
 import implementazioneDao.DocentePostgresDAO;
+import implementazioneDao.OperazioniDocentePostgresDAO;
 import implementazioneDao.OperazioniStudentePostgresDAO;
 import implementazioneDao.StudentePostgresDAO;
 import model.*;
@@ -109,35 +111,17 @@ public class Controller {
 
     public List<String[]> visualizzaTirocinioStudenti() {
         List<String[]> righeTabella = new ArrayList<>();
-        //Per ogni tirocinio del docente
-        for (Tirocinio t : docenteLoggato.getListaTirocini()) {
 
-            //Filtra solo quelli in corso
-            if (t.getStato() == StatoTirocinio.In_corso) {
-                String nomeTirocinio = t.getid() + ": "+ t.getNome();
 
-                //Cerca gli studenti con richiesta approvata per questo tirocinio
-                for (Richiesta r : t.getRichieste()) {
-                    if (r.verifyStatoApprovata()) {
 
-                        Studente studente = r.getRichiedente();
-
-                        // 4. Prepara i dati della singola riga
-                        String matricola = studente.getMatricola();
-                        String nomeCompleto = studente.getNome() + " " + studente.getCognome();
-
-                        // 5. Crea l'array di stringhe (la riga) e lo aggiunge alla lista
-                        String[] riga = new String[] {
-                                nomeTirocinio,
-                                matricola,
-                                nomeCompleto,
-                        };
-                        righeTabella.add(riga);
-                    }
-                }
-            }
+        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
+        List<String[]> tirociniInCorso = dao.visualizzaTirociniInCorso(docenteLoggato.getUsername());
+        if (tirociniInCorso == null) {
+            return null;
         }
-        return righeTabella;
+        return tirociniInCorso;
+
     }
 
 

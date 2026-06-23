@@ -5,7 +5,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import controller.Controller;
 import gui.Home;
-
+import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -104,6 +104,16 @@ public class Int_Docente extends JFrame {
                             "Informazione",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
+                } else {
+                    DefaultTableModel model = (DefaultTableModel) tabellaTirocini.getModel();
+
+                    // Pulisci le righe esistenti per evitare duplicati se l'utente clicca più volte
+                    model.setRowCount(0);
+
+                    // Inserisci ogni riga presente nella lista
+                    for (String[] riga : datiTabella) {
+                        model.addRow(riga);
+                    }
                 }
 
                 tabellaTirocini.setVisible(true);
