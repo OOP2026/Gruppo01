@@ -377,17 +377,16 @@ public class Controller {
     }
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
-    public String getStatoStudLoggato() {
-        if (studenteLoggato.getRichiesta() == null) {
-            return "Nessuna Richiesta Effettuata";
+    public String getStatoRichiesta(String Matricola) {
+        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+
+        // 1. Ottiene la stringa grezza dal DAO
+        String statoTestuale = dao.getStatoRichiesta(matricola);
+
+        if (statoTestuale == null) {
+            return null; // O gestisci l'errore come preferisci
         }
-        if (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Approvata)
-            return "Approvata";
-        if (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.Rifiutata)
-            return "Rifiutata";
-        if (studenteLoggato.getRichiesta().getStato() == Stato_richiesta.In_attesa)
-            return "In_attesa";
-        return "";
+        return statoTestuale;
     }
 
     //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
