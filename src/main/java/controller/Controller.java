@@ -56,6 +56,7 @@ public class Controller {
         }
     }
 
+
     public boolean effettuaLoginDocente(String user, String pwd) {
         DocentePostgresDAO docDAO = new DocentePostgresDAO();
 
@@ -71,6 +72,8 @@ public class Controller {
             String email = dati.get(2);
 
             this.docenteLoggato = new Docente(nome, cognome, email, user, pwd);
+            if(docDAO.checkIsCoordinatore(docenteLoggato.getUsername()))
+                docenteLoggato.setIs_coordinatore(true);
             return true;
         }
     }
@@ -162,14 +165,8 @@ public class Controller {
 
     public void rimuoviArgomento (String s) {
         OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
-        try {
-
-            dao.rimuoviArgomento(s, docenteLoggato.getUsername());
-
-            System.out.println("Associazione creata con successo!");
-        } catch (SQLException e) {
-            System.err.println("Errore durante l'inserimento: " + e.getMessage());
-        }
+        dao.rimuoviArgomento(s, docenteLoggato.getUsername());
+        System.out.println("Associazione creata con successo!");
         docenteLoggato.rimuoviArgomento(s);
     }
 
@@ -259,12 +256,8 @@ public class Controller {
     //region METODI COORDINATORE
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
     public void inserisciSeduta(LocalDateTime data_ora, String sede) {
-        if (docenteLoggato.getisCoordinatore()) {
-            Seduta sedutaCreata = new Seduta(data_ora, sede, docenteLoggato);
-            docenteLoggato.aggiungiSeduta(sedutaCreata);
-            listaSedute.add(sedutaCreata);
-        }
-            throw new SecurityException("PERMESSO NEGATO! Funzioone disponibile solo per il coordinatore.");
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        dao.creaSeduta(data_ora,sede);
     }
 
     //La gui per creare la lista delle sedute aperte ha bisogno di una Lista di Stringhe
@@ -426,7 +419,7 @@ public class Controller {
 
 
     public List<String> getSeduteAperte() {
-        OperazioniStudenteDAO dao= new OperazioniStudentePostgresDAO();
+        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
         List<String> seduteAperte = dao.getSeduteAperte();
         if (seduteAperte == null) {

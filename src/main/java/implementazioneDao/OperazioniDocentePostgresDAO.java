@@ -2,11 +2,11 @@ package implementazioneDao;
 
 import dao.OperazioniDocenteDAO;
 import database_connection.ConnessioneDatabase;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
@@ -109,4 +109,45 @@ public class OperazioniDocentePostgresDAO implements OperazioniDocenteDAO {
         }
 
     };
+    public void creaSeduta(LocalDateTime data, String sede){
+        String sql = "INSERT INTO seduta (data_ora,sede) VALUES(?,?)";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setTimestamp(1, Timestamp.valueOf(data));
+            ps.setString(2, sede);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante l'eliminazione dell'argomento: " + e.getMessage());
+        }
+
+    }
+    public List<String> getSeduteAperte(){
+        List<String> result = new ArrayList<>();
+        String sql = "SELECT * FROM SEDUTA WHERE STATO=true";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String dataOra = rs.getTimestamp("data_ora").toLocalDateTime().format(formatter);
+                String sede = rs.getString("sede");
+
+                // Formattazione richiesta: "ID: DataOra, Sede"
+                String riga = String.format("%d: %s, %s", id, dataOra, sede);
+
+                result.add(riga);
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore SQL nel recupero delle sedute: " + e.getMessage());
+        }
+
+        return result;
+
+    }
+
+
 }

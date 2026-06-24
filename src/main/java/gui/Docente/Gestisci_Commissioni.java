@@ -38,8 +38,9 @@ public class Gestisci_Commissioni extends JFrame {
         DefaultTableModel modelloTabella = new DefaultTableModel(nomiColonne, 0);
         TabellaStudenti.setModel(modelloTabella);
 
+
         //Riempiamo la ComboBox delle sedute disponibili
-        List<String> seduteDisponibili = controller.creaListaSeduteAperte();
+        List<String> seduteDisponibili = controller.getSeduteAperte();
         if (seduteDisponibili != null && !seduteDisponibili.isEmpty()) {
             for (String seduta : seduteDisponibili) {
                 SeduteCombobox.addItem(seduta);

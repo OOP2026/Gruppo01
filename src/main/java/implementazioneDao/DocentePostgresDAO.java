@@ -63,5 +63,23 @@ public class DocentePostgresDAO implements DocenteDAO{
         // Ritorna null se l'utente non esiste o la password è errata
         return null;
     }
+    public boolean checkIsCoordinatore(String username){
+        String sql = "SELECT iscoordinatore FROM DOCENTE WHERE Username = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean("iscoordinatore");
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il login dello studente: " + e.getMessage());
+        }
+        return false;
+    }
 
 }
