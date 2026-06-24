@@ -324,22 +324,14 @@ public class Controller {
         }
     }
 
-    public List<String[]> getDatiTabellaSeduta(LocalDateTime dataSeduta) {
-        List<String[]> righeTabella = new ArrayList<>();
+    public List<String[]> getDatiTabellaSeduta(int idSeduta) {
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
 
-        for (Tesi t : this.listaTesi) {
+        List<String[]> righeTabella = dao.getInfoSeduta(idSeduta);
 
-            if (t.getSeduta_richiesta().getData_ora().equals(dataSeduta)) {
-
-                // Estrae i dati convertendoli in semplici stringhe per proteggere il Model
-                String nomeDocente = t.getValutatore().getNome() + " " + t.getValutatore().getCognome();
-                String nomeStudente = t.getAutore().getNome() + " " + t.getAutore().getCognome();
-                String stato = t.getStato().toString(); // Converte l'Enum in Stringa
-
-                // Crea la riga e la aggiunge alla lista
-                String[] riga = {nomeDocente, nomeStudente, stato};
-                righeTabella.add(riga);
-            }
+        // Se è null, restituisci una lista vuota invece di null
+        if (righeTabella == null) {
+            return new ArrayList<>();
         }
 
         return righeTabella;

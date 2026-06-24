@@ -149,5 +149,37 @@ public class OperazioniDocentePostgresDAO implements OperazioniDocenteDAO {
 
     }
 
+    public List<String[]> getInfoSeduta(int idSeduta){
+        String sql = "SELECT D.username AS userDoc, S.matricola as matricolaS, T.stato AS statoTesi " +
+                "FROM DOCENTE D JOIN TESI T ON D.username = T.username_valutatore " +
+                "JOIN STUDENTE S ON S.matricola = T.matricola_autore " +
+                "WHERE T.stato = 'Approvata' AND T.id_seduta = ?";
+        //userDocente, MatricolaStudente, Stato-tesi
+        List<String[]> listaInfoSeduta = new ArrayList<>();
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idSeduta);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    String userDocente = String.valueOf(rs.getString("userDoc"));
+                    String matricolaStudente = rs.getString("matricolaS");
+                    String statoTesi = rs.getString("statoTesi");
+
+                    String[] riga = {userDocente, matricolaStudente, statoTesi };
+                    listaInfoSeduta.add(riga);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero dei tirocini: " + e.getMessage());
+        }
+
+        return listaInfoSeduta;
+    }
+
 
 }

@@ -11,5 +11,6 @@ public interface OperazioniDocenteDAO {
     void rimuoviArgomento(String arg, String userDoc);
     void creaSeduta(LocalDateTime data, String sede);
     List<String> getSeduteAperte();
+    List<String[]> getInfoSeduta(int idSeduta);
 
 }
