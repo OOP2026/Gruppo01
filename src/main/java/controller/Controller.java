@@ -8,6 +8,8 @@ import implementazioneDao.OperazioniDocentePostgresDAO;
 import implementazioneDao.OperazioniStudentePostgresDAO;
 import implementazioneDao.StudentePostgresDAO;
 import model.*;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.*;
@@ -135,11 +137,40 @@ public class Controller {
         }
     }
 
-    public void aggiungiArgomenti(String s) {
-        docenteLoggato.aggiungiArgomento(s);
+
+    public List<String> getArgomentiDocLoggato() {
+        List<String> argList = new ArrayList<>();
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        argList = dao.getArgomentiDocente(docenteLoggato.getUsername());
+        return argList;
     }
 
-    public void rimuoviArgomento (String s) {docenteLoggato.rimuoviArgomento(s);
+    public void aggiungiArgomenti(String s) {
+        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        try {
+            // 1. Garantisci l'esistenza del padre
+            dao.aggiungiArgomento(s);
+
+            // 2. Crea il legame
+            dao.associaDocenteArgomento(s, docenteLoggato.getUsername());
+
+            System.out.println("Associazione creata con successo!");
+        } catch (SQLException e) {
+            System.err.println("Errore durante l'inserimento: " + e.getMessage());
+        }
+    }
+
+    public void rimuoviArgomento (String s) {
+        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        try {
+
+            dao.rimuoviArgomento(s, docenteLoggato.getUsername());
+
+            System.out.println("Associazione creata con successo!");
+        } catch (SQLException e) {
+            System.err.println("Errore durante l'inserimento: " + e.getMessage());
+        }
+        docenteLoggato.rimuoviArgomento(s);
     }
 
 
@@ -433,7 +464,6 @@ public class Controller {
             t.setStato(StatoTirocinio.Pieno);
         }
     }
-
 
     //endregion
 }
