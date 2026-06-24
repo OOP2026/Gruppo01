@@ -33,12 +33,12 @@ public class Gestisci_Commissioni extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        // 1. INIZIALIZZAZIONE MODELLO (L'avevi dimenticata)
+
         String[] nomiColonne = {"Docente (Relatore)", "Studente", "Stato Tesi"};
         DefaultTableModel modelloTabella = new DefaultTableModel(nomiColonne, 0);
         TabellaStudenti.setModel(modelloTabella);
 
-        // Riempiamo la ComboBox delle sedute disponibili
+
         List<String> seduteDisponibili = controller.getSeduteAperte();
         if (seduteDisponibili != null && !seduteDisponibili.isEmpty()) {
             for (String seduta : seduteDisponibili) {
@@ -46,10 +46,10 @@ public class Gestisci_Commissioni extends JFrame {
             }
         }
 
-        // Il listener scatta ogni volta che il coordinatore cambia la selezione
+
         SeduteCombobox.addActionListener(e -> {
 
-            // 2. CONTROLLO NULL SICURO
+
             Object elementoSelezionato = SeduteCombobox.getSelectedItem();
 
             if (elementoSelezionato != null) {
