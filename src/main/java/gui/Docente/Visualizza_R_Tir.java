@@ -6,6 +6,9 @@ import gui.Home;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Visualizza_R_Tir extends JFrame {
     Controller controller;
@@ -35,26 +38,33 @@ public class Visualizza_R_Tir extends JFrame {
         // Aggiunta tirocini associati al docente loggato
         TirociniComboBox.removeAllItems();
         StudentiComboBox.removeAllItems();
-        for (String nomeTir : controller.getNomiTirociniApertiDelDocente()) {
-            TirociniComboBox.addItem(nomeTir);
-        }
+       for (String tirocinio: controller.getTirociniAperti()){
+           TirociniComboBox.addItem(tirocinio);
+       }
 
 
         // LISTENER COMBOBOX TIROCINI
-        TirociniComboBox.addActionListener(e -> {
+        TirociniComboBox.addItemListener(e -> {
 
-            if (TirociniComboBox.getSelectedItem() == null) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
                 return;
             }
 
             // Estraiamo l'id dalla stringa, ci servirà per riconoscere l'oggetto selezionato al momento
             // del ritorno al controller per approvazione o rifiuto
-            String tirocinioSelezionato = (String) TirociniComboBox.getSelectedItem();
-            String idTirocinio = (String) tirocinioSelezionato.split(":")[0].trim();
+            String tirocinioSelezionato = (String) e.getItem();
 
+            if (tirocinioSelezionato == null) {
+                return;
+            }
+
+            int idTirocinio = Integer.parseInt(tirocinioSelezionato.split(":")[0].trim());
+
+            List<String> studentiRichiedenti = new ArrayList<>();
+            studentiRichiedenti = controller.getStudentiRichiedenti(idTirocinio);
             StudentiComboBox.removeAllItems(); // Pulisce gli studenti precedenti
 
-             for (String matricola : controller.richiesteTir(tirocinioSelezionato)) {
+             for (String matricola : studentiRichiedenti) {
                     StudentiComboBox.addItem(matricola);
                 }
         });
@@ -70,15 +80,14 @@ public class Visualizza_R_Tir extends JFrame {
 
             // Estrae i valori attuali
             String tirocinioSel = (String) TirociniComboBox.getSelectedItem();
-            int idTirocinioSel = Integer.parseInt(tirocinioSel.split(":")[0].trim());
-            String matricolaSel = (String) StudentiComboBox.getSelectedItem();
+            String matricolaSel = StudentiComboBox.getSelectedItem().toString().split(":")[0].trim();
 
 
             // Approva o rifiuta a seconda del radiobutton selezionato
             if (approvaRadioButton.isSelected()) {
-                controller.approvaRichiestaTirocinio(matricolaSel, idTirocinioSel);
+                controller.approvaRichiestaTirocinio(matricolaSel);
             } else if (rifiutaRadioButton.isSelected()) {
-                controller.rifiutaRichiestaTirocinio(matricolaSel, idTirocinioSel);
+                controller.rifiutaRichiestaTirocinio(matricolaSel);
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;

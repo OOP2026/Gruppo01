@@ -18,9 +18,6 @@ public class Valuta_Tesi extends JFrame {
     private JComboBox<String> TesiComboBox;
     private JButton logoutButton;
     private JLabel VALUTATESILabel;
-    private JPanel abasdasd;
-    private JPanel abdul;
-    private JPanel abudl;
     ButtonGroup gruppoScelte = new ButtonGroup();
 
 
@@ -35,25 +32,26 @@ public class Valuta_Tesi extends JFrame {
         gruppoScelte.add(rifiutaRadioButton);
 
 
-        for (String idTesi : controller.getIdTesi()) {
-            TesiComboBox.addItem(idTesi);
+        for (String infoTesi : controller.getInfoTesi()) {
+            TesiComboBox.addItem(infoTesi);
         }
 
         ValutaButton.addActionListener(e -> {
 
 
-            String TesiSelezionata = (String) TesiComboBox.getSelectedItem();
+            String tesiSelezionata = TesiComboBox.getSelectedItem().toString().split(":")[0];
+            int idTesi = Integer.parseInt(tesiSelezionata);
 
-            if (TesiSelezionata == null) {
+            if (tesiSelezionata == null) {
                 JOptionPane.showMessageDialog(this, "Seleziona una tesi.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             // Determina l'esito dai RadioButton
             if (approvaRadioButton.isSelected()) {
-                controller.approvaTesi(TesiSelezionata);
+                controller.approvaTesi(idTesi);
             } else if (rifiutaRadioButton.isSelected()) {
-                controller.rifiutaTesi(TesiSelezionata);
+                controller.rifiutaTesi(idTesi);
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;

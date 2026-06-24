@@ -91,33 +91,28 @@ public class Controller {
 
     //region METODI DEL DOCENTE LOGGATO
     //trova i tirocini aperti del docente Loggato
-    public List<String> getNomiTirociniApertiDelDocente() {
-        ArrayList<String> nomiTirociniAperti = new ArrayList<>();
-        for (Tirocinio t : listaTirocini) {
-            if (t.getDocente().equals(this.docenteLoggato) && t.getStato() == StatoTirocinio.Aperto) {
-                nomiTirociniAperti.add(t.getid() + ":" + t.getNome());
-            }
-        }
-        return nomiTirociniAperti;
+    public List<String> getTirociniAperti() {
+        List<String> infoTirocini = new ArrayList<>();
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        infoTirocini = dao.getTirociniAperti(docenteLoggato.getUsername());
+        return infoTirocini;
     }
 
     //Approva la Richiesta di Tirocinio
-    public void approvaRichiestaTirocinio(String matricola, int id) {
-        verificaPostiDiposibili(getTirocinioDaId(id));
-        for (Richiesta r : listaRichieste) {
-            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getid() == id) {
-                r.setStato(Stato_richiesta.Approvata);
-                r.getTirocinio().decrementaPosti();
-            }
-            verificaPostiDiposibili(r.getTirocinio());
-        }
+    public void approvaRichiestaTirocinio(String matricola) {
+       OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+       dao.approvaRichiestaTirocinio(matricola);
+    }
+
+    // la Richiesta di Tirocinio
+    public void rifiutaRichiestaTirocinio(String matricola) {
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        dao.rifiutaRichiestaTirocinio(matricola);
     }
 
 
     public List<String[]> visualizzaTirocinioStudenti() {
         List<String[]> righeTabella = new ArrayList<>();
-
-
 
         OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
@@ -130,15 +125,6 @@ public class Controller {
     }
 
 
-
-    // la Richiesta di Tirocinio
-    public void rifiutaRichiestaTirocinio(String matricola, int id) {
-        for (Richiesta r : listaRichieste) {
-            if (r.getRichiedente().getMatricola().equals(matricola) && r.getTirocinio().getid() == id) {
-                r.setStato(Stato_richiesta.Rifiutata);
-            }
-        }
-    }
 
 
     public List<String> getArgomentiDocLoggato() {
@@ -172,20 +158,17 @@ public class Controller {
 
 
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
-    public List<String> richiesteTir(String tirocinio) {
+    public List<String> getStudentiRichiedenti(int tirocinio) {
         List<String> listaStud = new ArrayList<>();
-        for (Richiesta r : listaRichieste) {
-            if(r.getTirocinio().getNome().equals(tirocinio)) {
-                listaStud.add(r.getRichiedente().getMatricola());
-            }
-        }
+       OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+       listaStud = dao.getStudentiRichiedenti(tirocinio);
         return listaStud;
     }
 
     //Il docente approva la Tesi
-    public void approvaTesi(String id) {
-        Tesi t =  getTesidaID(id);
-        t.setStato(Stato_Tesi.Approvata);
+    public void approvaTesi(int id) {
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        dao.approvaTesi(id);
     }
 
 
@@ -193,21 +176,20 @@ public class Controller {
 
 
     //Il docente boccia la Tesi
-    public void rifiutaTesi(String id) {
-        Tesi t =  getTesidaID(id);
-        t.setStato(Stato_Tesi.Rifiutata);
+    public void rifiutaTesi(int id) {
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        dao.rifiutaTesi(id);
     }
 
 
 
 
     //Il docente riceve i titoli di tutte le tesi a lui associate, assieme all'id
-    public List<String> getIdTesi() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (Tesi t : docenteLoggato.getTesi()) {
-            lista.add(t.getId() + ": " + t.getTitolo());
-        }
-        return lista;
+    public List<String> getInfoTesi() {
+        List<String> lista = new ArrayList<>();
+       OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+       lista = dao.getInfoTesiDocLoggato(docenteLoggato.getUsername());
+       return lista;
     }
 
     public Tesi getTesidaID(String idTitolo) {
@@ -301,11 +283,6 @@ public class Controller {
         throw new IllegalArgumentException("Seduta inesistente");
     }
 
-    public void confermaSeduta(String sede_data) {
-        Seduta seduta = assemblaSeduta(sede_data);
-        seduta.setStato(false);
-    }
-
     public LocalDateTime assemblaDataOra(String giornoStr, String meseStr, String annoStr, String oraStr) {
         try {
             int giorno = Integer.parseInt(giornoStr.trim());
@@ -338,8 +315,9 @@ public class Controller {
     }
 
     //riceve dalla gui "Gestisci_commissioni" la stringa contenente
-    public void confermaSeduta() {
-
+    public void confermaSeduta(int idSeduta) {
+        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        dao.chiudiSeduta(idSeduta);
     }
 
     //endregion

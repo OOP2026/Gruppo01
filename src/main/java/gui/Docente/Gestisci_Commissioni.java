@@ -70,12 +70,13 @@ public class Gestisci_Commissioni extends JFrame {
         });
 
         confermaButton.addActionListener(e -> {
-            String sedutaSelezionata = (String) SeduteCombobox.getSelectedItem();
+            Object elementoSelezionato = SeduteCombobox.getSelectedItem();
 
-            if (sedutaSelezionata != null) {
+            if (elementoSelezionato != null) {
                 try {
                     // Passi la stringa al Controller (che farà split e ricerca)
-                    controller.confermaSeduta(sedutaSelezionata);
+                    int idSeduta = Integer.parseInt(elementoSelezionato.toString().split(":")[0].trim());
+                    controller.confermaSeduta(idSeduta);
 
                     JOptionPane.showMessageDialog(this,
                             "Seduta confermata e chiusa con successo.",

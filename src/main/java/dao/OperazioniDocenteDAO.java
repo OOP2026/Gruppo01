@@ -12,5 +12,14 @@ public interface OperazioniDocenteDAO {
     void creaSeduta(LocalDateTime data, String sede);
     List<String> getSeduteAperte();
     List<String[]> getInfoSeduta(int idSeduta);
+    void chiudiSeduta(int idSeduta);
+    List <String> getInfoTesiDocLoggato(String userDoc);
+    void approvaTesi(int idTesi);
+    void rifiutaTesi(int idTesi);
 
+    List<String> getTirociniAperti(String userDoc);
+    List<String> getStudentiRichiedenti(int idTirocinio);
+
+    void approvaRichiestaTirocinio(String matricola);
+    void rifiutaRichiestaTirocinio(String matricola);
 }

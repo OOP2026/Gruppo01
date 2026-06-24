@@ -181,5 +181,137 @@ public class OperazioniDocentePostgresDAO implements OperazioniDocenteDAO {
         return listaInfoSeduta;
     }
 
+    public void chiudiSeduta(int idSeduta) {
+        String sql = "UPDATE SEDUTA SET STATO = FALSE WHERE id = ?";
 
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idSeduta);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante la chiusura della seduta: " + e.getMessage());
+        }
+    }
+
+    public List<String> getInfoTesiDocLoggato(String userDoc) {
+        List<String> lista = new ArrayList<>();
+        String sql = "Select T.id AS id, T.titolo AS titolo, T.matricola_autore AS autore FROM DOCENTE D JOIN TESI T ON D.username = username_valutatore WHERE username = ?";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userDoc);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    //recupera riga per riga la query formattandola come la richiese il Controller
+                    int id = rs.getInt("id");
+                    String titolo = rs.getString("titolo");
+                    String autore = rs.getString("autore");
+                    String riga = String.format("%d: %s - %s", id, autore, titolo);
+
+                    lista.add(riga);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    public void approvaTesi(int idTesi) {
+        String sql = "UPDATE TESI SET STATO = 'Approvata' WHERE id = ?";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idTesi);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante l'aggionamento del dataabase: " + e.getMessage());
+        }
+    }
+
+    public void rifiutaTesi(int idTesi) {
+        String sql = "UPDATE TESI SET STATO = 'Rifiutata' WHERE id = ?";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idTesi);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante l'aggionamento del dataabase: " + e.getMessage());
+        }
+    }
+
+    public List<String> getTirociniAperti(String userDoc){
+        List<String> lista = new ArrayList<>();
+        String sql = "SELECT id, nome FROM TIROCINIO WHERE stato = aperto AND username_relatore = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userDoc);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    //recupera riga per riga la query formattandola come la richiede il Controller
+                    int id = rs.getInt("id");
+                    String nome = rs.getString("nome");
+                    String riga = String.format("%d: %s", id, nome);
+
+                    lista.add(riga);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    public List<String> getStudentiRichiedenti(int idTirocinio){
+        List<String> lista = new ArrayList<>();
+        String sql = "SELECT S.matricola_studente INTO matricola, nome,cognome FROM RICHIESTA JOIN STUDENTE ON R.matricola_studente = S.matricola WHERE stato = 'in_attesa' AND id_tirocinio = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idTirocinio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    //recupera riga per riga la query formattandola come la richiede il Controller
+                    String matricola = rs.getString("matricola");
+                    String nome = rs.getString("nome");
+                    String cognome = rs.getString("cognome");
+
+                    String riga = String.format("%s: %s %s", matricola, nome, cognome);
+                    lista.add(riga);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
+        }
+        return lista;
+    };
+
+    public void approvaRichiestaTirocinio(String matricola){
+        String sql = "UPDATE RICHIESTA SET stato = 'approvata' WHERE matricola_studente = ? AND stato = in_attesa";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, matricola);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante l'aggionamento del dataabase: " + e.getMessage());
+        }
+    }
+
+    public void rifiutaRichiestaTirocinio(String matricola){
+        String sql = "UPDATE RICHIESTA SET stato = 'rifiutata' WHERE matricola_studente = ? AND stato = in_attesa";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, matricola);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante l'aggionamento del dataabase: " + e.getMessage());
+        }
+    }
 }
+
