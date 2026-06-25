@@ -7,4 +7,6 @@ public interface RichiestaDAO {
     String getStatoRichiesta(String matricola);
 
     void compilaRichiesta(int idTirocnio, String matricola);
+
+    void eliminaRichiesta(String matricola);
 }

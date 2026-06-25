@@ -99,4 +99,13 @@ public class TesiPostgresDao implements TesiDAO {
         }
     }
 
+    public void eliminaTesi(String matricola) {
+        String sql = "DELETE FROM TESI WHERE matricola_autore = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, matricola);
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante l'eliminazione della tesi: " + e.getMessage());
+        }
+    }
 }

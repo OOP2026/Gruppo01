@@ -9,6 +9,6 @@ public interface TesiDAO {
 
     String getStatoTesi(String matricola);
     void caricaTesi(String titolo,String path, String usernameDocente, String matricolaAutore,int idSeduta);
-
+    void eliminaTesi(String matricola);
 
 }

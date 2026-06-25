@@ -7,6 +7,7 @@ import gui.Home;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 
 public class Aggiunta_Argomenti extends JFrame {
@@ -40,11 +41,13 @@ public class Aggiunta_Argomenti extends JFrame {
                 JOptionPane.showMessageDialog(this, "Inserire un argomento.", "Argomento Vuoto", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (controller.getdocLoggato().getListaArgomenti().contains(Argomento)) {
+            try{
+                controller.aggiungiArgomenti(Argomento);
+            } catch (SQLIntegrityConstraintViolationException ex){
                 JOptionPane.showMessageDialog(this, "Argomento già inserito.", "Argomento già presente", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            controller.aggiungiArgomenti(Argomento);
+
             ArgComboBox.addItem(Argomento);
             JOptionPane.showMessageDialog(this, "Argomento aggiunto con successo!");
         });

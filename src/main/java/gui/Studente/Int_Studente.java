@@ -39,39 +39,36 @@ public class Int_Studente extends JFrame {
         });
 
 
-        //  - Compila Richiesta (istanzia l'oggetto)
+        //  Compila Richiesta (istanzia l'oggetto)
         compilaRichiestaButton.addActionListener(e -> {
             String stato = controller.getStatoRichiesta(controller.getstudLoggato().getMatricola());
-            try{
-                if (stato.equals("In_attesa") ||stato.equals("Approvata") ){
-                    JOptionPane.showMessageDialog(this, "ERRORE, impossibile inserire un ulteriore richiesta.");
-                }
-
-                else{
-                    Int_RichiestaT IntRichiesta = new Int_RichiestaT(controller);
-                    IntRichiesta.setVisible(true);
-                    this.dispose();
-                }
-            }catch (NullPointerException exc){
-                Int_RichiestaT IntRichiesta = new Int_RichiestaT(controller);
-                IntRichiesta.setVisible(true);
+            if ("In_attesa".equals(stato) || "Approvata".equals(stato)) {
+                JOptionPane.showMessageDialog(this, "ERRORE, impossibile inserire un'ulteriore richiesta.");
+            } else {
+                Int_RichiestaT intRichiesta = new Int_RichiestaT(controller);
+                intRichiesta.setVisible(true);
                 this.dispose();
             }
-
         });
 
 
         //  - Carica Tesi
         caricaTesiButton.addActionListener(e -> {
-            Int_CaricaTesi IntCT = new Int_CaricaTesi(controller);
-            IntCT.setVisible(true);
-            this.dispose();
+            String stato = controller.getStatoTesi(controller.getstudLoggato().getMatricola());
+            if ((stato == null) || (stato.equals("Rifiutata"))) {
+                Int_CaricaTesi IntCT = new Int_CaricaTesi(controller);
+                IntCT.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "ERRORE, impossibile inserire un'ulteriore tesi.");
+            }
         });
 
 
         //  - Verifica Stato_Richiesta e Stato_tesi
         StatoRichiestaTirocinio.setText("Stato Richiesta Tirocinio : " + controller.getStatoRichiesta(controller.getMatricola()));
         statoTesiTextField.setText("Stato Tesi : " + controller.getStatoTesi(controller.getMatricola()));
+
 
     }
 // region UI designer generated Code

@@ -65,6 +65,16 @@ public class RichiestaPostgresDAO implements RichiestaDAO {
         } catch (SQLException e) {
             System.err.println("Errore SQL durante la creazione della richiesta: " + e.getMessage());
         }
-    };
+    }
+
+    public void eliminaRichiesta(String matricola) {
+        String sql = "DELETE FROM RICHIESTA WHERE matricola_studente = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, matricola);
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante l'eliminazione della richiesta: " + e.getMessage());
+        }
+    }
 
 }

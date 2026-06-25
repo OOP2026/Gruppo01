@@ -3,16 +3,13 @@ package implementazioneDao;
 import dao.ArgomentoDAO;
 import database_connection.ConnessioneDatabase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArgomentoPostgresDAO implements ArgomentoDAO {
 
-    public void aggiungiArgomento(String argomento) throws SQLException {
+    public void aggiungiArgomento(String argomento) throws IllegalArgumentException {
         String sql = "INSERT INTO ARGOMENTO (Nome) SELECT ? WHERE NOT EXISTS (SELECT 1 FROM ARGOMENTO WHERE Nome = ?)";
 
         try (Connection conn = ConnessioneDatabase.getInstance();
@@ -20,6 +17,8 @@ public class ArgomentoPostgresDAO implements ArgomentoDAO {
             ps.setString(1, argomento);
             ps.setString(2, argomento);
             ps.executeUpdate();
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.out.println("Errore: L'elemento esiste già nel database (Violazione Unique/Primary Key).");
         } catch (SQLException e) {
             System.err.println("Errore SQL durante l'aggiunta dell'argomento: " + e.getMessage());
         }

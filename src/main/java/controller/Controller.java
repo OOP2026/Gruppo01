@@ -4,6 +4,7 @@ import implementazioneDao.*;
 import model.*;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.*;
@@ -129,18 +130,20 @@ public class Controller {
         return argList;
     }
 
-    public void aggiungiArgomenti(String s) {
+    public void aggiungiArgomenti(String s) throws SQLIntegrityConstraintViolationException {
         DocenteDAO docDao= new DocentePostgresDAO();
         ArgomentoDAO argDao = new ArgomentoPostgresDAO();
+        String argomento = s.trim().toUpperCase();
         try {
-
-            argDao.aggiungiArgomento(s);
-
+            argDao.aggiungiArgomento(argomento);
             docDao.associaDocenteArgomento(s, docenteLoggato.getUsername());
-
             System.out.println("Associazione creata con successo!");
+
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.err.println("Argomento già presente" + e.getMessage());
         } catch (SQLException e) {
-            System.err.println("Errore durante l'inserimento: " + e.getMessage());
+            System.err.println("Errore SQL" + e.getMessage());
         }
     }
 
@@ -334,19 +337,20 @@ public class Controller {
         //formatta la stringa per trovare il codice del tirocinio e creare l'oggetto richiesta
         int idTirocinio = Integer.parseInt(tirScelto.split(":")[0]);
         RichiestaDAO dao = new RichiestaPostgresDAO();
-
+        if (dao.getStatoRichiesta(getMatricola()).equals("Rifiutata")) {
+            dao.eliminaRichiesta(getMatricola());
+        }
         dao.compilaRichiesta(idTirocinio, studenteLoggato.getMatricola());
 
     }
 
     public void caricaTesi(String sedutaScelta, String titolo, String documento) {
-        if ((studenteLoggato.getTesi() != null) && (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.Approvata.toString()) || (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.In_attesa.toString())))) {
-            throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
-        }
         TesiDAO daoTesi = new TesiPostgresDao();
         TirociniDAO daoTirocini = new TirociniPostgresDAO();
         String relatore = daoTirocini.getDocenteRelatore(getMatricola());
-
+        if (daoTesi.getStatoTesi(getMatricola()).equals("Rifiutata")) {
+            daoTesi.eliminaTesi(getMatricola());
+        }
         // 1. Ottiene la stringa grezza dal DAO
         int idseduta = Integer.parseInt(sedutaScelta.split(":")[0]);
         daoTesi.caricaTesi(titolo,documento, studenteLoggato.getMatricola(),relatore,idseduta);
