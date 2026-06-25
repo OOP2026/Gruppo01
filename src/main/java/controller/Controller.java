@@ -397,32 +397,4 @@ public class Controller {
     //endregion
 
 
-    //region GETTER STRANI E UTILITA
-
-    // Resitutisce l'oggetto Tirocinio sulla base del suo nome (id)
-    public Tirocinio getTirocinioDaId(int id) {
-        for (Tirocinio t : listaTirocini) {
-            if (t.getid() == id) {return t;}
-        }
-        throw new IllegalArgumentException("Tirocinio non presente nel sistema");
-    }
-
-
-    public Seduta getSedutadaID(LocalDateTime data) {
-        for (Seduta s : listaSedute) {
-            if (s.getData_ora().equals(data)) {
-                return s;
-            }
-        }
-        throw new IllegalArgumentException("Seduta non presente nel sistema");
-    }
-
-
-    public void verificaPostiDiposibili (Tirocinio t){
-        if (t.getN_posti() == 0) {
-            t.setStato(StatoTirocinio.Pieno);
-        }
-    }
-
-    //endregion
 }

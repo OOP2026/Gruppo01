@@ -48,17 +48,26 @@ public class Home extends JFrame {
 			try {
 				if (studenteRadioButton.isSelected()) {
 					// Tenta il login come Studente, e nel caso apre l'interfaccia corrispondente
-					controller.effettuaLoginStudente(userInserito, PasswordInserita);
-					Int_Studente interfacciaStud = new Int_Studente(this.controller);
-					interfacciaStud.setVisible(true);
-					this.dispose();
+					boolean log = controller.effettuaLoginStudente(userInserito, PasswordInserita);
+					if (log) {
+						Int_Studente interfacciaStud = new Int_Studente(this.controller);
+						interfacciaStud.setVisible(true);
+						this.dispose();
+					} else {
+						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Attenzione", JOptionPane.WARNING_MESSAGE);
+					}
 
 				} else if (docenteRadioButton.isSelected()) {
 					// Tenta il login come Docente, e nel caso apre l'interfaccia corrispondente
-					controller.effettuaLoginDocente(userInserito, PasswordInserita);
-					Int_Docente interfacciaDoc = new Int_Docente(this.controller);
-					interfacciaDoc.setVisible(true);
-					this.dispose();
+					boolean log = controller.effettuaLoginDocente(userInserito, PasswordInserita);
+					if (log) {
+						Int_Docente interfacciaDoc = new Int_Docente(this.controller);
+						interfacciaDoc.setVisible(true);
+						this.dispose();
+					} else {
+						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Attenzione", JOptionPane.WARNING_MESSAGE);
+					}
+
 
 				} else {
 					// Nessun ruolo selezionato
