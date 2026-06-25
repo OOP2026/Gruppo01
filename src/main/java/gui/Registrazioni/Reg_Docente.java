@@ -53,15 +53,16 @@ public class Reg_Docente extends JFrame {
                 JOptionPane.showMessageDialog(this, "Le password inserite non coincidono.", "Errore Password", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            try {
-                controller.registraDocente(nome, cognome, email, username, pwd);
+
+               boolean reg = controller.registraDocente(nome, cognome, email, username, pwd);
+            if(reg) {
                 JOptionPane.showMessageDialog(this, "Registrazione completata con successo! Ora puoi accedere.");
                 this.dispose();
                 Home finestraLogin = new Home(controller);
                 finestraLogin.setVisible(true);
-                // Cattura gli errori lanciati dal Controller (es. "Username già in uso")
-            } catch (IllegalArgumentException regError) {
-                JOptionPane.showMessageDialog(this, regError.getMessage(), "Errore di Registrazione", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "ERRORE DI REGISTRAZIONE, username non disponibile");
             }
         });
 

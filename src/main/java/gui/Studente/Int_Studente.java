@@ -41,9 +41,23 @@ public class Int_Studente extends JFrame {
 
         //  - Compila Richiesta (istanzia l'oggetto)
         compilaRichiestaButton.addActionListener(e -> {
-            Int_RichiestaT IntRichiesta = new Int_RichiestaT(controller);
-            IntRichiesta.setVisible(true);
-            this.dispose();
+            String stato = controller.getStatoRichiesta(controller.getstudLoggato().getMatricola());
+            try{
+                if (stato.equals("In_attesa") ||stato.equals("Approvata") ){
+                    JOptionPane.showMessageDialog(this, "ERRORE, impossibile inserire un ulteriore richiesta.");
+                }
+
+                else{
+                    Int_RichiestaT IntRichiesta = new Int_RichiestaT(controller);
+                    IntRichiesta.setVisible(true);
+                    this.dispose();
+                }
+            }catch (NullPointerException exc){
+                Int_RichiestaT IntRichiesta = new Int_RichiestaT(controller);
+                IntRichiesta.setVisible(true);
+                this.dispose();
+            }
+
         });
 
 
