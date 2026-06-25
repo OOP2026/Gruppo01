@@ -64,4 +64,35 @@ public class StudentePostgresDAO implements StudenteDAO {
         // Ritorna null se l'utente non esiste o la password è errata
         return null;
     }
+
+    public List<String> getStudentiRichiedenti(int idTirocinio){
+        List<String> lista = new ArrayList<>();
+        String sql = "SELECT S.matricola_studente INTO matricola, nome,cognome FROM RICHIESTA JOIN STUDENTE ON R.matricola_studente = S.matricola WHERE stato = 'in_attesa' AND id_tirocinio = ?";
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idTirocinio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    //recupera riga per riga la query formattandola come la richiede il Controller
+                    String matricola = rs.getString("matricola");
+                    String nome = rs.getString("nome");
+                    String cognome = rs.getString("cognome");
+
+                    String riga = String.format("%s: %s %s", matricola, nome, cognome);
+                    lista.add(riga);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
+        }
+        return lista;
+    };
+
+
+
+
+
+
 }

@@ -1,12 +1,6 @@
 package controller;
-import dao.DocenteDAO;
-import dao.OperazioniDocenteDAO;
-import dao.OperazioniStudenteDAO;
-import dao.StudenteDAO;
-import implementazioneDao.DocentePostgresDAO;
-import implementazioneDao.OperazioniDocentePostgresDAO;
-import implementazioneDao.OperazioniStudentePostgresDAO;
-import implementazioneDao.StudentePostgresDAO;
+import dao.*;
+import implementazioneDao.*;
 import model.*;
 
 import java.sql.SQLException;
@@ -90,23 +84,24 @@ public class Controller {
 
 
     //region METODI DEL DOCENTE LOGGATO
-    //trova i tirocini aperti del docente Loggato
+
+    //metodo richiamato da Visualizza_R_Tir, restitituisce una lista di stringhe
+    //contenenti le informazioni sui tirocini aperti del docente Loggato
     public List<String> getTirociniAperti() {
-        List<String> infoTirocini = new ArrayList<>();
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
-        infoTirocini = dao.getTirociniAperti(docenteLoggato.getUsername());
+        TirociniDAO dao = new TirociniPostgresDAO();
+        List<String> infoTirocini = dao.getTirociniAperti(docenteLoggato.getUsername());
         return infoTirocini;
     }
 
     //Approva la Richiesta di Tirocinio
     public void approvaRichiestaTirocinio(String matricola) {
-       OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+       RichiestaDAO dao = new RichiestaPostgresDAO();
        dao.approvaRichiestaTirocinio(matricola);
     }
 
     // la Richiesta di Tirocinio
     public void rifiutaRichiestaTirocinio(String matricola) {
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        RichiestaDAO dao = new RichiestaPostgresDAO();
         dao.rifiutaRichiestaTirocinio(matricola);
     }
 
@@ -114,7 +109,7 @@ public class Controller {
     public List<String[]> visualizzaTirocinioStudenti() {
         List<String[]> righeTabella = new ArrayList<>();
 
-        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        TirociniDAO dao= new TirociniPostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
         List<String[]> tirociniInCorso = dao.visualizzaTirociniInCorso(docenteLoggato.getUsername());
         if (tirociniInCorso == null) {
@@ -129,19 +124,19 @@ public class Controller {
 
     public List<String> getArgomentiDocLoggato() {
         List<String> argList = new ArrayList<>();
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        ArgomentoDAO dao = new ArgomentoPostgresDAO();
         argList = dao.getArgomentiDocente(docenteLoggato.getUsername());
         return argList;
     }
 
     public void aggiungiArgomenti(String s) {
-        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        DocenteDAO docDao= new DocentePostgresDAO();
+        ArgomentoDAO argDao = new ArgomentoPostgresDAO();
         try {
-            // 1. Garantisci l'esistenza del padre
-            dao.aggiungiArgomento(s);
 
-            // 2. Crea il legame
-            dao.associaDocenteArgomento(s, docenteLoggato.getUsername());
+            argDao.aggiungiArgomento(s);
+
+            docDao.associaDocenteArgomento(s, docenteLoggato.getUsername());
 
             System.out.println("Associazione creata con successo!");
         } catch (SQLException e) {
@@ -150,7 +145,7 @@ public class Controller {
     }
 
     public void rimuoviArgomento (String s) {
-        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        ArgomentoDAO dao= new ArgomentoPostgresDAO();
         dao.rimuoviArgomento(s, docenteLoggato.getUsername());
         System.out.println("Associazione creata con successo!");
         docenteLoggato.rimuoviArgomento(s);
@@ -160,14 +155,14 @@ public class Controller {
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
     public List<String> getStudentiRichiedenti(int tirocinio) {
         List<String> listaStud = new ArrayList<>();
-       OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+       StudenteDAO dao = new StudentePostgresDAO();
        listaStud = dao.getStudentiRichiedenti(tirocinio);
         return listaStud;
     }
 
     //Il docente approva la Tesi
     public void approvaTesi(int id) {
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        TesiDAO dao = new TesiPostgresDao();
         dao.approvaTesi(id);
     }
 
@@ -177,7 +172,7 @@ public class Controller {
 
     //Il docente boccia la Tesi
     public void rifiutaTesi(int id) {
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        TesiDAO dao = new TesiPostgresDao();
         dao.rifiutaTesi(id);
     }
 
@@ -187,7 +182,7 @@ public class Controller {
     //Il docente riceve i titoli di tutte le tesi a lui associate, assieme all'id
     public List<String> getInfoTesi() {
         List<String> lista = new ArrayList<>();
-       OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+       TesiDAO dao = new TesiPostgresDao();
        lista = dao.getInfoTesiDocLoggato(docenteLoggato.getUsername());
        return lista;
     }
@@ -238,7 +233,7 @@ public class Controller {
     //region METODI COORDINATORE
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
     public void inserisciSeduta(LocalDateTime data_ora, String sede) {
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        SeduteDAO dao = new SedutePostgresDAO();
         dao.creaSeduta(data_ora,sede);
     }
 
@@ -302,7 +297,7 @@ public class Controller {
     }
 
     public List<String[]> getDatiTabellaSeduta(int idSeduta) {
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        SeduteDAO dao = new SedutePostgresDAO();
 
         List<String[]> righeTabella = dao.getInfoSeduta(idSeduta);
 
@@ -316,7 +311,7 @@ public class Controller {
 
     //riceve dalla gui "Gestisci_commissioni" la stringa contenente
     public void confermaSeduta(int idSeduta) {
-        OperazioniDocenteDAO dao = new OperazioniDocentePostgresDAO();
+        SeduteDAO dao = new SedutePostgresDAO();
         dao.chiudiSeduta(idSeduta);
     }
 
@@ -325,7 +320,7 @@ public class Controller {
 
     //region METODI STUDENTE
     public List<String> visualizzaTirociniDisponibili() {
-        OperazioniStudenteDAO dao = new OperazioniStudentePostgresDAO();
+        TirociniDAO dao = new TirociniPostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
         List<String> listaTirociniDisponibili = dao.getTirociniDisponibili();
         if (listaTirociniDisponibili == null) {
@@ -338,7 +333,7 @@ public class Controller {
 
         //formatta la stringa per trovare il codice del tirocinio e creare l'oggetto richiesta
         int idTirocinio = Integer.parseInt(tirScelto.split(":")[0]);
-        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+        RichiestaDAO dao = new RichiestaPostgresDAO();
 
         dao.compilaRichiesta(idTirocinio, studenteLoggato.getMatricola());
 
@@ -348,17 +343,18 @@ public class Controller {
         if ((studenteLoggato.getTesi() != null) && (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.Approvata.toString()) || (getStatoTesi(studenteLoggato.getMatricola()).equals(Stato_Tesi.In_attesa.toString())))) {
             throw new IllegalStateException("ERRORE! Hai già una proposta di tesi attiva.");
         }
-        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
-        String relatore = dao.getDocenteRelatore(getMatricola());
+        TesiDAO daoTesi = new TesiPostgresDao();
+        TirociniDAO daoTirocini = new TirociniPostgresDAO();
+        String relatore = daoTirocini.getDocenteRelatore(getMatricola());
 
         // 1. Ottiene la stringa grezza dal DAO
         int idseduta = Integer.parseInt(sedutaScelta.split(":")[0]);
-        dao.caricaTesi(titolo,documento, studenteLoggato.getMatricola(),relatore,idseduta);
+        daoTesi.caricaTesi(titolo,documento, studenteLoggato.getMatricola(),relatore,idseduta);
     }
 
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
     public String getStatoRichiesta(String matricola) {
-        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+        RichiestaDAO dao = new RichiestaPostgresDAO();
 
         // 1. Ottiene la stringa grezza dal DAO
         String statoTestuale = dao.getStatoRichiesta(matricola);
@@ -371,7 +367,7 @@ public class Controller {
 
     //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
     public String getStatoTesi(String matricola) {
-        OperazioniStudentePostgresDAO dao = new OperazioniStudentePostgresDAO();
+        TesiDAO dao = new TesiPostgresDao();
 
         // 1. Ottiene la stringa grezza dal DAO
         String statoTestuale = dao.getStatoTesi(matricola);
@@ -389,7 +385,7 @@ public class Controller {
 
 
     public List<String> getSeduteAperte() {
-        OperazioniDocenteDAO dao= new OperazioniDocentePostgresDAO();
+        SeduteDAO dao= new SedutePostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
         List<String> seduteAperte = dao.getSeduteAperte();
         if (seduteAperte == null) {

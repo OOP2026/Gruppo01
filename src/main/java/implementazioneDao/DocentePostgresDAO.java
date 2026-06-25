@@ -82,4 +82,19 @@ public class DocentePostgresDAO implements DocenteDAO{
         return false;
     }
 
+    public void associaDocenteArgomento(String userDocente, String nomeArgomento)  {
+        String sql = "INSERT INTO DOCENTE_ARGOMENTO (User_docente, Nome_argomento) VALUES (?, ?)";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, userDocente);
+            ps.setString(2, nomeArgomento);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
+        }
+    }
+
+
+
 }
