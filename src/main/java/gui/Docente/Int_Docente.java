@@ -21,7 +21,7 @@ public class Int_Docente extends JFrame {
     private JButton CreaSedutaButton;
     private JPanel Coordinatore;
     private JButton GestisciCommissioniButton;
-    private JPanel Commissioni;
+    private JPanel Tabella;
     private JTextField NomeCognomeDoc;
     private JButton VisualizzaTirociniButton;
     private JTable tabellaTirocini;
@@ -36,13 +36,14 @@ public class Int_Docente extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
-        this.Commissioni.setVisible(false);
+        this.Tabella.setVisible(false);
         this.tabellaTirocini.setVisible(false);
         this.terminaVisualizzazioneButton.setVisible(false);
+        this.GestisciCommissioniButton.setVisible(false);
 
         if (controller.getdocLoggato().getisCoordinatore()) {
             this.Coordinatore.setVisible(true);
-            this.Commissioni.setVisible(true);
+            this.GestisciCommissioniButton.setVisible(true);
         }
 
         NomeCognomeDoc.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
@@ -204,13 +205,13 @@ public class Int_Docente extends JFrame {
         Coordinatore.add(CreaSedutaButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer5 = new Spacer();
         Coordinatore.add(spacer5, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        Commissioni = new JPanel();
-        Commissioni.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.add(Commissioni, new GridConstraints(7, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        Tabella = new JPanel();
+        Tabella.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.add(Tabella, new GridConstraints(7, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         tabellaTirocini = new JTable();
         tabellaTirocini.setBackground(new Color(-3245500));
         tabellaTirocini.setForeground(new Color(-525825));
-        Commissioni.add(tabellaTirocini, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        Tabella.add(tabellaTirocini, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         final JPanel panel6 = new JPanel();
         panel6.setLayout(new GridLayoutManager(1, 3, new Insets(0, 0, 0, 0), -1, -1));
         panel6.setBackground(new Color(-9029114));

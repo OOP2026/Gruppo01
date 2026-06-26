@@ -235,9 +235,15 @@ public class Controller {
 
     //region METODI COORDINATORE
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
-    public void inserisciSeduta(LocalDateTime data_ora, String sede) {
+    public void inserisciSeduta(LocalDateTime data_ora, String sede) throws IllegalArgumentException {
         SeduteDAO dao = new SedutePostgresDAO();
-        dao.creaSeduta(data_ora,sede);
+        if((LocalDateTime.now()).isAfter(data_ora))
+            throw new IllegalArgumentException("ERRORE: data non valida");
+        if(dao.checkseduta(data_ora,sede))
+            dao.creaSeduta(data_ora,sede,docenteLoggato.getUsername());
+        else
+            throw new IllegalArgumentException("Seduta gia' presente nel sistema");
+
     }
 
     //La gui per creare la lista delle sedute aperte ha bisogno di una Lista di Stringhe

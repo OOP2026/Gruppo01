@@ -47,7 +47,7 @@ public class TirociniPostgresDAO implements TirociniDAO {
     }
     public List<String> getTirociniAperti(String userDoc){
         List<String> lista = new ArrayList<>();
-        String sql = "SELECT id, nome FROM TIROCINIO WHERE stato = aperto AND username_relatore = ?";
+        String sql = "SELECT id, nome FROM TIROCINIO WHERE stato = 'aperto' AND username_relatore = ?";
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, userDoc);

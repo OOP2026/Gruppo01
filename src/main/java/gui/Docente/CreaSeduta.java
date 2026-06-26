@@ -48,6 +48,7 @@ public class CreaSeduta extends JFrame {
             }
 
             try {
+
                 //Crea la data e inserisce la seduta
                 LocalDateTime dataOraSeduta = controller.assemblaDataOra(Giorno, Mese, Anno, Ora);
 
