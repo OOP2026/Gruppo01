@@ -15,7 +15,7 @@ import java.util.List;
 public class TirociniPostgresDAO implements TirociniDAO {
     public List<String[]> visualizzaTirociniInCorso(String userDocente) {
         String sql = "SELECT T.id, T.nome AS nome_tir, S.nome AS nome_stud, S.cognome " +
-                "FROM RICHESTA R JOIN STUDENTE S ON S.marticola = R.matricola_studente " +
+                "FROM RICHIESTA R JOIN STUDENTE S ON S.matricola = R.matricola_studente " +
                 "JOIN TIROCINIO T ON R.id_tirocinio = T.id " +
                 "WHERE R.stato = 'Approvata' AND T.stato = 'In_corso' AND username_relatore = ?";
 
@@ -47,7 +47,7 @@ public class TirociniPostgresDAO implements TirociniDAO {
     }
     public List<String> getTirociniAperti(String userDoc){
         List<String> lista = new ArrayList<>();
-        String sql = "SELECT id, nome FROM TIROCINIO WHERE stato = 'aperto' AND username_relatore = ?";
+        String sql = "SELECT id, nome FROM TIROCINIO WHERE stato = 'Aperto' AND username_relatore = ?";
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, userDoc);

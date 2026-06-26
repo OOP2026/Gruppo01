@@ -36,8 +36,8 @@ public class Int_Docente extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
-        this.Tabella.setVisible(false);
-        this.tabellaTirocini.setVisible(false);
+        this.Tabella.setVisible(true);
+        this.tabellaTirocini.setVisible(true);
         this.terminaVisualizzazioneButton.setVisible(false);
         this.GestisciCommissioniButton.setVisible(false);
 
@@ -97,6 +97,7 @@ public class Int_Docente extends JFrame {
             try {
                 // Recupera dal controller
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
+                System.out.println("Righe recuperate dal DB: " + datiTabella.size());
 
                 // 2. Se la lista è vuota, avvisa l'utente e interrompi
                 if (datiTabella == null || datiTabella.isEmpty()) {
@@ -106,12 +107,12 @@ public class Int_Docente extends JFrame {
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } else {
-                    DefaultTableModel model = (DefaultTableModel) tabellaTirocini.getModel();
+                    String[] nomiColonne = {"ID Tirocinio", "Nome Studente", "Stato"};
 
-                    // Pulisci le righe esistenti per evitare duplicati se l'utente clicca più volte
-                    model.setRowCount(0);
+                    // 2. Inizializza un NUOVO modello con le colonne corrette e 0 righe iniziali
+                    DefaultTableModel model = new DefaultTableModel(nomiColonne, 0);
 
-                    // Inserisci ogni riga presente nella lista
+                    // 3. Inserisci i dati
                     for (String[] riga : datiTabella) {
                         model.addRow(riga);
                     }

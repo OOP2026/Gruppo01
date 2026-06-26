@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class RichiestaPostgresDAO implements RichiestaDAO {
 
     public void approvaRichiestaTirocinio(String matricola){
-        String sql = "UPDATE RICHIESTA SET stato = 'approvata' WHERE matricola_studente = ? AND stato = in_attesa";
+        String sql = "UPDATE RICHIESTA SET stato = 'Approvata' WHERE matricola_studente = ? AND stato = 'In_attesa'";
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, matricola);
@@ -22,7 +22,7 @@ public class RichiestaPostgresDAO implements RichiestaDAO {
     }
 
     public void rifiutaRichiestaTirocinio(String matricola){
-        String sql = "UPDATE RICHIESTA SET stato = 'rifiutata' WHERE matricola_studente = ? AND stato = in_attesa";
+        String sql = "UPDATE RICHIESTA SET stato = 'Rifiutata' WHERE matricola_studente = ? AND stato = 'In_attesa'";
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, matricola);
@@ -39,6 +39,7 @@ public class RichiestaPostgresDAO implements RichiestaDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, matricola);
+
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -60,6 +61,8 @@ public class RichiestaPostgresDAO implements RichiestaDAO {
 
             ps.setString(1, matricola);
             ps.setInt(2, idTirocnio);
+            ps.executeUpdate();
+
 
 
         } catch (SQLException e) {

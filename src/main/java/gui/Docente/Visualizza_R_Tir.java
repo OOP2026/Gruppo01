@@ -38,15 +38,13 @@ public class Visualizza_R_Tir extends JFrame {
         // Aggiunta tirocini associati al docente loggato
         TirociniComboBox.removeAllItems();
         StudentiComboBox.removeAllItems();
-       for (String tirocinio: controller.getTirociniAperti()){
-           TirociniComboBox.addItem(tirocinio);
-       }
+
 
 
         // LISTENER COMBOBOX TIROCINI
         TirociniComboBox.addItemListener(e -> {
 
-            if (e.getStateChange() == ItemEvent.SELECTED) {
+            if (e.getStateChange() != ItemEvent.SELECTED) {
                 return;
             }
 
@@ -68,7 +66,9 @@ public class Visualizza_R_Tir extends JFrame {
                     StudentiComboBox.addItem(matricola);
                 }
         });
-
+        for (String tirocinio: controller.getTirociniAperti()){
+            TirociniComboBox.addItem(tirocinio);
+        }
         // LISTENER BOTTONE VALUTA
         ValutaButton.addActionListener(e -> {
 

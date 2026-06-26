@@ -67,7 +67,11 @@ public class StudentePostgresDAO implements StudenteDAO {
 
     public List<String> getStudentiRichiedenti(int idTirocinio){
         List<String> lista = new ArrayList<>();
-        String sql = "SELECT S.matricola_studente INTO matricola, nome,cognome FROM RICHIESTA JOIN STUDENTE ON R.matricola_studente = S.matricola WHERE stato = 'in_attesa' AND id_tirocinio = ?";
+        String sql = "SELECT S.matricola, S.nome, S.cognome " +
+                "FROM RICHIESTA R " +
+                "JOIN STUDENTE S ON R.matricola_studente = S.matricola " +
+                "WHERE R.stato = 'In_attesa' AND R.id_tirocinio = ?";
+
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idTirocinio);

@@ -343,7 +343,7 @@ public class Controller {
         //formatta la stringa per trovare il codice del tirocinio e creare l'oggetto richiesta
         int idTirocinio = Integer.parseInt(tirScelto.split(":")[0]);
         RichiestaDAO dao = new RichiestaPostgresDAO();
-        if (dao.getStatoRichiesta(getMatricola()).equals("Rifiutata")) {
+        if (("Rifiutata").equals(dao.getStatoRichiesta(getMatricola()))) {
             dao.eliminaRichiesta(getMatricola());
         }
         dao.compilaRichiesta(idTirocinio, studenteLoggato.getMatricola());
