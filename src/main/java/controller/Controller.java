@@ -26,11 +26,29 @@ public class Controller {
     private final List<Tirocinio> listaTirocini = new ArrayList<>();
     private Docente docenteLoggato = null;
     private Studente studenteLoggato = null;
+    private Admin adminLoggato = null;
 
     //Costruttore del Controller, non necessita di argomenti.
     public Controller() {}
 
     //region METODI BASE (HOME E LOGIN)
+    public boolean effettuaLoginAdmin(String user, String pwd) {
+        AdminDAO adminDAO = new AdminPostgresDAO();
+
+        // Riceve solo i dati grezzi
+        List<String> dati = adminDAO.loginAdmin(user, pwd);
+
+        if (dati == null || dati.isEmpty()) {
+            return false;
+        } else {
+            // Il Controller costruisce l'oggetto estraendo i valori dalla lista in base all'ordine di inserimento
+            String username = dati.get(0);
+            String password = dati.get(1);
+
+            this.adminLoggato = new Admin(username, password);
+            return true;
+        }
+    }
     public boolean effettuaLoginStudente(String user, String pwd) {
         StudentePostgresDAO studDAO = new StudentePostgresDAO();
 

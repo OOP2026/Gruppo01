@@ -70,7 +70,13 @@ public class Home extends JFrame {
 
 
 				} else {
-					// Nessun ruolo selezionato
+					boolean log = controller.effettuaLoginAdmin(userInserito, PasswordInserita);
+					if(log){
+						Int_Admin interfacciaAdmin = new Int_Admin(this.controller);
+						interfacciaAdmin.setVisible(true);
+						this.dispose();
+					}
+					else
 					JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "Attenzione", JOptionPane.WARNING_MESSAGE);
 				}
 
