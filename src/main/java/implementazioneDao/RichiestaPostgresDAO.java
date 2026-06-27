@@ -54,7 +54,21 @@ public class RichiestaPostgresDAO implements RichiestaDAO {
         return null;
     }
 
-    public void compilaRichiesta(int idTirocnio, String matricola){
+    public void compilaRichiesta(int idTirocnio, String matricola) {
+        if ("Rifiutata".equals(getStatoRichiesta(matricola))) {
+
+            String sql = "DELETE FROM RICHIESTA WHERE matricola_studente = ?";
+            try (Connection conn = ConnessioneDatabase.getInstance();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, matricola);
+                ps.executeUpdate();
+
+
+            } catch (SQLException e) {
+                System.err.println("Errore SQL durante la creazione della richiesta: " + e.getMessage());
+            }
+
+        }
         String sql = "INSERT INTO RICHIESTA (matricola_studente, id_tirocinio) values(?,?)";
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -64,11 +78,12 @@ public class RichiestaPostgresDAO implements RichiestaDAO {
             ps.executeUpdate();
 
 
-
         } catch (SQLException e) {
             System.err.println("Errore SQL durante la creazione della richiesta: " + e.getMessage());
         }
     }
+
+
 
     public void eliminaRichiesta(String matricola) {
         String sql = "DELETE FROM RICHIESTA WHERE matricola_studente = ?";

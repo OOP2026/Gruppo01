@@ -86,8 +86,13 @@ public class Visualizza_R_Tir extends JFrame {
             // Approva o rifiuta a seconda del radiobutton selezionato
             if (approvaRadioButton.isSelected()) {
                 controller.approvaRichiestaTirocinio(matricolaSel);
+                JOptionPane.showMessageDialog(this, "Richiesta Approvata con successo");
+                StudentiComboBox.removeItemAt(StudentiComboBox.getSelectedIndex());
             } else if (rifiutaRadioButton.isSelected()) {
                 controller.rifiutaRichiestaTirocinio(matricolaSel);
+                JOptionPane.showMessageDialog(this, "Richiesta Rifiutata con successo");
+                StudentiComboBox.removeItemAt(StudentiComboBox.getSelectedIndex());
+
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;

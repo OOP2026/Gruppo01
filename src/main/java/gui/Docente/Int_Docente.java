@@ -36,7 +36,7 @@ public class Int_Docente extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.Coordinatore.setVisible(false);
-        this.Tabella.setVisible(true);
+        this.Tabella.setVisible(false);
         this.tabellaTirocini.setVisible(true);
         this.terminaVisualizzazioneButton.setVisible(false);
         this.GestisciCommissioniButton.setVisible(false);
@@ -95,6 +95,7 @@ public class Int_Docente extends JFrame {
         // Visualizza Tirocini in corso
         VisualizzaTirociniButton.addActionListener(e -> {
             try {
+                Tabella.setVisible(true);
                 // Recupera dal controller
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
 
@@ -141,7 +142,7 @@ public class Int_Docente extends JFrame {
         });
 
         terminaVisualizzazioneButton.addActionListener(e -> {
-            tabellaTirocini.setVisible(false);
+            Tabella.setVisible(false);
             setSize(500, 500);
         });
 
