@@ -59,6 +59,8 @@ public class Int_RichiestaT extends JFrame {
 
                 // 3. Esecuzione della logica
                 controller.compilaRichiesta(tirocinioSelezionato);
+                JOptionPane.showMessageDialog(this, "Richiesta effettuata con successo");
+
 
                 // 4. Ritorno alla schermata precedente
                 Int_Studente interfacciaStud = new Int_Studente(controller);

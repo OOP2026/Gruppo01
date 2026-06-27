@@ -136,7 +136,7 @@ public class Controller {
         String argomento = s.trim().toUpperCase();
         try {
             argDao.aggiungiArgomento(argomento);
-            docDao.associaDocenteArgomento(s, docenteLoggato.getUsername());
+            docDao.associaDocenteArgomento(docenteLoggato.getUsername(), s);
             System.out.println("Associazione creata con successo!");
 
 

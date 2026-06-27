@@ -83,7 +83,7 @@ public class DocentePostgresDAO implements DocenteDAO{
     }
 
     public void associaDocenteArgomento(String userDocente, String nomeArgomento)  {
-        String sql = "INSERT INTO DOCENTE_ARGOMENTO (User_docente, Nome_argomento) VALUES (?, ?)";
+        String sql = "INSERT INTO docente_argomento (username_docente, nome_argomento) VALUES (?, ?)";
 
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {

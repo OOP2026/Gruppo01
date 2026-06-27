@@ -97,7 +97,17 @@ public class Int_Docente extends JFrame {
             try {
                 // Recupera dal controller
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
+
+
+                //MINI DEBUG
                 System.out.println("Righe recuperate dal DB: " + datiTabella.size());
+                for (String[] stringozza: datiTabella) {
+                    for(String stringa: stringozza) {
+                        System.out.println(stringa);
+                    }
+                }
+
+
 
                 // 2. Se la lista è vuota, avvisa l'utente e interrompi
                 if (datiTabella == null || datiTabella.isEmpty()) {
@@ -116,9 +126,9 @@ public class Int_Docente extends JFrame {
                     for (String[] riga : datiTabella) {
                         model.addRow(riga);
                     }
+                    tabellaTirocini.setModel(model);
                 }
 
-                tabellaTirocini.setVisible(true);
                 terminaVisualizzazioneButton.setVisible(true);
                 setSize(500, 800);
 
