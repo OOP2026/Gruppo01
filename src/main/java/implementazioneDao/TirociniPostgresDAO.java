@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -117,6 +118,42 @@ public class TirociniPostgresDAO implements TirociniDAO {
         }
 
         return listaTirocini;
+    }
+
+
+
+    public boolean registraTirocinio(String argomento, String nome, int ncfu, int durata, LocalDate dataInizio, String tipo,
+                              String azienda, String refAzienda, String dipartimento, String laboratorio, String relatore){
+
+        String sql = "INSERT INTO TIROCINIO (nome, durata, datainizio, n_cfu, tipo, dipartimento, laboratorio, " +
+                "azienda, referente_aziendale, nome_argomento, username_relatore) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, nome);
+            ps.setInt(2, durata);
+
+            // Conversione della data da LocalDate a Date
+            ps.setDate(3, java.sql.Date.valueOf(dataInizio));
+            ps.setInt(4, ncfu);
+            ps.setString(5, tipo);
+            // I parametri specifici. Se contengono 'null', su Postgres andrà NULL
+            ps.setString(6, dipartimento);
+            ps.setString(7, laboratorio);
+            ps.setString(8, azienda);
+            ps.setString(9, refAzienda);
+            ps.setString(10, argomento);
+            ps.setString(11, relatore);
+
+            int righeInserite = ps.executeUpdate();
+            return righeInserite > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante l'inserimento del tirocinio: " + e.getMessage());
+            return false;
+        }
+
     }
 
 

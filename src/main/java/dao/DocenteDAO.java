@@ -9,4 +9,8 @@ public interface DocenteDAO {
     List<String> loginDocente(String user, String password);
     boolean checkIsCoordinatore(String username);
     void associaDocenteArgomento(String arg, String userDoc);
+
+    List<String> getDocNotCoord();
+
+     void impostaCoordinatore(String usernameDoc);
 }

@@ -7,6 +7,7 @@ import gui.Docente.Int_Docente;
 import gui.Registrazioni.Reg_Docente;
 import gui.Registrazioni.Reg_Studente;
 import gui.Studente.Int_Studente;
+import gui.admin.Int_admin;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -72,7 +73,7 @@ public class Home extends JFrame {
 				} else {
 					boolean log = controller.effettuaLoginAdmin(userInserito, PasswordInserita);
 					if(log){
-						Int_Admin interfacciaAdmin = new Int_Admin(this.controller);
+						Int_admin interfacciaAdmin = new Int_admin(this.controller);
 						interfacciaAdmin.setVisible(true);
 						this.dispose();
 					}

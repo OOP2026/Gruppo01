@@ -1,5 +1,7 @@
 package controller;
 import dao.*;
+import gui.admin.Imposta_Coordinatore;
+import gui.admin.Int_admin;
 import implementazioneDao.*;
 import model.*;
 
@@ -101,7 +103,41 @@ public class Controller {
 
     //endregion
 
+//region METODI ADMIN
+    public List<String> getDocNotCoord() {
+        DocenteDAO dao= new DocentePostgresDAO();
+        List<String> docenti = dao.getDocNotCoord();
+        return docenti;
+    }
 
+    public void impostaCoordinatore(String userDoc) {
+        DocenteDAO dao= new DocentePostgresDAO();
+        dao.impostaCoordinatore(userDoc);
+    }
+
+    public void inserisciTirocinio(String argomento, String nome, int ncfu, int durata, LocalDate dataInizio, String tipo,
+                                   String azienda, String refAzienda, String dip, String lab, String relatore) {
+
+        // Operatore ternario: se la stringa è vuota assegna null, altrimenti lascia il testo inserito
+        String dbAzienda = (azienda != null && !azienda.isEmpty()) ? azienda : null;
+        String dbRefAzienda = (refAzienda != null && !refAzienda.isEmpty()) ? refAzienda : null;
+        String dbDip = (dip != null && !dip.isEmpty()) ? dip : null;
+        String dbLab = (lab != null && !lab.isEmpty()) ? lab : null;
+
+        TirociniDAO dao = new TirociniPostgresDAO();
+
+        // Passa i dati "puliti" al DAO
+        boolean successo = dao.registraTirocinio(argomento, nome, ncfu, durata, dataInizio, tipo, dbAzienda, dbRefAzienda, dbDip, dbLab, relatore);
+
+        if (!successo) {
+            throw new IllegalArgumentException("Errore durante il salvataggio nel database.");
+        }
+    }
+
+
+
+
+    //endregion
     //region METODI DEL DOCENTE LOGGATO
 
     //metodo richiamato da Visualizza_R_Tir, restitituisce una lista di stringhe
@@ -320,6 +356,21 @@ public class Controller {
             throw new IllegalArgumentException("Per favore, inserisci solo numeri interi nei campi della data.");
         } catch (java.time.DateTimeException ex) {
             throw new IllegalArgumentException("La data o l'orario inserito non esiste sul calendario.");
+        }
+    }
+    public LocalDate assemblaData(String giornoStr, String meseStr, String annoStr) {
+        try {
+            int giorno = Integer.parseInt(giornoStr.trim());
+            int mese = Integer.parseInt(meseStr.trim());
+            int anno = Integer.parseInt(annoStr.trim());
+
+            return LocalDate.of(anno, mese, giorno);
+
+        } catch (NumberFormatException ex) {
+            // L'utente ha inserito lettere o lasciato un campo vuoto
+            throw new IllegalArgumentException("Per favore, inserisci solo numeri interi nei campi della data.");
+        } catch (java.time.DateTimeException ex) {
+            throw new IllegalArgumentException("La data inserita non esiste sul calendario.");
         }
     }
 

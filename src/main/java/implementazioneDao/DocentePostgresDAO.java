@@ -94,7 +94,40 @@ public class DocentePostgresDAO implements DocenteDAO{
             System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
         }
     }
+    public List<String> getDocNotCoord(){
+        List<String> lista = new ArrayList<>();
+        String sql = "SELECT username FROM DOCENTE WHERE iscoordinatore = false";
 
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    //recupera riga per riga la query formattandola come la richiede il Controller
+                    String username = rs.getString("username");
+                    lista.add(username);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Errore SQL durante il recupero degli argomenti: " + e.getMessage());
+        }
+        return lista;
+    };
+
+    public void impostaCoordinatore(String usernameDoc){
+        String sql = "UPDATE docente SET iscoordinatore = true WHERE username = ?";
+
+        try (Connection conn = ConnessioneDatabase.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, usernameDoc);
+            ps.executeUpdate();
+        }catch (SQLException e) {
+            System.err.println("Errore SQL durante l'impostazione del coordinatore: " + e.getMessage());
+        }
+
+    }
 
 
 }
