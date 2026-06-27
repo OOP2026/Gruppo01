@@ -354,7 +354,7 @@ public class Controller {
         TesiDAO daoTesi = new TesiPostgresDao();
         TirociniDAO daoTirocini = new TirociniPostgresDAO();
         String relatore = daoTirocini.getDocenteRelatore(getMatricola());
-        if (daoTesi.getStatoTesi(getMatricola()).equals("Rifiutata")) {
+        if ("Rifiutata".equals(daoTesi.getStatoTesi(getMatricola()))) {
             daoTesi.eliminaTesi(getMatricola());
         }
         // 1. Ottiene la stringa grezza dal DAO

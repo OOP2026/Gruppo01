@@ -233,6 +233,8 @@
             </constraints>
             <properties>
               <background color="-10054003"/>
+              <editable value="false"/>
+              <enabled value="true"/>
             </properties>
           </component>
         </children>

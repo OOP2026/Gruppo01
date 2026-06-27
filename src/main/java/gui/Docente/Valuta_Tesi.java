@@ -50,8 +50,12 @@ public class Valuta_Tesi extends JFrame {
             // Determina l'esito dai RadioButton
             if (approvaRadioButton.isSelected()) {
                 controller.approvaTesi(idTesi);
+                TesiComboBox.removeItemAt(TesiComboBox.getSelectedIndex());
+                JOptionPane.showMessageDialog(this, "Tesi approvata con successo!");
             } else if (rifiutaRadioButton.isSelected()) {
                 controller.rifiutaTesi(idTesi);
+                TesiComboBox.removeItemAt(TesiComboBox.getSelectedIndex());
+                JOptionPane.showMessageDialog(this, "Tesi rifiutata con successo!");
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
