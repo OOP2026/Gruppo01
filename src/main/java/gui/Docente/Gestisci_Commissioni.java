@@ -35,8 +35,8 @@ public class Gestisci_Commissioni extends JFrame {
 
 
         String[] nomiColonne = {"Docente (Relatore)", "Studente", "Stato Tesi"};
-        DefaultTableModel modelloTabella = new DefaultTableModel(nomiColonne, 0);
-        TabellaStudenti.setModel(modelloTabella);
+        TabellaStudenti.setModel(new DefaultTableModel(nomiColonne, 0));
+        popolaComboBox();
 
 
         List<String> seduteDisponibili = controller.getSeduteAperte();
@@ -46,53 +46,19 @@ public class Gestisci_Commissioni extends JFrame {
             }
         }
 
+        //per evitare addActionListener complessi e illegibili, sono state dichiarati dei metodi esterni
+        SeduteCombobox.addActionListener(e -> gestisciSelezioneSeduta());
+        confermaButton.addActionListener(e -> gestisciConferma());
 
-        SeduteCombobox.addActionListener(e -> {
-
-            Object elementoSelezionato = SeduteCombobox.getSelectedItem();
-
-            if (elementoSelezionato != null) {
-                int idSeduta = controller.getIdDaStringa(elementoSelezionato.toString());
-
-                DefaultTableModel model = (DefaultTableModel) TabellaStudenti.getModel();
-                List<String[]> datiTabella = controller.getDatiTabellaSeduta(idSeduta);
-
-                model.setRowCount(0);
-
-                if (datiTabella != null) {
-                    for (String[] riga : datiTabella) {
-                        model.addRow(riga);
-                    }
-                }
-            }
+        ReturnButton.addActionListener(e -> {
+            new Int_Docente(controller).setVisible(true);
+            this.dispose();
         });
 
-
-
-        confermaButton.addActionListener(e -> {
-            Object elementoSelezionato = SeduteCombobox.getSelectedItem();
-
-            if (elementoSelezionato != null) {
-                try {
-                    // Passi la stringa al Controller (che farà split e ricerca)
-                    int idSeduta = controller.getIdDaStringa(elementoSelezionato.toString());
-                    controller.confermaSeduta(idSeduta);
-
-                    JOptionPane.showMessageDialog(this,
-                            "Seduta confermata e chiusa con successo.",
-                            "Seduta chiusa",
-                            JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (IllegalArgumentException ex) {
-                    // Intercetta l'errore "Seduta inesistente" o "Formato stringa non valido"
-                    JOptionPane.showMessageDialog(this,
-                            "Errore del sistema: " + ex.getMessage(),
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
+        logoutButton.addActionListener(e -> {
+            new Home(controller).setVisible(true);
+            this.dispose();
         });
-
 
         ReturnButton.addActionListener(e -> {
             Int_Docente interfacciaDoc = new Int_Docente(controller);
@@ -106,6 +72,41 @@ public class Gestisci_Commissioni extends JFrame {
         });
 
 
+    }
+
+
+    private void popolaComboBox() {
+        List<String> seduteDisponibili = controller.getSeduteAperte();
+        if (seduteDisponibili != null) {
+            for (String seduta : seduteDisponibili) SeduteCombobox.addItem(seduta);
+        }
+    }
+
+
+    private void gestisciSelezioneSeduta() {
+        Object elemento = SeduteCombobox.getSelectedItem();
+        if (elemento == null) return;
+
+        int idSeduta = controller.getIdDaStringa(elemento.toString());
+        DefaultTableModel model = (DefaultTableModel) TabellaStudenti.getModel();
+        model.setRowCount(0);
+
+        List<String[]> dati = controller.getDatiTabellaSeduta(idSeduta);
+        if (dati != null) {
+            for (String[] riga : dati) model.addRow(riga);
+        }
+    }
+
+    private void gestisciConferma() {
+        Object elemento = SeduteCombobox.getSelectedItem();
+        if (elemento == null) return;
+
+        try {
+            controller.confermaSeduta(controller.getIdDaStringa(elemento.toString()));
+            JOptionPane.showMessageDialog(this, "Seduta confermata con successo.");
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Errore: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+        }
     }
     // region GUI designer generated Code
     {

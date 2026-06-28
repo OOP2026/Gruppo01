@@ -16,7 +16,7 @@ public class Tesi {
         this.titolo = titolo;
         this.idTesi = 0;
         this.fileTesi = fileTesi;
-        this.stato = Stato_Tesi.In_attesa;
+        this.stato = Stato_Tesi.in_attesa;
         this.autore = autore;
         this.seduta_richiesta = seduta_richiesta;
         this.valutatore = valutatore;
@@ -26,7 +26,7 @@ public class Tesi {
         this.idTesi = id;
         this.titolo = titolo;
         this.fileTesi = fileTesi;
-        this.stato = Stato_Tesi.In_attesa;
+        this.stato = Stato_Tesi.in_attesa;
         this.autore = autore;
         this.seduta_richiesta = seduta_richiesta;
         this.valutatore = valutatore;

@@ -27,7 +27,6 @@ public class Reg_Studente extends JFrame {
     private JButton RegButton;
     private JPanel RegSFinestra;
     private JButton TORNAALLAHOMEButton;
-    private JPanel asd;
 
     public Reg_Studente(Controller controller) {
         this.controller = controller;

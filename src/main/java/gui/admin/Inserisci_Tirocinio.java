@@ -38,7 +38,7 @@ public class Inserisci_Tirocinio extends JFrame {
     private JTextField ArgTextField;
     private JTextField RelatoreTextField;
     ButtonGroup gruppoScelte = new ButtonGroup();
-
+    String giorno, anno, mese, nome, ncfu, durata, argomento, userRel, azienda, refAzienda, lab, dip, tipo;
 
     public Inserisci_Tirocinio(Controller controller) {
         // 1. Inizializzazione base
@@ -49,7 +49,6 @@ public class Inserisci_Tirocinio extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
-        // 2. Setup RadioButtons
         gruppoScelte.add(esternoRadioButton);
         gruppoScelte.add(internoRadioButton);
 
@@ -59,7 +58,7 @@ public class Inserisci_Tirocinio extends JFrame {
         DipPanel.setVisible(false);
         LabPanel.setVisible(false);
 
-        // 3. Logica dinamica per mostrare/nascondere i pannelli al click
+        // Mostrare/nascondere i pannelli al click
         esternoRadioButton.addActionListener(e -> {
             AziendaPanel.setVisible(true);
             RefAziendaPanel.setVisible(true);
@@ -76,52 +75,10 @@ public class Inserisci_Tirocinio extends JFrame {
             FinestraTIr.revalidate(); // Aggiorna la grafica
         });
 
-        // 4. Logica del bottone AGGIUNGI
+        // Logica del bottone AGGIUNGI
         AGGIUNGIButton.addActionListener(e -> {
             // Controllo se un radio button è stato selezionato
-            if (!esternoRadioButton.isSelected() && !internoRadioButton.isSelected()) {
-                JOptionPane.showMessageDialog(this, "Seleziona se il tirocinio è Interno o Esterno", "JRadioButton Error", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            String giorno = GiornoTextField.getText().trim();
-            String anno = AnnoTextField.getText().trim();
-            String mese = MeseTextField.getText().trim();
-            String nome = NomeTextField.getText().trim();
-            String ncfu = NcfuTextField.getText().trim();
-            String durata = DurataTextField.getText().trim();
-            String argomento = ArgTextField.getText().trim();
-            String userRel = RelatoreTextField.getText().trim();
-            String azienda = null;
-            String refAzienda = null;
-            String lab = null;
-            String dip = null;
-            String tipo = "";
-
-            if (userRel.isEmpty() || argomento.isEmpty() || giorno.isEmpty() || anno.isEmpty() || mese.isEmpty() || nome.isEmpty() || ncfu.isEmpty() || durata.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Riempire tutti i campi comuni", "Errore dati mancanti 1", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            boolean datiSpecificiOk = false;
-            if (esternoRadioButton.isSelected()) {
-                azienda = AziendaTextField.getText().trim();
-                refAzienda = RefAziendaTextField.getText().trim();
-                datiSpecificiOk = !azienda.isEmpty() && !refAzienda.isEmpty();
-                tipo = "Esterno";
-
-            } else if (internoRadioButton.isSelected()) {
-                lab = LabTextField.getText().trim();
-                dip = DipTextField.getText().trim();
-                datiSpecificiOk = !lab.isEmpty() && !dip.isEmpty();
-                tipo = "Interno";
-            }
-
-            if (!datiSpecificiOk) {
-                JOptionPane.showMessageDialog(this, "Riempire tutti i campi specifici del tirocinio", "Errore dati mancanti 2", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
+          verificaCorrettezzaCampi();
             try {
                 LocalDate dataTirocinio = controller.assemblaData(giorno, mese, anno);
 
@@ -130,21 +87,7 @@ public class Inserisci_Tirocinio extends JFrame {
                 JOptionPane.showMessageDialog(this, "Tirocinio creato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
 
                 // Reset campi
-                GiornoTextField.setText("");
-                AnnoTextField.setText("");
-                MeseTextField.setText("");
-                NomeTextField.setText("");
-                NcfuTextField.setText("");
-                DurataTextField.setText("");
-                DipTextField.setText("");
-                LabTextField.setText("");
-                AziendaTextField.setText("");
-                RefAziendaTextField.setText("");
-                gruppoScelte.clearSelection();
-                AziendaPanel.setVisible(false);
-                RefAziendaPanel.setVisible(false);
-                DipPanel.setVisible(false);
-                LabPanel.setVisible(false);
+               resetCampi();
 
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore nei dati", JOptionPane.ERROR_MESSAGE);
@@ -167,6 +110,73 @@ public class Inserisci_Tirocinio extends JFrame {
         });
     }
 
+    private void resetCampi(){
+        GiornoTextField.setText("");
+        AnnoTextField.setText("");
+        MeseTextField.setText("");
+        NomeTextField.setText("");
+        NcfuTextField.setText("");
+        DurataTextField.setText("");
+        DipTextField.setText("");
+        LabTextField.setText("");
+        AziendaTextField.setText("");
+        RefAziendaTextField.setText("");
+        gruppoScelte.clearSelection();
+        AziendaPanel.setVisible(false);
+        RefAziendaPanel.setVisible(false);
+        DipPanel.setVisible(false);
+        LabPanel.setVisible(false);
+    }
+
+    private void setInfoTirocinio(){
+        giorno = GiornoTextField.getText().trim();
+        anno = AnnoTextField.getText().trim();
+        mese = MeseTextField.getText().trim();
+        nome = NomeTextField.getText().trim();
+        ncfu = NcfuTextField.getText().trim();
+        durata = DurataTextField.getText().trim();
+        argomento = ArgTextField.getText().trim();
+        userRel = RelatoreTextField.getText().trim();
+        azienda = null;
+        refAzienda = null;
+        lab = null;
+        dip = null;
+        tipo = "";
+    }
+
+    private void verificaCorrettezzaCampi(){
+        if (!esternoRadioButton.isSelected() && !internoRadioButton.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Seleziona se il tirocinio è Interno o Esterno", "JRadioButton Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        setInfoTirocinio();
+
+        if (userRel.isEmpty() || argomento.isEmpty() || giorno.isEmpty() || anno.isEmpty() || mese.isEmpty() || nome.isEmpty() || ncfu.isEmpty() || durata.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Riempire tutti i campi comuni", "Errore dati mancanti 1", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        boolean datiSpecificiOk = false;
+        if (esternoRadioButton.isSelected()) {
+            azienda = AziendaTextField.getText().trim();
+            refAzienda = RefAziendaTextField.getText().trim();
+            datiSpecificiOk = !azienda.isEmpty() && !refAzienda.isEmpty();
+            tipo = "Esterno";
+
+        } else if (internoRadioButton.isSelected()) {
+            lab = LabTextField.getText().trim();
+            dip = DipTextField.getText().trim();
+            datiSpecificiOk = !lab.isEmpty() && !dip.isEmpty();
+            tipo = "Interno";
+        }
+
+        if (!datiSpecificiOk) {
+            JOptionPane.showMessageDialog(this, "Riempire tutti i campi specifici del tirocinio", "Errore dati mancanti 2", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    }
+//region GUI generated
     {
 // GUI initializer generated by IntelliJ IDEA GUI Designer
 // >>> IMPORTANT!! <<<
@@ -335,9 +345,4 @@ public class Inserisci_Tirocinio extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return FinestraTIr;
     }
-
 }
-// =========================================================
-// INCOLLA SOTTO QUESTA RIGA UNA SOLA COPIA DEL METODO $$$setupUI$$$
-// E UNA SOLA COPIA DEL METODO $$$getRootComponent$$$
-// =========================================================

@@ -18,7 +18,7 @@ public class Int_admin extends JFrame {
     private JTextField NomeCognomeS;
     private JButton logoutButton;
     private JLabel INTERFACCIAADMINLabel;
-    private Controller controller;
+    private transient Controller controller;
 
     public Int_admin(Controller controller) {
         this.controller = controller;

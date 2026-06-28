@@ -6,7 +6,7 @@ public class Richiesta {
     private Tirocinio tirocinio;
 
     public Richiesta(Studente richiedente, Tirocinio tirocinio) {
-        this.stato = Stato_richiesta.NULL;
+        this.stato = null;
         this.richiedente = richiedente;
         this.tirocinio = tirocinio;
     }
@@ -28,7 +28,7 @@ public class Richiesta {
     }
 
     public boolean verifyStatoApprovata() {
-        return (this.stato == Stato_richiesta.Approvata);
+        return (this.stato == Stato_richiesta.approvata);
     }
 }
 

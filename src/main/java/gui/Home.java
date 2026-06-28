@@ -36,53 +36,18 @@ public class Home extends JFrame {
 		this.setContentPane(finestra);
 		this.setTitle("PORTALE LOGIN");
 		this.setSize(300, 400);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		gruppoScelte.add(studenteRadioButton);
 		gruppoScelte.add(docenteRadioButton);
 
 
-		//se viene premuto il JRadioButton Studente, viene creata l'interaccia studente, altrimenti crea l'interfaccia Docente
 		LoginButton.addActionListener(e -> {
 			String userInserito = this.user.getText();
-			String PasswordInserita = String.valueOf(this.passwordField1.getPassword());
+			String passwordInserita = String.valueOf(this.passwordField1.getPassword());
 
 			try {
-				if (studenteRadioButton.isSelected()) {
-					// Tenta il login come Studente, e nel caso apre l'interfaccia corrispondente
-					boolean log = controller.effettuaLoginStudente(userInserito, PasswordInserita);
-					if (log) {
-						Int_Studente interfacciaStud = new Int_Studente(this.controller);
-						interfacciaStud.setVisible(true);
-						this.dispose();
-					} else {
-						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Studente", JOptionPane.WARNING_MESSAGE);
-					}
-
-				} else if (docenteRadioButton.isSelected()) {
-					// Tenta il login come Docente, e nel caso apre l'interfaccia corrispondente
-					boolean log = controller.effettuaLoginDocente(userInserito, PasswordInserita);
-					if (log) {
-						Int_Docente interfacciaDoc = new Int_Docente(this.controller);
-						interfacciaDoc.setVisible(true);
-						this.dispose();
-					} else {
-						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Docente", JOptionPane.WARNING_MESSAGE);
-					}
-
-
-				} else {
-					boolean log = controller.effettuaLoginAdmin(userInserito, PasswordInserita);
-					if(log){
-						Int_admin interfacciaAdmin = new Int_admin(this.controller);
-						interfacciaAdmin.setVisible(true);
-						this.dispose();
-					}
-					else
-						JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "JRadioButton Error 1", JOptionPane.WARNING_MESSAGE);
-				}
-
+				eseguiLogin(userInserito, passwordInserita);
 			} catch (IllegalArgumentException ex) {
-				// Se uno dei due login lancia l'errore di login errato, viene mandato a schermo
 				JOptionPane.showMessageDialog(this, ex.getMessage(), "Accesso Negato", JOptionPane.ERROR_MESSAGE);
 			}
 		});
@@ -104,6 +69,53 @@ public class Home extends JFrame {
 		});
 
 	}
+
+
+	private void accessoStudente(String user, String pwd){
+		boolean log = controller.effettuaLoginStudente(user, pwd);
+		if (log) {
+			Int_Studente interfacciaStud = new Int_Studente(this.controller);
+			interfacciaStud.setVisible(true);
+			this.dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Studente", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+
+	private void accessoDocente(String user, String pwd){
+		// Tenta il login come Docente, e nel caso apre l'interfaccia corrispondente
+		boolean log = controller.effettuaLoginDocente(user, pwd);
+		if (log) {
+			Int_Docente interfacciaDoc = new Int_Docente(this.controller);
+			interfacciaDoc.setVisible(true);
+			this.dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Docente", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	private void accessoAdmin(String user, String pwd){
+		boolean log = controller.effettuaLoginAdmin(user, pwd);
+		if(log){
+			Int_admin interfacciaAdmin = new Int_admin(this.controller);
+			interfacciaAdmin.setVisible(true);
+			this.dispose();
+		}
+		else
+			JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "JRadioButton Error 1", JOptionPane.WARNING_MESSAGE);
+	}
+
+	private void eseguiLogin(String user, String pwd) {
+		if (studenteRadioButton.isSelected()) {
+			accessoStudente(user, pwd);
+		} else if (docenteRadioButton.isSelected()) {
+			accessoDocente(user, pwd);
+		} else {
+			accessoAdmin(user, pwd);
+		}
+	}
+
 
 //region GUI designer generated code
 

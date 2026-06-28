@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 /*
@@ -267,7 +268,7 @@ public class Controller {
     //Il docente speciale COORDINATORE crea l'oggetto seduta, lo aggiunge alla lista delle sedute del coordinatore
     public void inserisciSeduta(LocalDateTime data_ora, String sede) throws IllegalArgumentException {
         SeduteDAO dao = new SedutePostgresDAO();
-        if((LocalDateTime.now()).isAfter(data_ora))
+        if((LocalDateTime.now(ZoneId.of("Europe/Rome"))).isAfter(data_ora))
             throw new IllegalArgumentException("ERRORE: data non valida");
         if(dao.checkseduta(data_ora,sede))
             dao.creaSeduta(data_ora,sede,docenteLoggato.getUsername());
