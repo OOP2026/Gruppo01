@@ -1,7 +1,7 @@
 package model;
 
 public enum Stato_richiesta {
-    in_attesa,
-    approvata,
-    rifiutata
+    In_attesa,
+    Approvata,
+    Rifiutata
 }

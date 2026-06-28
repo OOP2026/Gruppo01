@@ -28,7 +28,7 @@ public class Richiesta {
     }
 
     public boolean verifyStatoApprovata() {
-        return (this.stato == Stato_richiesta.approvata);
+        return (this.stato == Stato_richiesta.Approvata);
     }
 }
 
