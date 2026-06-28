@@ -34,11 +34,10 @@ public abstract class Utente {
     public String getCognome() {
         return cognome;
     }
+
     public String getPassword() {
         return password;
     }
-
-
 
     public void setPassword(String password) {
         this.password = password;
@@ -48,8 +47,4 @@ public abstract class Utente {
         this.nome = nome;
     }
 
-    public boolean login(String user, String password) {
-        return ( (user.equals(this.username) || user.equals(this.email)) && password.equals(this.password));
-    }
-    
 }

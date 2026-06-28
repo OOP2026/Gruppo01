@@ -16,7 +16,7 @@ public class Tesi {
         this.titolo = titolo;
         this.idTesi = 0;
         this.fileTesi = fileTesi;
-        this.stato = Stato_Tesi.in_attesa;
+        this.stato = Stato_Tesi.IN_ATTESA;
         this.autore = autore;
         this.seduta_richiesta = seduta_richiesta;
         this.valutatore = valutatore;
@@ -26,7 +26,7 @@ public class Tesi {
         this.idTesi = id;
         this.titolo = titolo;
         this.fileTesi = fileTesi;
-        this.stato = Stato_Tesi.in_attesa;
+        this.stato = Stato_Tesi.IN_ATTESA;
         this.autore = autore;
         this.seduta_richiesta = seduta_richiesta;
         this.valutatore = valutatore;
@@ -36,24 +36,9 @@ public class Tesi {
         return idTesi;
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
 
     public Stato_Tesi getStato() {
         return stato;
-    }
-
-    public Studente getAutore() {
-        return autore;
-    }
-
-    public Seduta getSeduta_richiesta() {
-        return seduta_richiesta;
-    }
-
-    public Docente getValutatore() {
-        return valutatore;
     }
 
     public void setStato(Stato_Tesi stato) {

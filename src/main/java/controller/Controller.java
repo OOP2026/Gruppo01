@@ -1,7 +1,5 @@
 package controller;
 import dao.*;
-import gui.admin.Imposta_Coordinatore;
-import gui.admin.Int_admin;
 import implementazioneDao.*;
 import model.*;
 
@@ -24,7 +22,6 @@ public class Controller {
    //Il controller tiene traccia delle info sull'user attualmente loggato
     private Docente docenteLoggato = null;
     private Studente studenteLoggato = null;
-
 
     //region METODI BASE (HOME E LOGIN)
     public boolean effettuaLoginAdmin(String user, String pwd) {
@@ -130,8 +127,7 @@ public class Controller {
     //contenenti le informazioni sui tirocini aperti del docente Loggato
     public List<String> getTirociniAperti() {
         TirociniDAO dao = new TirociniPostgresDAO();
-        List<String> infoTirocini = dao.getTirociniAperti(docenteLoggato.getUsername());
-        return infoTirocini;
+        return dao.getTirociniAperti(docenteLoggato.getUsername());
     }
 
     //Approva la Richiesta di Tirocinio
@@ -148,15 +144,9 @@ public class Controller {
 
 
     public List<String[]> visualizzaTirocinioStudenti() {
-        List<String[]> righeTabella = new ArrayList<>();
-
         TirociniDAO dao= new TirociniPostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
-        List<String[]> tirociniInCorso = dao.visualizzaTirociniInCorso(docenteLoggato.getUsername());
-        if (tirociniInCorso == null) {
-            return null;
-        }
-        return tirociniInCorso;
+        return dao.visualizzaTirociniInCorso(docenteLoggato.getUsername());
 
     }
 
@@ -164,10 +154,8 @@ public class Controller {
 
 
     public List<String> getArgomentiDocLoggato() {
-        List<String> argList = new ArrayList<>();
         ArgomentoDAO dao = new ArgomentoPostgresDAO();
-        argList = dao.getArgomentiDocente(docenteLoggato.getUsername());
-        return argList;
+        return dao.getArgomentiDocente(docenteLoggato.getUsername());
     }
 
     public void aggiungiArgomenti(String s) throws SQLIntegrityConstraintViolationException {
@@ -229,37 +217,21 @@ public class Controller {
        lista = dao.getInfoTesiDocLoggato(docenteLoggato.getUsername());
        return lista;
     }
-
-    public Tesi getTesidaID(String idTitolo) {
-        for(Tesi t: docenteLoggato.getTesi()){
-            int risultato = Integer.parseInt(idTitolo.split(":")[0].trim());
-            if (risultato== t.getId()){
-                return t;
-            }
-        }
-        throw new IllegalArgumentException("Tesi non presente nel sistema");
-    }
-    //endregion
-
+//endregion
 
     //region METODI REGISTRAZIONE
     //Richiamato dalla GUI per la registrazione del Docente
     public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
 
         StudenteDAO dao = new StudentePostgresDAO();
-
-        boolean successoDB = dao.registraStudente(nome, cognome, email, matricola, username, password);
-
-        return successoDB;
+        return dao.registraStudente(nome, cognome, email, matricola, username, password);
     }
 
     public boolean registraDocente(String nome, String cognome, String email, String username, String password) {
 
         DocenteDAO dao = new DocentePostgresDAO();
 
-        boolean successoDB = dao.registraDocente(nome, cognome, email, username, password);
-
-        return successoDB;
+        return dao.registraDocente(nome, cognome, email, username, password);
     }
     //endregion
 
@@ -277,46 +249,6 @@ public class Controller {
 
     }
 
-    //La gui per creare la lista delle sedute aperte ha bisogno di una Lista di Stringhe
-    public List<String> creaListaSeduteAperte() {
-        List<String> result = new ArrayList<>();
-        List<Seduta> seduteAperte = new ArrayList<>();
-
-        // Raccogliamo solo gli oggetti Seduta con stato aperto
-        for (Seduta s : docenteLoggato.getListaSedute()) {
-            if (s.getStato()) {
-                seduteAperte.add(s);
-            }
-        }
-
-        // Ordiniamo gli oggetti in base alla loro data
-        seduteAperte.sort(Comparator.comparing(Seduta::getData_ora));
-
-        // Estrapoliamo le stringhe
-        for (Seduta s : seduteAperte) {
-            result.add(s.getSede() + " - " + s.getData_ora().toString());
-        }
-
-        return result;
-    }
-
-    public Seduta assemblaSeduta(String sedeData) {
-        // Usiamo il separatore robusto definito sopra
-        String[] parts = sedeData.split(" - ");
-        if (parts.length != 2) {
-            throw new IllegalArgumentException("Formato stringa seduta non valido.");
-        }
-
-        String sede = parts[0].trim();
-        String dataOra = parts[1].trim();
-
-        for (Seduta s : docenteLoggato.getListaSedute()) {
-            if (sede.equals(s.getSede()) && dataOra.equals(s.getData_ora().toString())) {
-                return s;
-            }
-        }
-        throw new IllegalArgumentException("Seduta inesistente");
-    }
 
     public LocalDateTime assemblaDataOra(String giornoStr, String meseStr, String annoStr, String oraStr) {
         try {
@@ -377,11 +309,7 @@ public class Controller {
     public List<String> visualizzaTirociniDisponibili() {
         TirociniDAO dao = new TirociniPostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
-        List<String> listaTirociniDisponibili = dao.getTirociniDisponibili();
-        if (listaTirociniDisponibili == null) {
-            return null;
-        }
-        return listaTirociniDisponibili;
+        return dao.getTirociniDisponibili();
     }
 
     public void compilaRichiesta(String tirScelto) {
@@ -411,27 +339,14 @@ public class Controller {
     //ritorna una stringa contenente lo stato della RICHIESTA Studente attualmente Loggato
     public String getStatoRichiesta(String matricola) {
         RichiestaDAO dao = new RichiestaPostgresDAO();
-
-        // 1. Ottiene la stringa grezza dal DAO
-        String statoTestuale = dao.getStatoRichiesta(matricola);
-
-        if (statoTestuale == null) {
-            return null; // O gestisci l'errore come preferisci
-        }
-        return statoTestuale;
+        return dao.getStatoRichiesta(matricola);
     }
 
     //ritorna una stringa contenente lo stato DELLA TESI dello Studente attualmente Loggato
     public String getStatoTesi(String matricola) {
         TesiDAO dao = new TesiPostgresDao();
 
-        // 1. Ottiene la stringa grezza dal DAO
-        String statoTestuale = dao.getStatoTesi(matricola);
-
-        if (statoTestuale == null) {
-            return null;
-        }
-        return statoTestuale;
+        return dao.getStatoTesi(matricola);
     }
 
     public String getMatricola(){
@@ -443,11 +358,7 @@ public class Controller {
     public List<String> getSeduteAperte() {
         SeduteDAO dao= new SedutePostgresDAO();
         //interroga DAO e riceve una lista di Select contenente le info sulle sedute aperte
-        List<String> seduteAperte = dao.getSeduteAperte();
-        if (seduteAperte == null) {
-            return null;
-        }
-        return seduteAperte;
+        return dao.getSeduteAperte();
 
     }
     //endregion

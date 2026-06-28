@@ -48,11 +48,6 @@ public class Seduta {
         this.coordinatore = coordinatore;
     }
 
-
-    public void AggiungiPrenotazione(Tesi t){
-        this.prenotazioni.add(t);
-    }
-
     public boolean getStato() {
         return this.stato;
     }

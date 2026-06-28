@@ -15,10 +15,6 @@ public class Richiesta {
         return stato;
     }
 
-    public Studente getRichiedente(){
-        return richiedente;
-    }
-
     public Tirocinio getTirocinio() {
         return tirocinio;
     }
@@ -27,9 +23,6 @@ public class Richiesta {
         this.stato = stato;
     }
 
-    public boolean verifyStatoApprovata() {
-        return (this.stato == Stato_richiesta.Approvata);
-    }
 }
 
 
