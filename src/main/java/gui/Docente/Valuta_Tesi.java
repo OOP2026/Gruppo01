@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Valuta_Tesi extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JPanel FinestraValTesi;
     private JButton ReturnButton;
     private JButton ValutaButton;
@@ -38,11 +38,9 @@ public class Valuta_Tesi extends JFrame {
 
         ValutaButton.addActionListener(e -> {
 
+            int idTesi =  controller.getIdDaStringa(TesiComboBox.getSelectedItem().toString());
 
-            String tesiSelezionata = TesiComboBox.getSelectedItem().toString().split(":")[0];
-            int idTesi = Integer.parseInt(tesiSelezionata);
-
-            if (tesiSelezionata == null) {
+            if (TesiComboBox.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Seleziona una tesi.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
             }

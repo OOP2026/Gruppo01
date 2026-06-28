@@ -17,7 +17,7 @@ import java.awt.*;
 import java.util.Locale;
 
 public class Home extends JFrame {
-	private Controller controller;
+	private transient Controller controller;
 	private JButton LoginButton;
 	private JTextField user;
 	private JPanel finestra;
@@ -55,7 +55,7 @@ public class Home extends JFrame {
 						interfacciaStud.setVisible(true);
 						this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Attenzione", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Studente", JOptionPane.WARNING_MESSAGE);
 					}
 
 				} else if (docenteRadioButton.isSelected()) {
@@ -66,7 +66,7 @@ public class Home extends JFrame {
 						interfacciaDoc.setVisible(true);
 						this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Attenzione", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Docente", JOptionPane.WARNING_MESSAGE);
 					}
 
 
@@ -78,7 +78,7 @@ public class Home extends JFrame {
 						this.dispose();
 					}
 					else
-					JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di accedere.", "JRadioButton Error 1", JOptionPane.WARNING_MESSAGE);
 				}
 
 			} catch (IllegalArgumentException ex) {
@@ -99,7 +99,7 @@ public class Home extends JFrame {
 				RegDoc.setVisible(true);
 				this.dispose();
 			} else {
-				JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "Attenzione", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "JRadioButton Error 2", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 

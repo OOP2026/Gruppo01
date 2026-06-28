@@ -12,7 +12,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 public class CreaSeduta extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JButton ReturnButton;
     private JPanel FinestraSedute;
     private JButton confermaButton;

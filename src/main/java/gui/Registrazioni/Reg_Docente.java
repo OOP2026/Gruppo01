@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class Reg_Docente extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JLabel REGISTRAZIONEDOCENTELabel;
     private JTextField nomeTextField;
     private JTextField CognomeTextField;

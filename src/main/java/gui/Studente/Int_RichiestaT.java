@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class Int_RichiestaT extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JPanel panel1;
     private JLabel COMPILARICHIESTALabel;
     private JComboBox LTDisponibiliComboBox;

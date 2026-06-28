@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Int_Studente extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JPanel FinestraStudente;
     private JButton logoutButton;
     private JButton compilaRichiestaButton;

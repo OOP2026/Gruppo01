@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 public class Inserisci_Tirocinio extends JFrame {
-    private Controller controller;
+    private transient Controller controller;
     private JTextField GiornoTextField;
     private JTextField AnnoTextField;
     private JTextField MeseTextField;
@@ -46,7 +46,7 @@ public class Inserisci_Tirocinio extends JFrame {
         this.setContentPane(FinestraTIr);
         this.setTitle("AGGIUNGI TIROCINIO");
         this.setSize(800, 600);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         // 2. Setup RadioButtons
@@ -80,7 +80,7 @@ public class Inserisci_Tirocinio extends JFrame {
         AGGIUNGIButton.addActionListener(e -> {
             // Controllo se un radio button è stato selezionato
             if (!esternoRadioButton.isSelected() && !internoRadioButton.isSelected()) {
-                JOptionPane.showMessageDialog(this, "Seleziona se il tirocinio è Interno o Esterno", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Seleziona se il tirocinio è Interno o Esterno", "JRadioButton Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -99,7 +99,7 @@ public class Inserisci_Tirocinio extends JFrame {
             String tipo = "";
 
             if (userRel.isEmpty() || argomento.isEmpty() || giorno.isEmpty() || anno.isEmpty() || mese.isEmpty() || nome.isEmpty() || ncfu.isEmpty() || durata.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Riempire tutti i campi comuni", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Riempire tutti i campi comuni", "Errore dati mancanti 1", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -118,7 +118,7 @@ public class Inserisci_Tirocinio extends JFrame {
             }
 
             if (!datiSpecificiOk) {
-                JOptionPane.showMessageDialog(this, "Riempire tutti i campi specifici del tirocinio", "Attenzione", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Riempire tutti i campi specifici del tirocinio", "Errore dati mancanti 2", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 

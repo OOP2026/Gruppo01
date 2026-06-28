@@ -20,18 +20,10 @@ NEI METODI DEL CONTROLLER PER LA CREAZIONE DEI VARI OGGETTI.
 
 public class Controller {
 
-    private final List<Docente> listaDocenti = new ArrayList<>();
-    private final List<Richiesta> listaRichieste = new ArrayList<>();
-    private final List<Seduta> listaSedute = new ArrayList<>();
-    private final List<Studente> listaStudenti = new ArrayList<>();
-    private final List<Tesi> listaTesi = new ArrayList<>();
-    private final List<Tirocinio> listaTirocini = new ArrayList<>();
+   //Il controller tiene traccia delle info sull'user attualmente loggato
     private Docente docenteLoggato = null;
     private Studente studenteLoggato = null;
-    private Admin adminLoggato = null;
 
-    //Costruttore del Controller, non necessita di argomenti.
-    public Controller() {}
 
     //region METODI BASE (HOME E LOGIN)
     public boolean effettuaLoginAdmin(String user, String pwd) {
@@ -40,16 +32,7 @@ public class Controller {
         // Riceve solo i dati grezzi
         List<String> dati = adminDAO.loginAdmin(user, pwd);
 
-        if (dati == null || dati.isEmpty()) {
-            return false;
-        } else {
-            // Il Controller costruisce l'oggetto estraendo i valori dalla lista in base all'ordine di inserimento
-            String username = dati.get(0);
-            String password = dati.get(1);
-
-            this.adminLoggato = new Admin(username, password);
-            return true;
-        }
+        return dati != null && !dati.isEmpty();
     }
     public boolean effettuaLoginStudente(String user, String pwd) {
         StudentePostgresDAO studDAO = new StudentePostgresDAO();
@@ -103,17 +86,17 @@ public class Controller {
 
     //endregion
 
-//region METODI ADMIN
+    //region METODI ADMIN
     public List<String> getDocNotCoord() {
         DocenteDAO dao= new DocentePostgresDAO();
-        List<String> docenti = dao.getDocNotCoord();
-        return docenti;
+        return dao.getDocNotCoord();
     }
 
     public void impostaCoordinatore(String userDoc) {
         DocenteDAO dao= new DocentePostgresDAO();
         dao.impostaCoordinatore(userDoc);
     }
+
 
     public void inserisciTirocinio(String argomento, String nome, int ncfu, int durata, LocalDate dataInizio, String tipo,
                                    String azienda, String refAzienda, String dip, String lab, String relatore) {
@@ -138,6 +121,8 @@ public class Controller {
 
 
     //endregion
+
+
     //region METODI DEL DOCENTE LOGGATO
 
     //metodo richiamato da Visualizza_R_Tir, restitituisce una lista di stringhe
@@ -211,7 +196,7 @@ public class Controller {
 
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
     public List<String> getStudentiRichiedenti(int tirocinio) {
-        List<String> listaStud = new ArrayList<>();
+        List<String> listaStud;
        StudenteDAO dao = new StudentePostgresDAO();
        listaStud = dao.getStudentiRichiedenti(tirocinio);
         return listaStud;
@@ -260,14 +245,9 @@ public class Controller {
     //Richiamato dalla GUI per la registrazione del Docente
     public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
 
-
         StudenteDAO dao = new StudentePostgresDAO();
 
         boolean successoDB = dao.registraStudente(nome, cognome, email, matricola, username, password);
-        if(successoDB) {
-            Studente nuovoStudente = new Studente(nome, cognome, email, matricola, username, password);
-            listaStudenti.add(nuovoStudente);
-        }
 
         return successoDB;
     }
@@ -277,10 +257,6 @@ public class Controller {
         DocenteDAO dao = new DocentePostgresDAO();
 
         boolean successoDB = dao.registraDocente(nome, cognome, email, username, password);
-        if(successoDB) {
-            Docente nuovoDocente = new Docente(nome, cognome, email, username, password);
-            listaDocenti.add(nuovoDocente);
-        }
 
         return successoDB;
     }
@@ -476,4 +452,11 @@ public class Controller {
     //endregion
 
 
+    //region UTILITY
+
+    public int getIdDaStringa(String s) {
+        String result = s.trim().split(":")[0];
+        return Integer.parseInt(result);
+    }
+    //endregion
 }

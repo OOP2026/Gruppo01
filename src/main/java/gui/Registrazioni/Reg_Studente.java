@@ -15,7 +15,7 @@ import javax.swing.text.StyleContext;
 import java.util.Locale;
 
 public class Reg_Studente extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JLabel REGISTRAZIONESTUDENTELabel;
     private JTextField nomeTextField;
     private JTextField cognomeTextField;

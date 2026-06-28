@@ -11,7 +11,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 
 public class Int_CaricaTesi extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JPanel FinestraCaricaTesi;
     private JLabel CARICATESILabel;
     private JTextField pathTextField;

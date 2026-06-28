@@ -16,7 +16,7 @@ public class Imposta_Coordinatore extends JFrame {
     private JButton logoutButton;
     private JButton ReturnButton;
     private JPanel Finestra;
-    private Controller controller;
+    private transient Controller controller;
 
 
     public Imposta_Coordinatore(Controller controller) {
@@ -32,11 +32,9 @@ public class Imposta_Coordinatore extends JFrame {
         }
 
         ValutaButton.addActionListener(e -> {
-
-
             String userDocSelezionato = DocentiComboBox.getSelectedItem().toString().trim();
 
-            if (userDocSelezionato == null) {
+            if (DocentiComboBox.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Seleziona un docente.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
                 return;
             }

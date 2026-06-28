@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Gestisci_Commissioni extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JPanel FinestraCommissioni;
     private JPanel FinestraSedute;
     private JButton ReturnButton;
@@ -49,12 +49,10 @@ public class Gestisci_Commissioni extends JFrame {
 
         SeduteCombobox.addActionListener(e -> {
 
-
             Object elementoSelezionato = SeduteCombobox.getSelectedItem();
 
             if (elementoSelezionato != null) {
-                String sedutaScelta = elementoSelezionato.toString().split(":")[0].trim();
-                int idSeduta = Integer.parseInt(sedutaScelta);
+                int idSeduta = controller.getIdDaStringa(elementoSelezionato.toString());
 
                 DefaultTableModel model = (DefaultTableModel) TabellaStudenti.getModel();
                 List<String[]> datiTabella = controller.getDatiTabellaSeduta(idSeduta);
@@ -69,13 +67,15 @@ public class Gestisci_Commissioni extends JFrame {
             }
         });
 
+
+
         confermaButton.addActionListener(e -> {
             Object elementoSelezionato = SeduteCombobox.getSelectedItem();
 
             if (elementoSelezionato != null) {
                 try {
                     // Passi la stringa al Controller (che farà split e ricerca)
-                    int idSeduta = Integer.parseInt(elementoSelezionato.toString().split(":")[0].trim());
+                    int idSeduta = controller.getIdDaStringa(elementoSelezionato.toString());
                     controller.confermaSeduta(idSeduta);
 
                     JOptionPane.showMessageDialog(this,

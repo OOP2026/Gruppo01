@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Visualizza_R_Tir extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JButton ReturnButton;
     private JRadioButton approvaRadioButton;
     private JRadioButton rifiutaRadioButton;
@@ -29,7 +29,7 @@ public class Visualizza_R_Tir extends JFrame {
         this.setContentPane(VisTir);
         this.setTitle("VALUTAZIONE RICHIESTE DI TIROCINIO");
         this.setSize(500, 300);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
 
         gruppoScelte.add(approvaRadioButton);
@@ -50,15 +50,14 @@ public class Visualizza_R_Tir extends JFrame {
 
             // Estraiamo l'id dalla stringa, ci servirà per riconoscere l'oggetto selezionato al momento
             // del ritorno al controller per approvazione o rifiuto
-            String tirocinioSelezionato = (String) e.getItem();
 
-            if (tirocinioSelezionato == null) {
+            if (e.getItem() == null) {
                 return;
             }
 
-            int idTirocinio = Integer.parseInt(tirocinioSelezionato.split(":")[0].trim());
+            int idTirocinio = controller.getIdDaStringa((String) e.getItem());
 
-            List<String> studentiRichiedenti = new ArrayList<>();
+            List<String> studentiRichiedenti;
             studentiRichiedenti = controller.getStudentiRichiedenti(idTirocinio);
             StudentiComboBox.removeAllItems(); // Pulisce gli studenti precedenti
 
@@ -79,8 +78,7 @@ public class Visualizza_R_Tir extends JFrame {
             }
 
             // Estrae i valori attuali
-            String tirocinioSel = (String) TirociniComboBox.getSelectedItem();
-            String matricolaSel = StudentiComboBox.getSelectedItem().toString().split(":")[0].trim();
+           String matricolaSel = StudentiComboBox.getSelectedItem().toString().split(":")[0].trim();
 
 
             // Approva o rifiuta a seconda del radiobutton selezionato
@@ -95,7 +93,6 @@ public class Visualizza_R_Tir extends JFrame {
 
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona Approvata o Rifiutata.", "Dati mancanti", JOptionPane.WARNING_MESSAGE);
-                return;
             }
         });
 
