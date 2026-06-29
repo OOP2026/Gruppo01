@@ -21,7 +21,6 @@ public class Aggiunta_Argomenti extends JFrame {
     private JButton logoutButton;
     private JLabel modificaListaArgomentiLabel;
 
-
     public Aggiunta_Argomenti(Controller controller) {
         this.controller = controller;
         this.setContentPane(finestraArgomenti);

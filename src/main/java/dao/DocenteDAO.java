@@ -1,6 +1,4 @@
 package dao;
-import model.Docente;
-import model.Studente;
 
 import java.util.List;
 
