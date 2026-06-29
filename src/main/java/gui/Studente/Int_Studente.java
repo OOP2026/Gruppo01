@@ -55,6 +55,11 @@ public class Int_Studente extends JFrame {
         //  - Carica Tesi
         caricaTesiButton.addActionListener(e -> {
             String stato = controller.getStatoTesi(controller.getstudLoggato().getMatricola());
+            String statoRichiesta = controller.getStatoRichiesta(controller.getstudLoggato().getMatricola());
+            if(!(statoRichiesta.equals("Approvata"))){
+                JOptionPane.showMessageDialog(this, "ERRORE, richiesta di tirocinio non ancora approvata");
+                return;
+            }
             if ((stato == null) || (stato.equals("Rifiutata"))) {
                 Int_CaricaTesi IntCT = new Int_CaricaTesi(controller);
                 IntCT.setVisible(true);
