@@ -4,8 +4,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import controller.Controller;
 import gui.Docente.Int_Docente;
-import gui.Registrazioni.Reg_Docente;
-import gui.Registrazioni.Reg_Studente;
+import gui.Registrazioni.Registrazione;
 import gui.Studente.Int_Studente;
 import gui.admin.Int_admin;
 
@@ -56,19 +55,9 @@ public class Home extends JFrame {
 		});
 
 		RegisterButton.addActionListener(e -> {
-			if (studenteRadioButton.isSelected()) {
-				//se viene premuto il JRadioButton Studente, crea l'interfaccia registrazione Studente, e gli passa il controller
-				Reg_Studente regStud = new Reg_Studente(this.controller);
-				regStud.setVisible(true);
-				this.dispose();
-			} else if (docenteRadioButton.isSelected()) {
-				//se viene premuto il JRadioButton Docente, crea l'interfaccia registrazione Studente, e gli passa il controller
-				Reg_Docente RegDoc = new Reg_Docente(this.controller);
-				RegDoc.setVisible(true);
-				this.dispose();
-			} else {
-				JOptionPane.showMessageDialog(this, "Seleziona un ruolo (Studente o Docente) prima di provare a Registrarti.", "JRadioButton Error 2", JOptionPane.WARNING_MESSAGE);
-			}
+			Registrazione reg = new Registrazione(this.controller);
+			reg.setVisible(true);
+			this.dispose();
 		});
 
 	}
