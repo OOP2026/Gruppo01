@@ -30,6 +30,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-# Escludi le configurazioni con credenziali
-src/main/resources/config.properties
