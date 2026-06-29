@@ -42,12 +42,8 @@ public class Controller {
             return false;
         } else {
             // Il Controller costruisce l'oggetto estraendo i valori dalla lista in base all'ordine di inserimento
-            String nome = dati.get(0);
-            String cognome = dati.get(1);
-            String email = dati.get(2);
-            String matricola = dati.get(3);
 
-            this.studenteLoggato = new Studente(nome, cognome, email, matricola, user, pwd);
+            this.studenteLoggato = new Studente(dati.get(0), dati.get(1), dati.get(2), dati.get(3), user, pwd);
             return true;
         }
     }
@@ -63,24 +59,13 @@ public class Controller {
             return false;
         } else {
             // Il Controller costruisce l'oggetto estraendo i valori dalla lista in base all'ordine di inserimento
-            String nome = dati.get(0);
-            String cognome = dati.get(1);
-            String email = dati.get(2);
-
-            this.docenteLoggato = new Docente(nome, cognome, email, user, pwd);
+            this.docenteLoggato = new Docente(dati.get(0), dati.get(1), dati.get(2), user, pwd);
             if(docDAO.checkIsCoordinatore(docenteLoggato.getUsername()))
                 docenteLoggato.setIs_coordinatore(true);
             return true;
         }
     }
 
-    public Docente getdocLoggato() {
-        return docenteLoggato;
-    }
-
-    public Studente getstudLoggato() {
-        return studenteLoggato;
-    }
 
     //endregion
 
@@ -185,10 +170,8 @@ public class Controller {
 
     //restituisce la lista delle richieste arrivate per quello specifico tirocinio
     public List<String> getStudentiRichiedenti(int tirocinio) {
-        List<String> listaStud;
-       StudenteDAO dao = new StudentePostgresDAO();
-       listaStud = dao.getStudentiRichiedenti(tirocinio);
-        return listaStud;
+        StudenteDAO dao = new StudentePostgresDAO();
+        return dao.getStudentiRichiedenti(tirocinio);
     }
 
     //Il docente approva la Tesi
@@ -212,17 +195,14 @@ public class Controller {
 
     //Il docente riceve i titoli di tutte le tesi a lui associate, assieme all'id
     public List<String> getInfoTesi() {
-        List<String> lista = new ArrayList<>();
        TesiDAO dao = new TesiPostgresDao();
-       lista = dao.getInfoTesiDocLoggato(docenteLoggato.getUsername());
-       return lista;
+       return dao.getInfoTesiDocLoggato(docenteLoggato.getUsername());
     }
 //endregion
 
     //region METODI REGISTRAZIONE
     //Richiamato dalla GUI per la registrazione del Docente
     public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
-
         StudenteDAO dao = new StudentePostgresDAO();
         return dao.registraStudente(nome, cognome, email, matricola, username, password);
     }
@@ -267,6 +247,8 @@ public class Controller {
             throw new IllegalArgumentException("La data o l'orario inserito non esiste sul calendario.");
         }
     }
+
+
     public LocalDate assemblaData(String giornoStr, String meseStr, String annoStr) {
         try {
             int giorno = Integer.parseInt(giornoStr.trim());
@@ -370,5 +352,15 @@ public class Controller {
         String result = s.trim().split(":")[0];
         return Integer.parseInt(result);
     }
+
+    public Docente getdocLoggato() {
+        return docenteLoggato;
+    }
+
+    public Studente getstudLoggato() {
+        return studenteLoggato;
+    }
+
+
     //endregion
 }
