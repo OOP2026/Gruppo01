@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="894" height="541"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-10637219"/>
+    </properties>
     <border type="none"/>
     <children>
       <grid id="f8307" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -60,7 +62,7 @@
               <foreground color="-525825"/>
             </properties>
             <border type="none" title="Data Inizio">
-              <title-color color="-525825"/>
+              <title-color color="-15132132"/>
             </border>
             <children>
               <grid id="a673c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -73,7 +75,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Giorno">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="50c3c" class="javax.swing.JTextField" binding="GiornoTextField">
@@ -96,7 +98,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Anno">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="bc21a" class="javax.swing.JTextField" binding="AnnoTextField">
@@ -119,7 +121,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Mese">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="83f31" class="javax.swing.JTextField" binding="MeseTextField">
@@ -139,7 +141,9 @@
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-10637219"/>
+            </properties>
             <border type="none"/>
             <children>
               <grid id="763e" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -152,7 +156,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Nome">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="8f9bd" class="javax.swing.JTextField" binding="NomeTextField">
@@ -175,7 +179,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="N_cfu">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="957b1" class="javax.swing.JTextField" binding="NcfuTextField">
@@ -193,7 +197,9 @@
                 <constraints>
                   <grid row="2" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-10637219"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <grid id="5ecd6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -206,7 +212,7 @@
                       <foreground color="-525825"/>
                     </properties>
                     <border type="none" title="Durata">
-                      <title-color color="-525825"/>
+                      <title-color color="-15132132"/>
                     </border>
                     <children>
                       <component id="bde19" class="javax.swing.JTextField" binding="DurataTextField">
@@ -226,7 +232,9 @@
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <background color="-10637219"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <grid id="be5b0" binding="AziendaPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -239,7 +247,7 @@
                       <foreground color="-525825"/>
                     </properties>
                     <border type="none" title="Azienda">
-                      <title-color color="-525825"/>
+                      <title-color color="-15132132"/>
                     </border>
                     <children>
                       <component id="b61f4" class="javax.swing.JTextField" binding="AziendaTextField">
@@ -264,7 +272,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Argomento">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="3f797" class="javax.swing.JTextField" binding="ArgTextField">
@@ -287,7 +295,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Referente Aziendale">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="1dc3e" class="javax.swing.JTextField" binding="RefAziendaTextField">
@@ -310,7 +318,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Username Relatore">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="e4996" class="javax.swing.JTextField" binding="RelatoreTextField">
@@ -330,10 +338,10 @@
                 </constraints>
                 <properties>
                   <background color="-10637219"/>
-                  <foreground color="-525825"/>
+                  <foreground color="-15132132"/>
                 </properties>
                 <border type="none" title="Dipartimento">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="8c8af" class="javax.swing.JTextField" binding="DipTextField">
@@ -356,7 +364,7 @@
                   <foreground color="-525825"/>
                 </properties>
                 <border type="none" title="Laboratorio">
-                  <title-color color="-525825"/>
+                  <title-color color="-15132132"/>
                 </border>
                 <children>
                   <component id="5aef2" class="javax.swing.JTextField" binding="LabTextField">

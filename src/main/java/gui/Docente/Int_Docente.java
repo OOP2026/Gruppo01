@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.List;
 
 public class Int_Docente extends JFrame {
-    private transient Controller controller;
+    Controller controller;
     private JPanel FinestraDocente;
     private JLabel INTERFACCIADOCENTELabel;
     private JButton aggiungiArgomButton;
@@ -27,14 +27,20 @@ public class Int_Docente extends JFrame {
     private JTable tabellaTirocini;
     private JButton terminaVisualizzazioneButton;
 
+    // Costanti per la dimensione di base della finestra
+    private final int LARGHEZZA_BASE = 500;
+    private final int ALTEZZA_BASE = 500;
 
     public Int_Docente(Controller controller) {
         this.controller = controller;
         this.setContentPane(FinestraDocente);
         this.setTitle("INTERFACCIA DOCENTE");
-        this.setSize(500, 500);
+
+        // Impostiamo la dimensione di partenza
+        this.setSize(LARGHEZZA_BASE, ALTEZZA_BASE);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+
         this.Coordinatore.setVisible(false);
         this.Tabella.setVisible(false);
         this.tabellaTirocini.setVisible(true);
@@ -48,7 +54,7 @@ public class Int_Docente extends JFrame {
 
         NomeCognomeDoc.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
 
-        //Se coordinatore, imposta la Seduta
+        // Se coordinatore, imposta la Seduta
         CreaSedutaButton.addActionListener(e -> {
             CreaSeduta impostaSeduta = new CreaSeduta(controller);
             impostaSeduta.setVisible(true);
@@ -61,8 +67,7 @@ public class Int_Docente extends JFrame {
             this.dispose();
         });
 
-
-        //Apre l'interfaccia per aggiungere l'argomento
+        // Apre l'interfaccia per aggiungere l'argomento
         aggiungiArgomButton.addActionListener(e -> {
             Aggiunta_Argomenti finestraAggArg = new Aggiunta_Argomenti(controller);
             finestraAggArg.setVisible(true);
@@ -75,14 +80,12 @@ public class Int_Docente extends JFrame {
             this.dispose();
         });
 
-
         // Visualizza le richieste di Tirocinio arrivate e le valuta
         visualizzaRichiesteTButton.addActionListener(e -> {
             Visualizza_R_Tir finestraRTir = new Visualizza_R_Tir(controller);
             finestraRTir.setVisible(true);
             this.dispose();
         });
-
 
         // Visualizza Tesi a lui associate e le valuta
         VisualizzaTesiButton.addActionListener(e -> {
@@ -91,16 +94,14 @@ public class Int_Docente extends JFrame {
             this.dispose();
         });
 
-
-        // Visualizza Tirocini in corso
+        // Visualizza Tirocini in corso (Logica Finestra Dinamica)
         VisualizzaTirociniButton.addActionListener(e -> {
             try {
                 Tabella.setVisible(true);
                 // Recupera dal controller
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
 
-
-                //MINI DEBUG
+                // MINI DEBUG
                 System.out.println("Righe recuperate dal DB: " + datiTabella.size());
                 for (String[] stringozza: datiTabella) {
                     for(String stringa: stringozza) {
@@ -108,22 +109,21 @@ public class Int_Docente extends JFrame {
                     }
                 }
 
-
-
-                // 2. Se la lista è vuota, avvisa l'utente e interrompi
+                // Se la lista Ã¨ vuota, avvisa l'utente e interrompi
                 if (datiTabella == null || datiTabella.isEmpty()) {
                     JOptionPane.showMessageDialog(this,
                             "Nessun tirocinio in corso associato a questo docente.",
                             "Informazione",
                             JOptionPane.INFORMATION_MESSAGE);
+                    Tabella.setVisible(false);
                     return;
                 } else {
                     String[] nomiColonne = {"ID Tirocinio", "Nome Studente", "Stato"};
 
-                    // 2. Inizializza un NUOVO modello con le colonne corrette e 0 righe iniziali
+                    // Inizializza un NUOVO modello con le colonne corrette e 0 righe iniziali
                     DefaultTableModel model = new DefaultTableModel(nomiColonne, 0);
 
-                    // 3. Inserisci i dati
+                    // Inserisci i dati
                     for (String[] riga : datiTabella) {
                         model.addRow(riga);
                     }
@@ -131,7 +131,20 @@ public class Int_Docente extends JFrame {
                 }
 
                 terminaVisualizzazioneButton.setVisible(true);
-                setSize(500, 800);
+                VisualizzaTirociniButton.setEnabled(false); // Disabilita per evitare doppi click
+
+                // --- CALCOLO DELLA DIMENSIONE DINAMICA ---
+                // Calcoliamo l'altezza preferita del pannello
+                int altezzaTabella = Tabella.getPreferredSize().height;
+                // Spazio extra per evitare che la tabella tocchi il bordo
+                int paddingExtra = 40;
+
+                // Impostiamo la nuova dimensione
+                setSize(LARGHEZZA_BASE, ALTEZZA_BASE + altezzaTabella + paddingExtra);
+
+                // Forza un aggiornamento visivo
+                revalidate();
+                repaint();
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
@@ -141,13 +154,20 @@ public class Int_Docente extends JFrame {
             }
         });
 
+        // Termina Visualizzazione (Ripristino Dimensione)
         terminaVisualizzazioneButton.addActionListener(e -> {
             Tabella.setVisible(false);
-            setSize(500, 500);
+            terminaVisualizzazioneButton.setVisible(false);
+            VisualizzaTirociniButton.setEnabled(true); // Riabilita il pulsante
+
+            // Ripristina la dimensione originale
+            setSize(LARGHEZZA_BASE, ALTEZZA_BASE);
+
+            revalidate();
+            repaint();
         });
-
-
     }
+
     // region GUI designer generated Code
     {
 // GUI initializer generated by IntelliJ IDEA GUI Designer
@@ -261,5 +281,4 @@ public class Int_Docente extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return FinestraDocente;
     }
-
 }

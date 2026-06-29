@@ -31,12 +31,15 @@ public class Home extends JFrame {
 	ButtonGroup gruppoScelte = new ButtonGroup();
 
 
+
 	public Home(Controller controller) {
 		this.controller = controller; // Assegna quello passato dall'esterno
+
 		this.setContentPane(finestra);
 		this.setTitle("PORTALE LOGIN");
 		this.setSize(300, 400);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		gruppoScelte.add(studenteRadioButton);
 		gruppoScelte.add(docenteRadioButton);
 
