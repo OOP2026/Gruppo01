@@ -30,7 +30,7 @@ public class Int_Studente extends JFrame {
         this.setLocationRelativeTo(null);
 
 
-        NomeCognomeS.setText(controller.getstudLoggato().getNome() + " " + controller.getstudLoggato().getCognome());
+        NomeCognomeS.setText(controller.getNomeStud() + " " + controller.getCognomeStud());
 
         logoutButton.addActionListener(e -> {
             Home NewHome = new Home(controller);
@@ -41,7 +41,7 @@ public class Int_Studente extends JFrame {
 
         //  Compila Richiesta (istanzia l'oggetto)
         compilaRichiestaButton.addActionListener(e -> {
-            String stato = controller.getStatoRichiesta(controller.getstudLoggato().getMatricola());
+            String stato = controller.getStatoRichiesta(controller.getMatricola());
             if ("In_attesa".equals(stato) || "Approvata".equals(stato)) {
                 JOptionPane.showMessageDialog(this, "ERRORE, impossibile inserire un'ulteriore richiesta.");
             } else {
@@ -54,8 +54,8 @@ public class Int_Studente extends JFrame {
 
         //  - Carica Tesi
         caricaTesiButton.addActionListener(e -> {
-            String stato = controller.getStatoTesi(controller.getstudLoggato().getMatricola());
-            String statoRichiesta = controller.getStatoRichiesta(controller.getstudLoggato().getMatricola());
+            String stato = controller.getStatoTesi(controller.getMatricola());
+            String statoRichiesta = controller.getStatoRichiesta(controller.getMatricola());
             if(!(statoRichiesta.equals("Approvata"))){
                 JOptionPane.showMessageDialog(this, "ERRORE, richiesta di tirocinio non ancora approvata");
                 return;

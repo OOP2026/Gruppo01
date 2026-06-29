@@ -353,14 +353,25 @@ public class Controller {
         return Integer.parseInt(result);
     }
 
-    public Docente getdocLoggato() {
-        return docenteLoggato;
+    public String getNomeDoc(){
+        return docenteLoggato.getNome();
     }
 
-    public Studente getstudLoggato() {
-        return studenteLoggato;
+    public String getNomeStud() {
+        return studenteLoggato.getNome();
     }
 
+    public String getCognomeDoc(){
+        return docenteLoggato.getCognome();
+    }
+
+    public String getCognomeStud() {
+        return studenteLoggato.getCognome();
+    }
+
+    public boolean getisCoordinatore() {
+        return docenteLoggato.getisCoordinatore();
+    }
 
     //endregion
 }

@@ -47,12 +47,12 @@ public class Int_Docente extends JFrame {
         this.terminaVisualizzazioneButton.setVisible(false);
         this.GestisciCommissioniButton.setVisible(false);
 
-        if (controller.getdocLoggato().getisCoordinatore()) {
+        if (controller.getisCoordinatore()) {
             this.Coordinatore.setVisible(true);
             this.GestisciCommissioniButton.setVisible(true);
         }
 
-        NomeCognomeDoc.setText(controller.getdocLoggato().getNome() + " " + controller.getdocLoggato().getCognome());
+        NomeCognomeDoc.setText(controller.getNomeDoc() + " " + controller.getCognomeDoc());
 
         // Se coordinatore, imposta la Seduta
         CreaSedutaButton.addActionListener(e -> {
