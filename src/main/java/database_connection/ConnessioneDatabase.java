@@ -3,13 +3,14 @@ package database_connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import util.ConfigLoader;
 
 public class ConnessioneDatabase {
 
     // Parametri di connessione (modifica la password se necessario)
-    private static final String URL = "jdbc:postgresql://localhost:5432/Seduta_Laurea";
-    private static final String USER = "postgres"; // O "fredd" se hai usato il tuo utente di sistema
-    private static final String PASSWORD = "fredd"; // Inserisci la password che hai impostato
+    private static final String URL = ConfigLoader.get("db.url");
+    private static final String USER = ConfigLoader.get("db.user");
+    private static final String PASSWORD = ConfigLoader.get("db.password");
 
     // L'unica istanza statica della connessione
     private static Connection connection = null;
