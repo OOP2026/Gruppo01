@@ -1,37 +1,40 @@
 package database_connection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import util.ConfigLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import util.ConfigLoader;
 
 public class ConnessioneDatabase {
 
-    // Parametri di connessione (modifica la password se necessario)
+    // Logger configurato per questa classe
+    private static final Logger logger = LoggerFactory.getLogger(ConnessioneDatabase.class);
+
     private static final String URL = ConfigLoader.get("db.url");
     private static final String USER = ConfigLoader.get("db.user");
     private static final String PASSWORD = ConfigLoader.get("db.password");
 
-    // L'unica istanza statica della connessione
     private static Connection connection = null;
 
-    // Costruttore privato: impedisce di creare oggetti ConnessioneDB con "new"
     private ConnessioneDatabase() {}
 
-    // Metodo pubblico per ottenere la connessione
     public static Connection getInstance() {
         try {
             if (connection == null || connection.isClosed()) {
-                // Carica il driver (opzionale nelle versioni recenti di JDBC, ma garantisce compatibilità)
-                Class.forName("org.postgresql.Driver");
-
-                // Stabilisce la connessione fisica
+                // In Java moderno il driver PostgreSQL viene caricato automaticamente,
+                // ma lasciarlo non fa danni.
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("Connessione al database stabilita con successo.");
+                logger.info("Connessione al database stabilita con successo.");
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            System.err.println("Errore fatale di connessione al database: " + e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException e) {
+            // Loggare l'eccezione correttamente (incluso lo stack trace)
+            logger.error("Errore fatale di connessione al database", e);
+
+            // Rilanciare come RuntimeException per fermare l'esecuzione in modo pulito
+            throw new RuntimeException("Impossibile connettersi al database", e);
         }
         return connection;
     }
