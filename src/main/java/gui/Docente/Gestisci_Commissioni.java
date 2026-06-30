@@ -23,7 +23,6 @@ public class Gestisci_Commissioni extends JFrame {
     private JTable TabellaStudenti;
     private JButton logoutButton;
     private JLabel GESTISCICOMMISSIONELabel;
-    private JPanel abdul;
 
     public Gestisci_Commissioni(Controller controller) {
         this.controller = controller;

@@ -17,7 +17,6 @@ public class Int_RichiestaT extends JFrame {
     private JButton ReturnButton;
     private JButton logoutButton;
     private JButton RichiediButton;
-    private JPanel asd;
 
     public Int_RichiestaT(Controller controller) {
         this.controller = controller;

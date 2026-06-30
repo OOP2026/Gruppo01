@@ -21,7 +21,6 @@ public class Int_CaricaTesi extends JFrame {
     private JButton ReturnButton;
     private JComboBox SLComboBox;
     private JTextField TitoloTesiTextField;
-    private JPanel as;
 
     public Int_CaricaTesi(Controller controller) {
         this.controller = controller;

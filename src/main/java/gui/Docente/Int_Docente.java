@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.List;
 
 public class Int_Docente extends JFrame {
-    Controller controller;
+    private transient Controller controller;
     private JPanel FinestraDocente;
     private JLabel INTERFACCIADOCENTELabel;
     private JButton aggiungiArgomButton;

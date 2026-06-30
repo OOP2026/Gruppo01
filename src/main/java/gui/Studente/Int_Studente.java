@@ -1,5 +1,5 @@
 package gui.Studente;
-
+import java.util.logging.Logger;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import controller.Controller;
@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class Int_Studente extends JFrame {
     private transient Controller controller;
+    private static final Logger logger = Logger.getLogger(Int_Studente.class.getName());
     private JPanel FinestraStudente;
     private JButton logoutButton;
     private JButton compilaRichiestaButton;
@@ -18,7 +19,6 @@ public class Int_Studente extends JFrame {
     private JTextField StatoRichiestaTirocinio;
     private JTextField NomeCognomeS;
     private JLabel INTERFACCIAUTENTELabel;
-    private JPanel asd;
 
     public Int_Studente(Controller controller) {
         this.controller = controller;

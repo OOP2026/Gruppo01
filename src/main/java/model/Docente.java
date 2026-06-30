@@ -35,5 +35,4 @@ public class Docente extends Utente {
         listaArgomenti.remove(a);
     }
 
-    public List<Seduta> getListaSedute() {return sedutePubblicate;}
 }

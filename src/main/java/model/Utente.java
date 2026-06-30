@@ -23,10 +23,6 @@ public abstract class Utente {
         return username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public String getNome() {
         return nome;
     }
