@@ -26,7 +26,6 @@ public class Registrazione extends JFrame {
     private JTextField matricolaTextField;
     private JPanel matricolaPanel;
     ButtonGroup gruppoScelte = new ButtonGroup();
-    private JPanel asdasd;
 
     public Registrazione(Controller controller) {
         this.controller = controller;
@@ -103,7 +102,7 @@ public class Registrazione extends JFrame {
             Home finestraLogin = new Home(controller);
             finestraLogin.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "ERRORE DI REGISTRAZIONE, username non disponibile");
+            JOptionPane.showMessageDialog(this, "ERRORE DI REGISTRAZIONE");
         }
     }
 
