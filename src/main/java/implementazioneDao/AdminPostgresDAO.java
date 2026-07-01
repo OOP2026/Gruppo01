@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AdminPostgresDAO implements AdminDAO {
    public List<String> loginAdmin(String user, String password){
-        String sql = "SELECT * FROM admin WHERE username = ? AND password = ?";
+        String sql = "SELECT username, password FROM admin WHERE username = ? AND password = ?";
         List<String> datiAdmin = new ArrayList<>();
 
         try (Connection conn = ConnessioneDatabase.getInstance();

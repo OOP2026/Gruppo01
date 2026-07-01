@@ -27,32 +27,32 @@ public class SedutePostgresDAO implements SeduteDAO {
 
     }
 
-    public List<String> getSeduteAperte(){
-        List<String> result = new ArrayList<>();
-        String sql = "SELECT * FROM SEDUTA WHERE STATO=true";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        public List<String> getSeduteAperte(){
+            List<String> result = new ArrayList<>();
+            String sql = "SELECT id,data_ora,sede FROM SEDUTA WHERE STATO=true";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        try (Connection conn = ConnessioneDatabase.getInstance();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            try (Connection conn = ConnessioneDatabase.getInstance();
+                 PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String dataOra = rs.getTimestamp("data_ora").toLocalDateTime().format(formatter);
-                String sede = rs.getString("sede");
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String dataOra = rs.getTimestamp("data_ora").toLocalDateTime().format(formatter);
+                    String sede = rs.getString("sede");
 
-                // Formattazione richiesta: "ID: DataOra, Sede"
-                String riga = String.format("%d:        %s,       %s", id, dataOra, sede);
+                    // Formattazione richiesta: "ID: DataOra, Sede"
+                    String riga = String.format("%d:        %s,       %s", id, dataOra, sede);
 
-                result.add(riga);
+                    result.add(riga);
+                }
+            } catch (SQLException e) {
+                System.err.println("Errore SQL nel recupero delle sedute: " + e.getMessage());
             }
-        } catch (SQLException e) {
-            System.err.println("Errore SQL nel recupero delle sedute: " + e.getMessage());
+
+            return result;
+
         }
-
-        return result;
-
-    }
 
     public List<String[]> getInfoSeduta(int idSeduta){
         String sql = "SELECT D.username AS userDoc, S.matricola as matricolaS, T.stato AS statoTesi " +

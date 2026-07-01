@@ -137,8 +137,5 @@ public class Int_Studente extends JFrame {
         panel6.add(INTERFACCIAUTENTELabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(230, 50), null, 0, false));
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
     //endregion
 }

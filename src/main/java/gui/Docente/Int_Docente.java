@@ -101,13 +101,7 @@ public class Int_Docente extends JFrame {
                 // Recupera dal controller
                 List<String[]> datiTabella = controller.visualizzaTirocinioStudenti();
 
-                // MINI DEBUG
-                System.out.println("Righe recuperate dal DB: " + datiTabella.size());
-                for (String[] stringozza: datiTabella) {
-                    for(String stringa: stringozza) {
-                        System.out.println(stringa);
-                    }
-                }
+
 
                 // Se la lista Ã¨ vuota, avvisa l'utente e interrompi
                 if (datiTabella == null || datiTabella.isEmpty()) {

@@ -23,7 +23,6 @@ public class CreaSeduta extends JFrame {
     private JTextField OraTextField;
     private JButton logoutButton;
     private JLabel CREASEDUTALabel;
-    private JPanel abdul;
 
     public CreaSeduta(Controller controller) {
         this.controller = controller;
