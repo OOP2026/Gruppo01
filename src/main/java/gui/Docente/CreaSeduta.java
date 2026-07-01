@@ -69,11 +69,14 @@ public class CreaSeduta extends JFrame {
             }
         });
 
+        //bottone registrazione
         ReturnButton.addActionListener(e -> {
             Int_Docente interfacciaDoc = new Int_Docente(controller);
             interfacciaDoc.setVisible(true);
             this.dispose();
         });
+
+        //bottone logout
         logoutButton.addActionListener(e -> {
             Home NewHome = new Home(controller);
             NewHome.setVisible(true);
