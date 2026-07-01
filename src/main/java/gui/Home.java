@@ -86,7 +86,7 @@ public class Home extends JFrame {
 			JOptionPane.showMessageDialog(this, "Credenziali errate. Impossibile accedere", "Errore credenziali Docente", JOptionPane.WARNING_MESSAGE);
 		}
 	}
-
+//accesso
 	private void accessoAdmin(String user, String pwd){
 		boolean log = controller.effettuaLoginAdmin(user, pwd);
 		if(log){
