@@ -42,16 +42,6 @@ public class Gestisci_Commissioni extends JFrame {
         confermaButton.addActionListener(e -> gestisciConferma());
 
         ReturnButton.addActionListener(e -> {
-            new Int_Docente(controller).setVisible(true);
-            this.dispose();
-        });
-
-        logoutButton.addActionListener(e -> {
-            new Home(controller).setVisible(true);
-            this.dispose();
-        });
-
-        ReturnButton.addActionListener(e -> {
             Int_Docente interfacciaDoc = new Int_Docente(controller);
             interfacciaDoc.setVisible(true);
             this.dispose();
