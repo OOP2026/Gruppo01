@@ -140,7 +140,7 @@
                   <component id="7b217" class="javax.swing.JTable" binding="TabellaStudenti">
                     <constraints/>
                     <properties>
-                      <autoCreateColumnsFromModel value="false"/>
+                      <autoCreateColumnsFromModel value="true"/>
                       <background color="-3245500"/>
                       <foreground color="-525825"/>
                       <gridColor color="-3245500"/>
