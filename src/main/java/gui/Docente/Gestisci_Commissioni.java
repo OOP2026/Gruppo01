@@ -37,14 +37,6 @@ public class Gestisci_Commissioni extends JFrame {
         TabellaStudenti.setModel(new DefaultTableModel(nomiColonne, 0));
         popolaComboBox();
 
-
-        List<String> seduteDisponibili = controller.getSeduteAperte();
-        if (seduteDisponibili != null && !seduteDisponibili.isEmpty()) {
-            for (String seduta : seduteDisponibili) {
-                SeduteCombobox.addItem(seduta);
-            }
-        }
-
         //per evitare addActionListener complessi e illegibili, sono state dichiarati dei metodi esterni
         SeduteCombobox.addActionListener(e -> gestisciSelezioneSeduta());
         confermaButton.addActionListener(e -> gestisciConferma());
@@ -103,6 +95,7 @@ public class Gestisci_Commissioni extends JFrame {
         try {
             controller.confermaSeduta(controller.getIdDaStringa(elemento.toString()));
             JOptionPane.showMessageDialog(this, "Seduta confermata con successo.");
+            SeduteCombobox.removeItem(SeduteCombobox.getSelectedItem());
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this, "Errore: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
         }
