@@ -13,7 +13,7 @@ public class StudentePostgresDAO implements StudenteDAO {
 
     public boolean registraStudente(String nome, String cognome, String email, String matricola, String username, String password) {
         // Ipotizzo le colonne base. Dovranno corrispondere esattemente allo script SQL di Pasquale.
-        String sql = "INSERT INTO STUDENTE (Nome, Cognome, Email,  Matricola, Username,Password) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO STUDENTE (nome, cognome, email,  matricola, username,password) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConnessioneDatabase.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -36,7 +36,7 @@ public class StudentePostgresDAO implements StudenteDAO {
     }
 
     public List<String> loginStudente(String utente, String password) {
-        String sql = "SELECT * FROM STUDENTE WHERE Username = ? AND Password = ?";
+        String sql = "SELECT * FROM STUDENTE WHERE username = ? AND password = ?";
         List<String> datiStudente = new ArrayList<>();
 
         try (Connection conn = ConnessioneDatabase.getInstance();
