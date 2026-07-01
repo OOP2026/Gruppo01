@@ -149,7 +149,7 @@ public class Controller {
         String argomento = s.trim().toUpperCase();
         try {
             argDao.aggiungiArgomento(argomento);
-            docDao.associaDocenteArgomento(docenteLoggato.getUsername(), s);
+            docDao.associaDocenteArgomento(docenteLoggato.getUsername(), argomento);
             System.out.println("Associazione creata con successo!");
 
 

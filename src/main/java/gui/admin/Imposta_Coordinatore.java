@@ -76,6 +76,7 @@ public class Imposta_Coordinatore extends JFrame {
     private void $$$setupUI$$$() {
         Finestra = new JPanel();
         Finestra.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        Finestra.setBackground(new Color(-10637219));
         FinestraValTesi = new JPanel();
         FinestraValTesi.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         FinestraValTesi.setBackground(new Color(-10637219));
